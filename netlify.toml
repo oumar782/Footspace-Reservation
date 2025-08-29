@@ -1,7 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "build" # si tu es en Create React App
-  # ou "dist" si tu utilises Vite
+  publish = "dist"
 
 [[redirects]]
   from = "/*"
