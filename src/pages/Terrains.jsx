@@ -66,7 +66,6 @@ function App() {
             <p className="hero-subtitle">
               Des installations d'exception pour des performances d'élite
             </p>
-            <button className="cta-button">Découvrir nos installations</button>
           </div>
         </div>
       </section>

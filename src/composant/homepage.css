@@ -122,7 +122,7 @@ body {
 .hero-background {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1920&h=1080&fit=crop') center/cover no-repeat;
+  background: url('../assets/peter-burdon-70kQwGRN28Q-unsplash.webp') center/cover no-repeat;
 }
 
 .hero-overlay {

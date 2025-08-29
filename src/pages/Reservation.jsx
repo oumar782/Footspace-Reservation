@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from "../composant/Header";
 import Footer from "../composant/Footer";
+
 const Reservation = () => {
   const [date, setDate] = useState('');
   const [terrainType, setTerrainType] = useState('');
@@ -47,42 +48,69 @@ const Reservation = () => {
   };
 
   return (
-    <div className="reservations">
+    <div className="reservation-premium">
       <Header />
       <ToastContainer />
-      <div className="degrades">
-        <h1>Réservez votre espace de foot en quelques clics et en toute sérénité</h1>
-        <div className="reservation-containers">
-          <h1>Faites-vous plaisir ! Réservez Votre Terrain.</h1>
-          <form onSubmit={handleSubmit} className="reservation-forms" style={{ marginBottom: '0' }}>
-            <label>
-              Date :
-            </label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <label>
-              Type de terrain :
-            </label>
-            <select value={terrainType} onChange={(e) => setTerrainType(e.target.value)} required>
-              <option value="">Veuillez sélectionner le type de terrain</option>
-              <option value="normal">Normal</option>
-              <option value="synthetique">Synthétique</option>
-            </select>
-            <label>
-              Surface du terrain : 
-            </label>
-            <select value={surface} onChange={(e) => setSurface(e.target.value)} required>
-              <option value="">Veuillez sélectionner la surface du terrain</option>
-              <option value="7X7">7X7</option>
-              <option value="9X9">9X9</option>
-              <option value="11X11">11X11</option>
-            </select>
-            <button type="submit">Voir les créneaux</button>
-          </form>
-          <div className="reservation-infos">
-            <p style={{ fontSize: '15px' }}>
-              <span style={{ color: 'green', fontSize: '25px', textDecoration: 'underline' }}>Nb:</span>
-              Pour toute question, merci de consulter le chatbot pour plus de détails.
-            </p>
+      <div className="reservation-premium__hero">
+        <div className="reservation-premium__overlay">
+          <h1 className="reservation-premium__title">Réservez votre espace de football en quelques clics</h1>
+          <div className="reservation-premium__container">
+            <h2 className="reservation-premium__subtitle">Faites-vous plaisir ! Réservez Votre Terrain.</h2>
+            <form onSubmit={handleSubmit} className="reservation-premium__form">
+              <div className="reservation-premium__form-group">
+                <label className="reservation-premium__label">
+                  Date
+                </label>
+                <input 
+                  type="date" 
+                  value={date} 
+                  onChange={(e) => setDate(e.target.value)} 
+                  className="reservation-premium__input"
+                  required 
+                />
+              </div>
+              
+              <div className="reservation-premium__form-group">
+                <label className="reservation-premium__label">
+                  Type de terrain
+                </label>
+                <select 
+                  value={terrainType} 
+                  onChange={(e) => setTerrainType(e.target.value)} 
+                  className="reservation-premium__select"
+                  required
+                >
+                  <option value="">Sélectionnez le type</option>
+                  <option value="normal">Normal</option>
+                  <option value="synthetique">Synthétique</option>
+                </select>
+              </div>
+              
+              <div className="reservation-premium__form-group">
+                <label className="reservation-premium__label">
+                  Surface du terrain
+                </label>
+                <select 
+                  value={surface} 
+                  onChange={(e) => setSurface(e.target.value)} 
+                  className="reservation-premium__select"
+                  required
+                >
+                  <option value="">Sélectionnez la surface</option>
+                  <option value="7X7">7X7</option>
+                  <option value="9X9">9X9</option>
+                  <option value="11X11">11X11</option>
+                </select>
+              </div>
+              
+              <button type="submit" className="reservation-premium__button">Voir les créneaux</button>
+            </form>
+            <div className="reservation-premium__info">
+              <p>
+                <span className="reservation-premium__highlight">Note:</span>
+                Pour toute question, merci de consulter le chatbot pour plus de détails.
+              </p>
+            </div>
           </div>
         </div>
       </div>

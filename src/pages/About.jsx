@@ -100,11 +100,11 @@ const About = () => {
       <section className="about-heross">
         <div className="about-containerss">
           <div className="hero-contentss">
-            <h1 className="hero-titless">À Propos de <span className="golden-text">FootField</span></h1>
+            <h1 className="hero-titless">À Propos de <span className="golden-text">Footspace</span></h1>
             <p className="hero-subtitless">
               Votre partenaire privilégié pour des expériences footballistiques d'exception depuis 2018
             </p>
-            <a href="#values" className="hero-ctass">Découvrir notre histoire</a>
+            <a href="#Notre-Histoire" className="hero-ctass">Découvrir notre histoire</a>
           </div>
         </div>
       </section>
@@ -179,7 +179,7 @@ const About = () => {
       <section className="about-sectionss section-lightss">
         <div className="about-containerss">
           <div className="section-headerss">
-            <h2 className="section-titless">FootField en <span className="gradient-text">Chiffres</span></h2>
+            <h2 className="section-titless">Footspace en <span className="gradient-text">Chiffres</span></h2>
           </div>
 
           <div className="stats-gridss">
@@ -194,7 +194,7 @@ const About = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="about-sectionss section-grayss">
+      <section id='Notre-Histoire' className="about-sectionss section-grayss">
         <div className="about-containerss">
           <div className="section-headerss">
             <h2 className="section-titless">Notre <span className="gradient-textss">Histoire</span></h2>
@@ -248,7 +248,7 @@ const About = () => {
       </section>
 
       {/* Certifications Section */}
-      <section className="about-sectionss section-grayss">
+      <section id='Notre-Histoire' className="about-sectionss section-grayss">
         <div className="about-containerss">
           <div className="section-headerss">
             <h2 className="section-titless">Certifications & <span className="gradient-textss">Partenaires</span></h2>
