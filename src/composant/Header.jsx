@@ -29,7 +29,7 @@ const Navigation = () => {
             </div>
             <div className="nav2-info-item">
               <Phone className="nav2-info-icon" />
-              <span>01 23 45 67 89</span>
+              <span>+212 0721976288</span>
             </div>
             <div className="nav2-info-item">
               <Mail className="nav2-info-icon" />
@@ -48,8 +48,8 @@ const Navigation = () => {
               <div className="nav2-logo-inner"></div>
             </div>
             <div className="nav2-brand-text">
-              <h1 className="nav2-brand-name">FootField</h1>
-              <p className="nav2-brand-tagline">Premium Terrains</p>
+              <h1 className="nav2-brand-name">Footspace</h1>
+              <p className="nav2-brand-tagline">La gestion simplifier de vos terrains de foot</p>
             </div>
           </Link>
 
