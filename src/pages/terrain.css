@@ -1,0 +1,392 @@
+/* Styles de base (déjà existants) */
+body {
+  color: white;
+}
+
+.banner {
+  background: linear-gradient(90deg, rgba(4, 80, 42, 0.8), rgba(22, 89, 42, 0.3)), 
+              url('../assets/Image/view-soccer-field-with-grass.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 60px 20px;
+  
+}
+
+.banners {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-top: 90px;
+  line-height: 3.2;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(241, 240, 240, 0.5);
+}
+
+.text-animations {
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: whitesmoke;
+  min-height: 60px;
+}
+
+.text-animations span {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.text-animations span::before {
+  content: "Matchs amicaux";
+  color: rgb(153, 101, 27);
+  animation: words 5s infinite;
+}
+
+.text-animations span::after {
+  content: "Tournois";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  border-left: 3px solid green;
+  animation: cursor 0.6s infinite, typing 5s steps(30) infinite;
+}
+
+.description {
+  font-size: 60px;
+  font-style: inherit;
+  color: white;
+  margin-top: 30px;
+}
+
+/* Animations */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cursor {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: skyblue;
+  }
+}
+
+@keyframes words {
+  0% {
+    content: "matchs amicaux.";
+  }
+  50% {
+    content: "Tournois.";
+  }
+
+}
+
+.banner h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 18px;
+}
+
+.terrain-list {
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.card {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-top: 90px;
+  line-height: 1.2;
+  background-color: rgba(249, 249, 249, 0.8);
+  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
+  border-radius: 50px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 290px;
+  border-radius: 5%;
+  box-shadow: 0 4px 10px rgba(12, 236, 12, 0.3);
+  margin-bottom: 1rem;
+}
+
+.card .tarif {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #047857;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.card .details {
+  padding: 20px;
+  color: rgb(6, 64, 6);
+}
+
+.card h2 {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.card .info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: red;
+  margin-bottom: 15px;
+}
+
+.card .features {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.card .features p {
+  margin: 5px 0;
+}
+
+.card button {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card .reserve {
+  background-color: #074311;
+  color: white;
+  border: none;
+  margin-right: 10px;
+  font-style: oblique;
+}
+
+.card .reserve:hover {
+  background-color: #065f13;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
+  border-radius: 50px;
+}
+
+.card .info-btn {
+  border: 2px solid #047857;
+  background-color: white;
+  color: #047857;
+}
+
+.textp {
+  text-align: center;
+  margin-top: 90px;
+  font-size: 45px;
+  color: #0d0b0f;
+  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
+}
+
+.textp span {
+  color: rgb(5, 59, 5);
+}
+
+.card .info-btn:hover {
+  background-color: #e6f4ea;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
+  border-radius: 50px;
+}
+
+.services {
+  background-color: #f3f4f6;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.services h2 {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #0d0b0f;
+  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
+}
+
+.services h3 {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #055c39;
+  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
+}
+
+.services p {
+  font-size: 25px;
+  margin-bottom: 40px;
+  color: #0d0b0f;
+  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
+}
+
+.services span {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #063c19;
+}
+
+.services .terrain-list {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.services .service-card {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 60px 60px rgba(3, 141, 21, 0.1);
+  transition: transform 0.3s;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+}
+
+.services .service-card:hover {
+  transform: translateY(-50px);
+}
+
+.services .icon {
+  font-size: 40px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.services h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Media Queries pour la responsivité */
+
+/* Pour les écrans de tablette (768px - 1024px) */
+@media (max-width: 1024px) {
+  .banners {
+    font-size: 3rem;
+    margin-top: 60px;
+    line-height: 2.5;
+  }
+
+  .text-animations {
+    font-size: 28px;
+  }
+
+  .description {
+    font-size: 50px;
+  }
+
+  .card {
+    font-size: 3rem;
+    margin-top: 60px;
+  }
+
+  .card h2 {
+    font-size: 28px;
+  }
+
+  .textp {
+    font-size: 35px;
+    margin-top: 60px;
+  }
+
+  .services h2, .services h3, .services p, .services span {
+    font-size: 25px;
+  }
+}
+
+/* Pour les écrans mobiles (jusqu'à 767px) */
+@media (max-width: 767px) {
+  .banners {
+    font-size: 2rem;
+    margin-top: 40px;
+    line-height: 2;
+  }
+
+  .text-animations {
+    font-size: 20px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .description {
+    font-size: 40px;
+  }
+
+  .card {
+    font-size: 2rem;
+    margin-top: 40px;
+  }
+
+  .card h2 {
+    font-size: 24px;
+  }
+
+  .textp {
+    font-size: 28px;
+    margin-top: 40px;
+  }
+
+  .services h2, .services h3, .services p, .services span {
+    font-size: 20px;
+  }
+
+  .terrain-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .card img {
+    height: 200px;
+  }
+
+  .card .tarif {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .card .details {
+    padding: 15px;
+  }
+
+  .card .info {
+    font-size: 12px;
+  }
+
+  .card .features {
+    font-size: 12px;
+  }
+
+  .card button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}

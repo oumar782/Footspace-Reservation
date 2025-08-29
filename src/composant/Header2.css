@@ -1,0 +1,267 @@
+/* Navigation Styles */
+.nav2-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid #e5e7eb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav2-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Top Bar */
+.nav2-top-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  font-size: 14px;
+  color: #0b0b0b;
+}
+
+.nav2-top-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav2-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav2-info-icon {
+  height: 16px;
+  width: 16px;
+}
+
+.nav2-opening-hours {
+  color: #f70909;
+  font-weight: 500;
+}
+
+/* Main Navigation */
+.nav2-main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.nav2-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.nav2-brand-link:hover {
+  transform: scale(1.02);
+}
+
+.nav2-brand-logo {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #20c407 0%, #1dd81d 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.nav2-brand-link:hover .nav2-brand-logo {
+  transform: scale(1.1);
+}
+
+.nav2-logo-inner {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.nav2-brand-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  background: linear-gradient(135deg, #18b406 0%, #4ee267 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.nav2-brand-tagline {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Desktop Navigation */
+.nav2-desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav2-nav-link {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav2-nav-link:hover {
+  color: #089104;
+  background-color: rgba(59, 130, 246, 0.05);
+  transform: scale(1.05);
+}
+
+.nav2-nav-link.nav2-active {
+  color: #087d06;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.nav2-active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #069224 0%, #77c441 100%);
+  border-radius: 1px;
+}
+
+.nav2-cta-button {
+  background: linear-gradient(135deg, #0d9504 0%, #5ede6b 100%);
+  color: white;
+  border: none;
+  border-radius: 19px;
+  padding: 15px 10px;
+  font-style: italic;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  text-wrap: nowrap;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.nav2-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Mobile Menu Button */
+.nav2-mobile-menu-button {
+  display: flex;
+  padding: 8px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav2-mobile-menu-button:hover {
+  background-color: #f3f4f6;
+}
+
+.nav2-menu-icon {
+  height: 24px;
+  width: 24px;
+  color: #374151;
+}
+
+/* Mobile Navigation */
+.nav2-mobile-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: nav2-fadeIn 0.3s ease;
+  z-index: 100;
+}
+
+.nav2-mobile-nav-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav2-mobile-nav-link {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav2-mobile-nav-link:hover {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.nav2-mobile-nav-link.nav2-active {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.nav2-mobile-cta {
+  padding-top: 16px;
+  margin-top: 8px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.nav2-cta-button.nav2-mobile {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Animation */
+@keyframes nav2-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .nav2-top-bar {
+    display: flex;
+  }
+  
+  .nav2-desktop-nav {
+    display: flex;
+  }
+  
+  .nav2-mobile-menu-button {
+    display: none;
+  }
+}
+
+/* Import Orbitron font */
