@@ -96,7 +96,7 @@ const About = () => {
       <section className="about-hero">
         <div className="about-container">
           <h1 className="about-hero-title">
-            À Propos de <span className="golden-text">FootField</span>
+            À Propos de <span className="golden-text">Foot-reserve</span>
           </h1>
           <p className="about-hero-subtitle">
             Votre partenaire privilégié pour des expériences footballistiques d'exception depuis 2018

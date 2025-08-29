@@ -1,392 +1,356 @@
-/* Styles de base (déjà existants) */
-body {
-  color: white;
+/* Variables CSS pour une palette de couleurs premium */
+:root {
+  --color-dark: #0D0D0D;
+  --color-dark-alt: #1A1A1A;
+  --color-light: #FFFFFF;
+  --color-gold: #079707;
+  --color-gold-light: #F1E5AC;
+  --color-gray: #8A8A8A;
+  --color-gray-light: #F5F5F5;
+  --color-accent: #0A5C36;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.2);
+  --transition: all 0.3s ease;
 }
 
-.banner {
-  background: linear-gradient(90deg, rgba(4, 80, 42, 0.8), rgba(22, 89, 42, 0.3)), 
-              url('../assets/Image/view-soccer-field-with-grass.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  padding: 60px 20px;
-  
+/* Reset et styles de base */
+.luxury-app {
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+  line-height: 1.6;
 }
 
-.banners {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-top: 90px;
-  line-height: 3.2;
-  position: relative;
-  z-index: 1;
-  backdrop-filter: blur(10px);
-  box-shadow: 0px 4px 10px rgba(241, 240, 240, 0.5);
-}
-
-.text-animations {
-  font-size: 30px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  color: whitesmoke;
-  min-height: 60px;
-}
-
-.text-animations span {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  position: relative;
-}
-
-.text-animations span::before {
-  content: "Matchs amicaux";
-  color: rgb(153, 101, 27);
-  animation: words 5s infinite;
-}
-
-.text-animations span::after {
-  content: "Tournois";
-  position: absolute;
-  width: 0;
-  height: 100%;
-  border-left: 3px solid green;
-  animation: cursor 0.6s infinite, typing 5s steps(30) infinite;
-}
-
-.description {
-  font-size: 60px;
-  font-style: inherit;
-  color: white;
-  margin-top: 30px;
-}
-
-/* Animations */
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes cursor {
-  0%, 100% {
-    border-color: transparent;
-  }
-  50% {
-    border-color: skyblue;
-  }
-}
-
-@keyframes words {
-  0% {
-    content: "matchs amicaux.";
-  }
-  50% {
-    content: "Tournois.";
-  }
-
-}
-
-.banner h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.banner p {
-  font-size: 18px;
-}
-
-.terrain-list {
+.container {
   max-width: 1200px;
-  margin: 40px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  margin: 0 auto;
   padding: 0 20px;
 }
 
-.card {
-  font-size: 4rem;
-  font-weight: 700;
-  margin-top: 90px;
-  line-height: 1.2;
-  background-color: rgba(249, 249, 249, 0.8);
+/* Hero Section */
+.luxury-hero {
+  height: 80vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=1200');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  backdrop-filter: blur(10px);
-  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
+}
+
+.hero-overlay {
+  text-align: center;
+  color: var(--color-light);
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background-color: var(--color-gold);
+  color: var(--color-dark);
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
   border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.cta-button:hover {
+  background-color: var(--color-gold-light);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
-.card img {
-  width: 100%;
-  height: 290px;
-  border-radius: 5%;
-  box-shadow: 0 4px 10px rgba(12, 236, 12, 0.3);
+/* Section Styles */
+.luxury-section {
+  padding: 100px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.card .tarif {
+.section-header p {
+  font-size: 1.2rem;
+  color: var(--color-gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.accent-text {
+  color: var(--color-gold);
+  position: relative;
+}
+
+.accent-text::after {
+  content: '';
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #047857;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+}
+
+/* Terrains Grid */
+.terrains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.luxury-card {
+  background: var(--color-light);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+}
+
+.luxury-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.luxury-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.price-tag {
+  background: var(--color-gold);
   color: white;
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-.card .details {
-  padding: 20px;
-  color: rgb(6, 64, 6);
+.card-content {
+  padding: 25px;
 }
 
-.card h2 {
-  font-size: 35px;
-  margin-bottom: 10px;
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
-.card .info {
+.card-meta {
   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: red;
-  margin-bottom: 15px;
-}
-
-.card .features {
-  font-size: 14px;
+  gap: 15px;
   margin-bottom: 20px;
-  color: #555;
+  flex-wrap: wrap;
 }
 
-.card .features p {
-  margin: 5px 0;
+.meta-item {
+  background: var(--color-gray-light);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: var(--color-gray);
 }
 
-.card button {
+.features-list {
+  margin-bottom: 25px;
+  padding-left: 20px;
+}
+
+.features-list li {
+  margin-bottom: 8px;
+  position: relative;
+  list-style: none;
+}
+
+.features-list li::before {
+  content: '•';
+  color: var(--color-gold);
+  font-weight: bold;
   display: inline-block;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.card-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
 }
 
-.card .reserve {
-  background-color: #074311;
-  color: white;
+.primary-btn {
+  background: var(--color-accent);
+  color: var(--color-light);
   border: none;
-  margin-right: 10px;
-  font-style: oblique;
+  flex: 1;
 }
 
-.card .reserve:hover {
-  background-color: #065f13;
-  backdrop-filter: blur(10px);
-  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
-  border-radius: 50px;
+.primary-btn:hover {
+  background: #084428;
+  transform: translateY(-2px);
 }
 
-.card .info-btn {
-  border: 2px solid #047857;
-  background-color: white;
-  color: #047857;
+.secondary-btn {
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
 }
 
-.textp {
+.secondary-btn:hover {
+  background: rgba(10, 92, 54, 0.1);
+}
+
+/* Services Section */
+.services-section {
+  background: var(--color-gray-light);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background: var(--color-light);
+  padding: 40px 30px;
+  border-radius: 15px;
   text-align: center;
-  margin-top: 90px;
-  font-size: 45px;
-  color: #0d0b0f;
-  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
-.textp span {
-  color: rgb(5, 59, 5);
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
 }
 
-.card .info-btn:hover {
-  background-color: #e6f4ea;
-  backdrop-filter: blur(10px);
-  box-shadow: 0px 4px 10px rgba(6, 6, 6, 0.5);
-  border-radius: 50px;
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: inline-block;
 }
 
-.services {
-  background-color: #f3f4f6;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.services h2 {
-  font-size: 30px;
-  margin-bottom: 40px;
-  color: #0d0b0f;
-  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
-}
-
-.services h3 {
-  font-size: 30px;
-  margin-bottom: 40px;
-  color: #055c39;
-  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
-}
-
-.services p {
-  font-size: 25px;
-  margin-bottom: 40px;
-  color: #0d0b0f;
-  text-shadow: 1px 1px 20px rgba(8, 81, 11, 0.5);
-}
-
-.services span {
-  font-size: 30px;
-  margin-bottom: 40px;
-  color: #063c19;
-}
-
-.services .terrain-list {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.services .service-card {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 60px 60px rgba(3, 141, 21, 0.1);
-  transition: transform 0.3s;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-}
-
-.services .service-card:hover {
-  transform: translateY(-50px);
-}
-
-.services .icon {
-  font-size: 40px;
-  color: white;
+.service-card h3 {
+  font-size: 1.3rem;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
-.services h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
+.service-card p {
+  color: var(--color-gray);
+  line-height: 1.6;
 }
 
-/* Media Queries pour la responsivité */
-
-/* Pour les écrans de tablette (768px - 1024px) */
-@media (max-width: 1024px) {
-  .banners {
-    font-size: 3rem;
-    margin-top: 60px;
-    line-height: 2.5;
+/* Responsive Design */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.8rem;
   }
-
-  .text-animations {
-    font-size: 28px;
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
   }
-
-  .description {
-    font-size: 50px;
-  }
-
-  .card {
-    font-size: 3rem;
-    margin-top: 60px;
-  }
-
-  .card h2 {
-    font-size: 28px;
-  }
-
-  .textp {
-    font-size: 35px;
-    margin-top: 60px;
-  }
-
-  .services h2, .services h3, .services p, .services span {
-    font-size: 25px;
-  }
-}
-
-/* Pour les écrans mobiles (jusqu'à 767px) */
-@media (max-width: 767px) {
-  .banners {
+  
+  .section-header h2 {
     font-size: 2rem;
-    margin-top: 40px;
-    line-height: 2;
   }
+}
 
-  .text-animations {
-    font-size: 20px;
+@media (max-width: 768px) {
+  .luxury-hero {
+    height: 60vh;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .card-actions {
     flex-direction: column;
-    gap: 5px;
   }
-
-  .description {
-    font-size: 40px;
+  
+  .terrains-grid,
+  .services-grid {
+    grid-template-columns: 1fr;
   }
-
-  .card {
-    font-size: 2rem;
-    margin-top: 40px;
+  
+  .luxury-section {
+    padding: 70px 0;
   }
+}
 
-  .card h2 {
-    font-size: 24px;
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 1.8rem;
   }
-
-  .textp {
-    font-size: 28px;
-    margin-top: 40px;
+  
+  .cta-button {
+    padding: 12px 30px;
   }
-
-  .services h2, .services h3, .services p, .services span {
-    font-size: 20px;
+  
+  .card-meta {
+    flex-direction: column;
+    gap: 10px;
   }
-
-  .terrain-list {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-
-  .card img {
-    height: 200px;
-  }
-
-  .card .tarif {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .card .details {
-    padding: 15px;
-  }
-
-  .card .info {
-    font-size: 12px;
-  }
-
-  .card .features {
-    font-size: 12px;
-  }
-
-  .card button {
-    font-size: 12px;
-    padding: 8px 12px;
+  
+  .section-header h2 {
+    font-size: 1.8rem;
   }
 }

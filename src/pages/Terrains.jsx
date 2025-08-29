@@ -1,8 +1,7 @@
-
 import "./terrain.css";
 import Header from "../composant/Header.jsx";
 import Footer from "../composant/Footer.jsx";
-
+import { Link } from 'react-router-dom';
 const Terrains = [
   {
     id: 1,
@@ -38,86 +37,108 @@ const services = [
   {
     titre: "Réservation Flexible",
     description: "Réservez votre créneau en ligne 24/7 avec confirmation instantanée.",
-    icon: "📅"
+    icon: ""
   },
   {
     titre: "Vestiaires Premium",
     description: "Accès à des vestiaires modernes avec douches et casiers sécurisés.",
-    icon: "🛁"
+    icon: ""
   },
   {
     titre: "Équipement Pro",
     description: "Matériel professionnel disponible sur demande.",
-    icon: "🏆"
+    icon: ""
   }
 ];
 
 function App() {
   return (
-    <div>
-     <Header/>
-     <div className="banner">
-  <div className="banners">
-    <h2 className="text-animations">
-      Terrains de Football Professionnels pour vos <span></span>
-    </h2>
-  </div>
-  <p className="description">
-    Des installations haut de gamme pour vos matchs et entraînements
-  </p>
-</div>
-
-
-   
-
-      <main>
-      <h2 className="textp">
-      Nos Terrains de Football de <span> qualite </span>
-    </h2>
-        <div className="terrain-list">
-          {Terrains.map((terrain) => (
-            <div key={terrain.id} className="card">
-              <div style={{ position: "relative" }}>
-                <img src={terrain.image} alt={terrain.titre} />
-                <span className="tarif">{terrain.tarif}</span>
-              </div>
-              <div className="details">
-                <h2>{terrain.titre}</h2>
-                <div className="info">
-                  <span>{terrain.surface}</span>
-                  <span>{terrain.localisation}</span>
-                  <span>11 vs 11</span>
-                </div>
-                <div className="features">
-                  {terrain.caracteristiques.map((carac, idx) => (
-                    <p key={idx}>• {carac}</p>
-                  ))}
-                </div>
-                <div>
-                  <button className="reserve">Réserver maintenant</button>
-                  <button className="info-btn">Plus d'informations</button>
-                </div>
-              </div>
-            </div>
-          ))}
+    <div className="luxury-app">
+      <Header />
+      
+      {/* Hero Section */}
+      <section className="luxury-hero">
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Terrains de Football <span className="accent-text">Premium</span>
+            </h1>
+            <p className="hero-subtitle">
+              Des installations d'exception pour des performances d'élite
+            </p>
+            <button className="cta-button">Découvrir nos installations</button>
+          </div>
         </div>
+      </section>
 
-        {/* Section des Services Premium */}
-        <section className="services">
-          <h2>Nos Services <span>Premium</span></h2>
-          <div className="terrain-list">
+      {/* Terrains Section */}
+      <section className="luxury-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Nos Terrains <span className="accent-text">d'Exception</span></h2>
+            <p>Des infrastructures professionnelles pour des expériences uniques</p>
+          </div>
+          
+          <div className="terrains-grid">
+            {Terrains.map((terrain) => (
+              <div key={terrain.id} className="luxury-card">
+                <div className="card-image">
+                  <img src={terrain.image} alt={terrain.titre} />
+                  <div className="card-overlay">
+                    <span className="price-tag">{terrain.tarif}</span>
+                  </div>
+                </div>
+                
+                <div className="card-content">
+                  <h3>{terrain.titre}</h3>
+                  <div className="card-meta">
+                    <span className="meta-item">{terrain.surface}</span>
+                    <span className="meta-item">{terrain.localisation}</span>
+                    <span className="meta-item">11 vs 11</span>
+                  </div>
+                  
+                  <ul className="features-list">
+                    {terrain.caracteristiques.map((carac, idx) => (
+                      <li key={idx}>{carac}</li>
+                    ))}
+                  </ul>
+                  
+                  <div className="card-actions">
+  <Link to="/reservation" className="primary-btn">
+    Réserver maintenant
+  </Link>
+  <Link to="/contact" className="secondary-btn">
+    Plus d'informations
+  </Link>
+</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="luxury-section services-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>Services <span className="accent-text">Exclusifs</span></h2>
+            <p>Une expérience complète pour des performances optimales</p>
+          </div>
+          
+          <div className="services-grid">
             {services.map((service, index) => (
               <div key={index} className="service-card">
-                <div className="icon">{service.icon}</div>
+                <div className="service-icon">{service.icon}</div>
                 <h3>{service.titre}</h3>
                 <p>{service.description}</p>
               </div>
             ))}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-     <Footer/>
+      <Footer />
     </div>
   );
 }

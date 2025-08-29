@@ -148,14 +148,13 @@ const Index = () => {
           </div>
           
           <div className="hero-buttons">
-            <a href="/reservations" className="btn-primary">
+            <a href="/reservation" className="btn-primary">
               <Calendar />
               <span>Réserver Maintenant</span>
             </a>
-            <button className="btn-secondary">
-              <Play />
-              <span>Voir nos Terrains</span>
-            </button>
+            <a href="/terrains" className="btn-primary">
+              <span>Voir nos terrains.</span>
+            </a>
           </div>
           
           <div className="hero-stats">
@@ -284,13 +283,13 @@ const Index = () => {
         Réservez votre terrain dès maintenant et profitez de nos installations premium
       </p>
       <div className="cta-buttonss">
-        <a href="/reservations" className="cta-btnss cta-btnss-primaryss">
+        <a href="/reservation" className="cta-btnss cta-btnss-primaryss">
           <span className="cta-btnss-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 7V3M16 7V3M7 11H17M5 21H19C20.1046 21 21 20.1046 21 19V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V19C3 20.1046 3.89543 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </span>
-          <span className="cta-btnss-text">Réserver un Terrain</span>
+          <a href="/reservation" className="cta-btnss-text">Réserver un Terrain</a>
           <span className="cta-btnss-arrow">→</span>
         </a>
         <a href="/contact" className="cta-btn cta-btn-secondary">
