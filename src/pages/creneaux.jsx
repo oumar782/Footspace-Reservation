@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../composant/Header';
 import Footer from '../composant/Footer';
-import '../css/creneaux.css';
+import '../cren/creneaux.css';
 const Creneaux = () => {
   const location = useLocation();
   const { creneaux } = location.state || { creneaux: [] };
