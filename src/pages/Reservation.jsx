@@ -10,35 +10,69 @@ const Reservation = () => {
   const [date, setDate] = useState('');
   const [terrainType, setTerrainType] = useState('');
   const [surface, setSurface] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     console.log('🔍 Données envoyées:', { date, terrainType, surface });
 
+    // Validation des champs
+    if (!date || !terrainType || !surface) {
+      toast.error('Veuillez remplir tous les champs');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.get('http://localhost:8000/api/creneaux/creneaux', {
-        params: { date, terrainType, surface },
+      // ✅ Maintenant l'API accepte le paramètre surface
+      const response = await axios.get('https://backend-foot-omega.vercel.app/api/creneaux/creneaux', {
+        params: { 
+          date, 
+          terrainType,
+          surface // ← Paramètre surface ajouté
+        },
       });
 
       console.log('✅ Réponse du serveur:', response.data);
 
-      if (response.data.length > 0) {
-        toast.success('Créneaux disponibles trouvés!');
-  
-        // Introduire un délai avant de rediriger
-        setTimeout(() => {
-          navigate('/creneaux', { state: { creneaux: response.data } });
-        }, 1500); // Délai de 1.5 seconde pour afficher la notification
+      // Vérifier si la réponse contient des données
+      if (response.data && response.data.success) {
+        if (response.data.data && response.data.data.length > 0) {
+          toast.success('Créneaux disponibles trouvés!');
+          
+          setTimeout(() => {
+            navigate('/creneaux', { 
+              state: { 
+                creneaux: response.data.data,
+                filters: { date, terrainType, surface }
+              } 
+            });
+            setLoading(false);
+          }, 1500);
+        } else {
+          toast.error('Aucun créneau disponible pour ces critères.');
+          setLoading(false);
+        }
       } else {
-        toast.error('Aucun créneau disponible pour cette date et ce terrain.');
+        // Gérer les réponses d'erreur de l'API
+        toast.error(response.data.message || 'Aucun créneau disponible');
+        setLoading(false);
       }
-    
+      
     } catch (err) {
       console.error('❌ Erreur lors de la récupération des créneaux:', err);
+      setLoading(false);
+      
       if (err.response) {
-        toast.error(`Erreur serveur: ${err.response.data.message || 'Erreur inconnue'}`);
+        // Erreur avec réponse du serveur
+        if (err.response.status === 404) {
+          toast.error('Aucun créneau trouvé pour ces critères');
+        } else {
+          toast.error(`Erreur serveur: ${err.response.data.message || 'Erreur inconnue'}`);
+        }
       } else if (err.request) {
         toast.error('Aucune réponse du serveur. Vérifiez votre connexion.');
       } else {
@@ -47,15 +81,33 @@ const Reservation = () => {
     }
   };
 
+  // Fonction pour obtenir la date minimale (aujourd'hui)
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
   return (
     <div className="reservation-premium">
       <Header />
-      <ToastContainer />
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      
       <div className="reservation-premium__hero">
         <div className="reservation-premium__overlay">
           <h1 className="reservation-premium__title">Réservez votre espace de football en quelques clics</h1>
           <div className="reservation-premium__container">
             <h2 className="reservation-premium__subtitle">Faites-vous plaisir ! Réservez Votre Terrain.</h2>
+            
             <form onSubmit={handleSubmit} className="reservation-premium__form">
               <div className="reservation-premium__form-group">
                 <label className="reservation-premium__label">
@@ -67,6 +119,7 @@ const Reservation = () => {
                   onChange={(e) => setDate(e.target.value)} 
                   className="reservation-premium__input"
                   required 
+                  min={getMinDate()}
                 />
               </div>
               
@@ -81,7 +134,7 @@ const Reservation = () => {
                   required
                 >
                   <option value="">Sélectionnez le type</option>
-                  <option value="normal">Normal</option>
+                  <option value="Normal">Normal</option>
                   <option value="synthetique">Synthétique</option>
                 </select>
               </div>
@@ -103,8 +156,15 @@ const Reservation = () => {
                 </select>
               </div>
               
-              <button type="submit" className="reservation-premium__button">Voir les créneaux</button>
+              <button 
+                type="submit" 
+                className="reservation-premium__button"
+                disabled={loading}
+              >
+                {loading ? 'Recherche en cours...' : 'Voir les créneaux'}
+              </button>
             </form>
+            
             <div className="reservation-premium__info">
               <p>
                 <span className="reservation-premium__highlight">Note:</span>
@@ -114,6 +174,7 @@ const Reservation = () => {
           </div>
         </div>
       </div>
+      
       <Footer/>
     </div>
   );

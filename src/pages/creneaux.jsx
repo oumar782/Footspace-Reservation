@@ -18,7 +18,7 @@ const Creneaux = () => {
     <div className='head'>
       <Header/>
     <div className="creneaux-container">
-      <h1>Créneaux disponibles</h1>
+      <h1> Les Créneaux disponibles</h1>
       {creneaux.length > 0 ? (
         creneaux.map((creneau, index) => (
           <div key={index} className="creneau-card">
