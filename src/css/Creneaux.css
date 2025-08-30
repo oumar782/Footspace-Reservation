@@ -1,155 +1,222 @@
-/* Conteneur principal */
+.creneaux-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%);
+  color: #f5f5f5;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
 .creneaux-container {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(128, 128, 128, 0.3));
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 1200px; /* Limite la largeur maximale pour les grands écrans */
-    height: auto;
-    margin: 120px auto 0;
-    margin-bottom: -1px;
-    border-radius: 15px;
-    padding: 20px; /* Ajoute un peu d'espace intérieur */
+  max-width: 1200px;
+  margin: 100px auto 50px;
+  padding: 30px 20px;
+}
+
+.creneaux-title {
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+  color: #034e21;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.creneaux-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #004d16, #d9d9d7);
+}
+
+.creneaux-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.creneau-card {
+  background: rgb(250, 248, 248);
+  border: 1px solid rgba(3, 114, 19, 0.3);
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 20px rgba(1, 81, 36, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.creneau-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(17, 170, 40, 0.5), transparent);
+}
+
+.creneau-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(24, 137, 4, 0.6);
+}
+
+.creneau-info {
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #064302;
+  font-size: 1rem;
+}
+
+.info-value {
+  font-weight: bold;
+  color: #e80b0b;
+}
+
+.status-tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-tag.available {
+  background-color: rgba(46, 125, 50, 0.2);
+  color: #05860c;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-tag.unavailable {
+  background-color: rgba(211, 47, 47, 0.2);
+  color: #ef5350;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.reserve-button {
+  background: linear-gradient(135deg, #043401 0%, #1f7f02 100%);
+  color: #fefcfc;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.reserve-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  background: linear-gradient(135deg, #448f2f 0%, #015913 100%);
+}
+
+.reserve-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.reserve-button:hover .button-icon {
+  transform: translateX(3px);
+}
+
+.not-available-button {
+  background: rgba(133, 5, 5, 0.2);
+  color: #f9f7f7;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: not-allowed;
+}
+
+.no-creneaux {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.no-creneaux p {
+  font-size: 1.2rem;
+  color: #0e0808;
+}
+
+@media (max-width: 768px) {
+  .creneaux-container {
+    margin-top: 80px;
+    padding: 20px 15px;
   }
   
-  /* Titre */
-  .creneaux-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem; /* Taille de police relative */
+  .creneaux-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
   
-  /* Carte de créneau */
+  .creneaux-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
   .creneau-card {
-    border: 1px solid #044f19;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column; /* Empile les éléments verticalement sur les petits écrans */
-    justify-content: space-between;
-    align-items: center;
-    background-color: (249, 249, 249, 0.8);
-    position: relative;
-    z-index: 1;
-    backdrop-filter: blur(10px); /* Correction de la valeur */
-    box-shadow: 0px 6px 10px rgba(7, 7, 7, 0.5);
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .creneaux-container {
+    margin-top: 70px;
+    padding: 15px 10px;
   }
   
-  /* Informations du créneau */
-  .creneau-info p {
-    margin: 5px 0;
-    font-size: 1rem; /* Taille de police relative */
+  .creneaux-title {
+    font-size: 1.8rem;
   }
   
-  /* Bouton Réserver */
-  .reserve-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem; /* Taille de police relative */
-    width: 100%; /* Pleine largeur sur les petits écrans */
-    max-width: 200px; /* Limite la largeur maximale */
-    margin-top: 10px; /* Espacement supplémentaire */
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
-  .reserve-button:disabled {
-    background-color: #ed0d0d;
-    cursor: not-allowed;
+  .info-value {
+    margin-top: 5px;
   }
-  
-  .reserve-button:hover:not(:disabled) {
-    background-color: #45a049;
-  }
-  
-  /* Bouton Non disponible */
-  .not-available-button {
-    background-color: #d80606;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem; /* Taille de police relative */
-    cursor: not-allowed;
-    width: 100%; /* Pleine largeur sur les petits écrans */
-    max-width: 200px; /* Limite la largeur maximale */
-    margin-top: 10px; /* Espacement supplémentaire */
-  }
-  
-  /* Boutons généraux */
-  button {
-    background: linear-gradient(0deg, rgba(2, 81, 18, 0.8), rgba(128, 128, 128, 0.3));
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1rem; /* Taille de police relative */
-    margin: 5px;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    width: 100%; /* Pleine largeur sur les petits écrans */
-    max-width: 200px; /* Limite la largeur maximale */
-  }
-  
-  /* Media Queries pour la responsivité */
-  
-  /* Pour les écrans de petite taille (mobiles) */
-  @media (max-width: 768px) {
-    .creneaux-container {
-      width: 95%; /* Réduit la largeur pour les petits écrans */
-      margin-top: 80px; /* Réduit la marge supérieure */
-      padding: 15px; /* Réduit l'espace intérieur */
-    }
-  
-    .creneaux-container h1 {
-      font-size: 1.5rem; /* Réduit la taille du titre */
-    }
-  
-    .creneau-card {
-      padding: 15px; /* Réduit l'espace intérieur */
-    }
-  
-    .creneau-info p {
-      font-size: 0.9rem; /* Réduit la taille de la police */
-    }
-  
-    .reserve-button,
-    .not-available-button,
-    button {
-      font-size: 0.9rem; /* Réduit la taille de la police des boutons */
-      padding: 8px 15px; /* Ajuste le padding */
-    }
-  }
-  
-  /* Pour les écrans très petits (mobiles en portrait) */
-  @media (max-width: 480px) {
-    .creneaux-container {
-      width: 100%; /* Pleine largeur */
-      margin-top: 60px; /* Réduit encore la marge supérieure */
-      padding: 10px; /* Réduit l'espace intérieur */
-      border-radius: 0; /* Supprime les bordures arrondies */
-    }
-  
-    .creneaux-container h1 {
-      font-size: 1.2rem; /* Réduit encore la taille du titre */
-    }
-  
-    .creneau-card {
-      padding: 10px; /* Réduit encore l'espace intérieur */
-      border-radius: 8px; /* Réduit les bordures arrondies */
-    }
-  
-    .creneau-info p {
-      font-size: 0.8rem; /* Réduit encore la taille de la police */
-    }
-  
-    .reserve-button,
-    .not-available-button,
-    button {
-      font-size: 0.8rem; /* Réduit encore la taille de la police des boutons */
-      padding: 5px 10px; /* Ajuste le padding */
-    }
-  }
+}

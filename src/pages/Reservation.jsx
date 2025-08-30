@@ -135,7 +135,7 @@ const Reservation = () => {
                 >
                   <option value="">Sélectionnez le type</option>
                   <option value="Normal">Normal</option>
-                  <option value="synthetique">Synthétique</option>
+                  <option value="Synthétique">Synthétique</option>
                 </select>
               </div>
               
