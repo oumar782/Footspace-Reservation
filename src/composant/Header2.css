@@ -146,8 +146,7 @@
 }
 
 .nav2-cta-button {
-  background-color: transparent;
-
+  background: linear-gradient(135deg, #032a00 0%, #067712 100%);
   color: white;
   border: none;
   border-radius: 19px;
