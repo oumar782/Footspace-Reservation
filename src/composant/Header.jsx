@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, MapPin, Phone, Mail } from 'lucide-react';
 import './Header2.css';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
   const navigation = [
     { name: 'Accueil', href: '/' },
     { name: 'Nos Terrains', href: '/terrains' },
@@ -67,8 +68,11 @@ const Navigation = () => {
                 )}
               </Link>
             ))}
-            <button className="nav2-cta-button">
-              Réserver Maintenant
+            <button
+              className="nav2-cta-button"
+              onClick={() => navigate("/Consultation-reservation")}
+            >
+              consulter ma reservation
             </button>
           </div>
 
@@ -96,11 +100,14 @@ const Navigation = () => {
                 </Link>
               ))}
               <div className="nav2-mobile-cta">
-                <button 
-                  className="nav2-cta-button nav2-mobile"
-                  onClick={() => setIsOpen(false)}
+                <button
+                  className="nav2-cta-button"
+                  onClick={() => {
+                    setIsOpen(false);
+                    navigate("/Consultation-reservation");
+                  }}
                 >
-                  Réserver Maintenant
+                  consulter ma reservation
                 </button>
               </div>
             </div>
