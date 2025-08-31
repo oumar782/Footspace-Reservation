@@ -91,16 +91,21 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
-
+hr{
+  border: 1px solid #06720c;
+}
 .info-label {
   font-weight: bold;
   color: #064302;
   font-size: 1rem;
+  margin-top: 9px;
 }
 
 .info-value {
   font-weight: bold;
   color: #e80b0b;
+  margin-top: 9px;
+
 }
 
 .status-tag {
@@ -108,6 +113,8 @@
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 500;
+  margin-top: 9px;
+
 }
 
 .status-tag.available {
