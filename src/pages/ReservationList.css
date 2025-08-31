@@ -26,15 +26,7 @@
   
   /* Container Styles */
   .rv-container {
-    min-height: 100vh;
-    background: 
-      radial-gradient(ellipse at top, rgb(251, 253, 252), transparent 70%),
-      radial-gradient(ellipse at bottom, rgb(252, 253, 253), transparent 70%),
-      linear-gradient(135deg, #fbfbfb 0%, #f8f9f8 25%, #fdfffd 50%, #fbfcfd 75%, #f6f6f6 100%);
-    padding: 20px;
-    font-family: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif';
-    position: relative;
-    overflow: hidden;
+   
   }
   
   .rv-background-pattern {
@@ -288,6 +280,7 @@
     background: linear-gradient(135deg, #053e02 0%, #025010 50%, #06bc1c 100%);
     border-radius: 16px;
     transition: all 0.3s ease;
+    color: #f3eeee;
   }
   
   .rv-button-content {
@@ -298,7 +291,8 @@
     justify-content: center;
     gap: 12px;
     height: 100%;
-    color: rgb(11, 8, 8);
+    color: #f3eeee;
+
     font-weight: 600;
     font-size: 1.05rem;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -328,7 +322,7 @@
     background: rgba(255, 107, 107, 0.1);
     border: 1px solid rgba(255, 107, 107, 0.2);
     border-radius: 12px;
-    color: #ece9e9;
+    color: #140404;
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -343,7 +337,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(211, 27, 27, 0.1), transparent);
     animation: rv-errorPulse 2s ease-in-out infinite;
   }
   
