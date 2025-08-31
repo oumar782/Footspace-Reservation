@@ -395,7 +395,7 @@ const Contact = () => {
       <section className="contact-section">
         <div className="contact-container">
           <div className="section-header">
-            <h2 className="section-title">
+            <h2 className="section-titles">
               Questions <span className="gradient-text">Fréquentes</span>
             </h2>
             <p className="section-subtitle">
