@@ -7,6 +7,7 @@ import Reservation from "../src/pages/Reservation.jsx";
 import Paiement from './pages/paiement.jsx';
 import About from './pages/About.jsx';
 import Contact from "../src/contacts/Contact.jsx";  // Pas besoin de l'extension .jsx
+import modalreserve from "../src/pages/ReservationModal.jsx";  // Pas besoin de l'extension .jsx
 
 
  
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/creneaux" element={<Creneaux />} />
             <Route path="/about" element={<About />} />
+            <Route path="/Formulaire-reservation" element={<modalreserve />} />
           </Routes>
         </div>
       </Router>

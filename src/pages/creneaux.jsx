@@ -1,7 +1,8 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../composant/Header';
 import Footer from '../composant/Footer';
+import ReservationModal from './ReservationModal'; // Import du modal
 import '../css/creneaux.css';
 
 // Fonction utilitaire pour normaliser les noms de propriétés
@@ -13,19 +14,26 @@ const normalizeCreneauData = (creneau) => {
   }
 
   return {
-    nomterrain: lowerCaseCreneau.nomterrain || lowerCaseCreneau.nomterrain || 'Non spécifié',
+    nomterrain: lowerCaseCreneau.nomterrain || 'Non spécifié',
     heure: lowerCaseCreneau.heure,
     heurefin: lowerCaseCreneau.heurefin,
-    typeTerrain: lowerCaseCreneau.typeterrain || lowerCaseCreneau.typeterrain || lowerCaseCreneau.type || 'Non spécifié',
-    surface: lowerCaseCreneau.surfaceterrains || lowerCaseCreneau.surfaceterrains || lowerCaseCreneau.surface || 'Non spécifié',
+    typeTerrain: lowerCaseCreneau.typeterrain || lowerCaseCreneau.type || 'Non spécifié',
+    surface: lowerCaseCreneau.surfaceterrains || lowerCaseCreneau.surface || 'Non spécifié',
     tarif: lowerCaseCreneau.tarif || 0,
-    statut: lowerCaseCreneau.statut || 'Non spécifié'
+    statut: lowerCaseCreneau.statut || 'Non spécifié',
+    datecreneaux: lowerCaseCreneau.datecreneaux || '',
+    numeroterrain: lowerCaseCreneau.numeroterrain || 0
   };
 };
 
 const Creneaux = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Correction: utilisation de useNavigate
   const { creneaux } = location.state || { creneaux: [] };
+  
+  // États pour le modal
+  const [selectedCreneau, setSelectedCreneau] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Normaliser les données de tous les créneaux
   const normalizedCreneaux = creneaux.map(normalizeCreneauData);
@@ -40,9 +48,22 @@ const Creneaux = () => {
     return timeString;
   };
 
-  const handleReservation = (creneau) => {
-    console.log('Réservation du créneau :', creneau);
-    alert(`Réservation du créneau : ${formatTime(creneau.heure)} - ${creneau.typeTerrain}`);
+  // Fonction pour ouvrir le modal de réservation
+  const handleOpenReservationModal = (creneau) => {
+    setSelectedCreneau(creneau);
+    setIsModalOpen(true);
+  };
+
+  // Fonction pour fermer le modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCreneau(null);
+  };
+
+  // Fonction appelée après une réservation réussie
+  const handleReservationSuccess = (reservationData) => {
+    console.log('Réservation créée avec succès:', reservationData);
+    // Vous pouvez ajouter ici une redirection ou un message de confirmation
   };
 
   return (
@@ -66,30 +87,31 @@ const Creneaux = () => {
                     <span className="info-label">Heure début :</span>
                     <span className="info-value">{formatTime(creneau.heure)}</span>
                   </div>
-                <hr />
+                  <hr />
 
                   <div className="info-row">
                     <span className="info-label">Heure fin :</span>
                     <span className="info-value">{formatTime(creneau.heurefin)}</span>
                   </div>
                   <hr />
+                  
                   <div className="info-row">
                     <span className="info-label">Type :</span>
                     <span className="info-value">{creneau.typeTerrain}</span>
                   </div>
-                <hr />
+                  <hr />
 
                   <div className="info-row">
                     <span className="info-label">Surface :</span>
                     <span className="info-value">{creneau.surface}</span>
                   </div>
-                <hr />
+                  <hr />
 
                   <div className="info-row">
                     <span className="info-label">Tarif :</span>
                     <span className="info-value tarif">{creneau.tarif} DH</span>
                   </div>
-                <hr />
+                  <hr />
 
                   <div className="info-row">
                     <span className="info-label">Statut :</span>
@@ -97,13 +119,13 @@ const Creneaux = () => {
                       {creneau.statut}
                     </span>
                   </div>
-                <hr />
+                  <hr />
 
                 </div>
                 {creneau.statut === 'disponible' ? (
                   <button
                     className="reserve-button"
-                    onClick={() => handleReservation(creneau)}
+                    onClick={() => handleOpenReservationModal(creneau)}
                   >
                     <span className="button-text">Réserver</span>
                     <span className="button-icon">→</span>
@@ -122,6 +144,15 @@ const Creneaux = () => {
           )}
         </div>
       </div>
+
+      {/* Modal de réservation */}
+      <ReservationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        creneau={selectedCreneau}
+        onReservationSuccess={handleReservationSuccess}
+      />
+
       <Footer />
     </div>
   );
