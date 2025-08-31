@@ -41,7 +41,7 @@ const Reservation = () => {
       // Vérifier si la réponse contient des données
       if (response.data && response.data.success) {
         if (response.data.data && response.data.data.length > 0) {
-          toast.success('Créneaux disponibles trouvés!');
+          toast.success('Chargement des Creneaux!');
           
           setTimeout(() => {
             navigate('/creneaux', { 

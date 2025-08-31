@@ -146,7 +146,8 @@
 }
 
 .nav2-cta-button {
-  background: linear-gradient(135deg, #032a00 0%, #067712 100%);
+  background-color: transparent;
+
   color: white;
   border: none;
   border-radius: 19px;
@@ -174,7 +175,8 @@
 .nav2-menu-icon {
   height: 24px;
   width: 24px;
-  color: #374151;
+  color: #04580c;
+
 }
 
 /* Mobile Navigation - MODIFIÉ */
@@ -185,8 +187,8 @@
   width: 80%;
   max-width: 300px;
   height: 100vh;
-  background-color: white;
-  border-left: 1px solid #e5e7eb;
+  background-color: rgb(253, 250, 250);
+  border-left: 4px solid #022708;
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
   animation: nav2-slideIn 0.3s ease;
   z-index: 100;
