@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import '../css/contact.css';
 import Header from "../composant/Header";
 import Footer from "../composant/Footer";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    nom: '',
     email: '',
-    phone: '',
-    subject: '',
+    telephone: '',
+    sujet: '',
     message: '',
-    contactReason: 'general'
+    motif: 'general'
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const contactReasons = [
     { value: 'general', label: 'Question générale' },
@@ -76,26 +80,83 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    if (!formData.nom || !formData.email || !formData.message) {
+      toast.error('Veuillez remplir tous les champs obligatoires');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Veuillez entrer une adresse email valide');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-        contactReason: 'general'
+    
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://backend-foot-omega.vercel.app/api/contact/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
       });
-    }, 3000);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success('Message envoyé avec succès !');
+        setIsSubmitted(true);
+        
+        // Réinitialiser le formulaire après succès
+        setFormData({
+          nom: '',
+          email: '',
+          telephone: '',
+          sujet: '',
+          message: '',
+          motif: 'general'
+        });
+
+        // Réinitialiser l'état après 3 secondes
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 3000);
+      } else {
+        toast.error(data.message || 'Erreur lors de l\'envoi du message');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      toast.error('Erreur de connexion. Veuillez réessayer.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="contact-page">
       <Header />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
 
       {/* Hero Section */}
       <section className="contact-hero">
@@ -172,8 +233,8 @@ const Contact = () => {
                       <label className="form-label">Nom complet *</label>
                       <input
                         type="text"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        value={formData.nom}
+                        onChange={(e) => handleInputChange('nom', e.target.value)}
                         className="form-input"
                         placeholder="Jean Dupont"
                         required
@@ -197,8 +258,8 @@ const Contact = () => {
                       <label className="form-label">Téléphone</label>
                       <input
                         type="tel"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        value={formData.telephone}
+                        onChange={(e) => handleInputChange('telephone', e.target.value)}
                         className="form-input"
                         placeholder="06 12 34 56 78"
                       />
@@ -206,8 +267,8 @@ const Contact = () => {
                     <div className="form-group">
                       <label className="form-label">Motif de contact</label>
                       <select
-                        value={formData.contactReason}
-                        onChange={(e) => handleInputChange('contactReason', e.target.value)}
+                        value={formData.motif}
+                        onChange={(e) => handleInputChange('motif', e.target.value)}
                         className="form-input"
                       >
                         {contactReasons.map((reason) => (
@@ -220,14 +281,13 @@ const Contact = () => {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Sujet *</label>
+                    <label className="form-label">Sujet</label>
                     <input
                       type="text"
-                      value={formData.subject}
-                      onChange={(e) => handleInputChange('subject', e.target.value)}
+                      value={formData.sujet}
+                      onChange={(e) => handleInputChange('sujet', e.target.value)}
                       className="form-input"
                       placeholder="Objet de votre message"
-                      required
                     />
                   </div>
 
@@ -246,9 +306,19 @@ const Contact = () => {
                   <button
                     type="submit"
                     className="contact-submit-btn"
+                    disabled={isLoading}
                   >
-                    <i className="fas fa-paper-plane"></i>
-                    <span>Envoyer le Message</span>
+                    {isLoading ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin"></i>
+                        <span>Envoi en cours...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-paper-plane"></i>
+                        <span>Envoyer le Message</span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}
