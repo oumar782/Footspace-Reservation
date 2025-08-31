@@ -180,7 +180,7 @@ const Index = () => {
       <section className="features-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">
+            <h2 className="section-titles">
               Pourquoi Choisir <span className="text-gradient">FootField</span> ?
             </h2>
             <p className="section-subtitle">
@@ -206,7 +206,7 @@ const Index = () => {
       <section className="terrains-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">
+            <h2 className="section-titles">
               Nos <span className="text-gradient">Terrains</span>
             </h2>
             <p className="section-subtitle">
@@ -246,7 +246,7 @@ const Index = () => {
       <section className="testimonials-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">
+            <h2 className="section-titles">
               Ce Que Disent Nos <span className="text-gradient">Clients</span>
             </h2>
           </div>
