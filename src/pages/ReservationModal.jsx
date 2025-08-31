@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ReservationModal.css';
 
 const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) => {
@@ -10,6 +11,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const navigate = useNavigate();
 
   const showToast = (message, type = 'success') => {
     const id = Date.now();
@@ -36,22 +38,26 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
     return timeString;
   };
 
-  const handleSubmit = async (e) => {
+// Dans ReservationModal.js
+const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     try {
       if (!clientInfo.nom || !clientInfo.prenom || !clientInfo.email || !clientInfo.telephone) {
         showToast('Veuillez remplir tous les champs obligatoires', 'error');
         setIsSubmitting(false);
         return;
       }
-
+  
+      // Générer un ID client unique basé sur l'email (plus sécurisé que Math.random())
+      const clientId = generateClientId(clientInfo.email);
+      
       const reservationData = {
         datereservation: creneau.datecreneaux,
         heurereservation: creneau.heure,
-        statut: 'confirmée',
-        idclient: Math.floor(Math.random() * 1000),
+        statut: 'En attente',
+        idclient: clientId, // Utiliser l'ID généré
         numeroterrain: creneau.numeroterrain || 1,
         nomclient: clientInfo.nom,
         prenom: clientInfo.prenom,
@@ -63,7 +69,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
         heurefin: creneau.heurefin,
         nomterrain: creneau.nomterrain
       };
-
+  
       const response = await fetch('https://backend-foot-omega.vercel.app/api/reservation/', {
         method: 'POST',
         headers: {
@@ -71,13 +77,25 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
         },
         body: JSON.stringify(reservationData),
       });
-
+  
       const result = await response.json();
-
+  
       if (result.success) {
-        showToast('Réservation effectuée avec succès!');
-        onReservationSuccess(result.data);
-        onClose();
+        showToast('Réservation effectuée avec succès! Redirection vers vos réservations...');
+        
+        // Stocker l'ID client pour les futures requêtes
+        localStorage.setItem('clientId', clientId);
+        localStorage.setItem('clientInfo', JSON.stringify(clientInfo));
+        
+        // Redirection après un court délai pour voir le toast
+        setTimeout(() => {
+          navigate('/Consultation-reservation');
+          
+          if (onReservationSuccess) {
+            onReservationSuccess(result.data);
+          }
+          onClose();
+        }, 2000);
       } else {
         showToast(`Erreur lors de la réservation: ${result.message}`, 'error');
       }
@@ -87,6 +105,17 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
     } finally {
       setIsSubmitting(false);
     }
+  };
+  
+  // Fonction pour générer un ID client unique à partir de l'email
+  const generateClientId = (email) => {
+    let hash = 0;
+    for (let i = 0; i < email.length; i++) {
+      const char = email.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convertir en entier 32 bits
+    }
+    return Math.abs(hash);
   };
 
   if (!creneau || !isOpen) return null;

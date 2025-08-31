@@ -7,7 +7,9 @@ import Reservation from "../src/pages/Reservation.jsx";
 import Paiement from './pages/paiement.jsx';
 import About from './pages/About.jsx';
 import Contact from "../src/contacts/Contact.jsx";  // Pas besoin de l'extension .jsx
-import modalreserve from "../src/pages/ReservationModal.jsx";  // Pas besoin de l'extension .jsx
+import Modalreserve from "../src/pages/ReservationModal.jsx";  // Pas besoin de l'extension .jsx
+import Consulreserve from "../src/pages/consultationReserve.jsx";  // Pas besoin de l'extension .jsx
+import Details from "../src/pages/Reservation-details.jsx";  // Pas besoin de l'extension .jsx
 
 
  
@@ -42,11 +44,13 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/creneaux" element={<Creneaux />} />
             <Route path="/about" element={<About />} />
-            <Route path="/Formulaire-reservation" element={<modalreserve />} />
+            <Route path="/Formulaire-reservation" element={<Modalreserve />} />
+            <Route path="/Consultation-reservation" element={<Consulreserve />} />
+            <Route path="/details-reservation" element={<Details />} />
           </Routes>
         </div>
       </Router>
-    </div>
+</div>
   );
 };
 
