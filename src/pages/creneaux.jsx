@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../composant/Header';
 import Footer from '../composant/Footer';
-import ReservationModal from './ReservationModal'; // Import du modal
+import ReservationModal from './ReservationModal';
 import '../css/creneaux.css';
 
 // Fonction utilitaire pour normaliser les noms de propriétés
 const normalizeCreneauData = (creneau) => {
-  // Convertir toutes les clés en minuscules pour une comparaison insensible à la casse
   const lowerCaseCreneau = {};
   for (const key in creneau) {
     lowerCaseCreneau[key.toLowerCase()] = creneau[key];
@@ -22,23 +21,33 @@ const normalizeCreneauData = (creneau) => {
     tarif: lowerCaseCreneau.tarif || 0,
     statut: lowerCaseCreneau.statut || 'Non spécifié',
     datecreneaux: lowerCaseCreneau.datecreneaux || '',
-    numeroterrain: lowerCaseCreneau.numeroterrain || 0
+    numeroterrain: lowerCaseCreneau.numeroterrain || 0,
+    idcreneaux: lowerCaseCreneau.idcreneaux || null
   };
 };
 
 const Creneaux = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // Correction: utilisation de useNavigate
+  const navigate = useNavigate();
   const { creneaux } = location.state || { creneaux: [] };
   
   // États pour le modal
   const [selectedCreneau, setSelectedCreneau] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
 
   // Normaliser les données de tous les créneaux
   const normalizedCreneaux = creneaux.map(normalizeCreneauData);
   
   console.log('Créneaux normalisés:', normalizedCreneaux);
+
+  // Afficher un toast
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: '' });
+    }, 4000);
+  };
 
   // Fonction pour formater l'heure (hh:mm:ss → hh:mm)
   const formatTime = (timeString) => {
@@ -46,6 +55,38 @@ const Creneaux = () => {
     if (timeString.length === 5) return timeString;
     if (timeString.length >= 8) return timeString.substring(0, 5);
     return timeString;
+  };
+
+  // Fonction pour mettre à jour le statut du créneau
+  const updateCreneauStatus = async (creneauId, newStatus) => {
+    try {
+      // D'abord, récupérer le créneau actuel
+      const creneauResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneauId}`);
+      const creneauData = await creneauResponse.json();
+      
+      if (creneauData.success) {
+        const creneau = creneauData.data;
+        
+        // Mettre à jour le statut
+        const updateResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneauId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...creneau,
+            statut: newStatus
+          })
+        });
+        
+        const updateData = await updateResponse.json();
+        return updateData.success;
+      }
+      return false;
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du créneau:', error);
+      return false;
+    }
   };
 
   // Fonction pour ouvrir le modal de réservation
@@ -61,14 +102,43 @@ const Creneaux = () => {
   };
 
   // Fonction appelée après une réservation réussie
-  const handleReservationSuccess = (reservationData) => {
+  const handleReservationSuccess = async (reservationData) => {
     console.log('Réservation créée avec succès:', reservationData);
-    // Vous pouvez ajouter ici une redirection ou un message de confirmation
+    
+    // Mettre à jour le statut du créneau en "réservé"
+    if (selectedCreneau && selectedCreneau.idcreneaux) {
+      const updated = await updateCreneauStatus(selectedCreneau.idcreneaux, 'réservé');
+      if (updated) {
+        showToast('Créneau réservé avec succès !', 'success');
+        
+        // Mettre à jour l'affichage local
+        const updatedCreneaux = normalizedCreneaux.map(creneau => 
+          creneau.idcreneaux === selectedCreneau.idcreneaux 
+            ? { ...creneau, statut: 'réservé' }
+            : creneau
+        );
+        
+        // Note: Dans une vraie application, vous voudriez peut-être recharger les données
+        // ou utiliser un state global pour gérer cela
+      } else {
+        showToast('Erreur lors de la mise à jour du statut du créneau', 'error');
+      }
+    }
+    
+    handleCloseModal();
   };
 
   return (
     <div className="creneaux-page">
       <Header />
+      
+      {/* Toast notifications */}
+      {toast.show && (
+        <div className={`toast toast-${toast.type}`}>
+          <span className="toast-message">{toast.message}</span>
+        </div>
+      )}
+      
       <div className="creneaux-container">
         <h1 className="creneaux-title">Les Créneaux Disponibles</h1>
         <div className="creneaux-grid">
@@ -76,7 +146,6 @@ const Creneaux = () => {
             normalizedCreneaux.map((creneau, index) => (
               <div key={index} className="creneau-card">
                 <div className="creneau-info">
-
                   <div className="info-row">
                     <span className="info-label">Nom du terrain :</span>
                     <span className="info-value">{creneau.nomterrain}</span>
@@ -120,8 +189,8 @@ const Creneaux = () => {
                     </span>
                   </div>
                   <hr />
-
                 </div>
+                
                 {creneau.statut === 'disponible' ? (
                   <button
                     className="reserve-button"
