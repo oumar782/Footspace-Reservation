@@ -1,1183 +1,928 @@
-/* ReservationView.css */
+/* ReservationView.css - RESPONSIVITÉ HAUTE QUALITÉ SANS MODIFIER LE DESIGN */
 :root {
-    --rv-primary-color: #046214;
-    --rv-accent-color: #055e04;
-    --rv-light-accent: rgba(4, 94, 41, 0.1);
-    --rv-white: #ffffff;
-    --rv-light-gray: #f8f9fa;
-    --rv-medium-gray: #e9ecef;
-    --rv-dark-gray: #6c757d;
-    --rv-text-color: #2d3436;
-    --rv-error-color: #e74c3c;
-    --rv-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --rv-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-  }
-  
-  /* Container Styles */
-  .rv-container {
-   
-  }
-  
-  .rv-background-pattern {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(6, 84, 23, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 15% 15%, rgba(250, 251, 250, 0.703) 0%, transparent 50%);
-    animation: rv-backgroundShift 20s ease-in-out infinite;
-    z-index: 0;
-  }
-  
-  /* Header Styles */
-  .rv-header {
-    text-align: center;
-    margin-bottom: 60px;
-    padding-top: 40px;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .rv-header-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 100px;
-    background: radial-gradient(ellipse, rgba(4, 95, 7, 0.2), transparent 70%);
-    filter: blur(40px);
-    z-index: -1;
-  }
-  
-  .rv-title {
-    font-size: 3.5rem;
-    font-weight: 100;
-    margin: 0 0 20px 0;
-    letter-spacing: -0.04em;
+  --rv-primary-color: #046214;
+  --rv-accent-color: #055e04;
+  --rv-light-accent: rgba(4, 94, 41, 0.1);
+  --rv-white: #ffffff;
+  --rv-light-gray: #f8f9fa;
+  --rv-medium-gray: #e9ecef;
+  --rv-dark-gray: #6c757d;
+  --rv-text-color: #2d3436;
+  --rv-error-color: #e74c3c;
+  --rv-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --rv-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Container Styles */
+.rv-container {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.rv-background-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(6, 84, 23, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 15% 15%, rgba(250, 251, 250, 0.703) 0%, transparent 50%);
+  animation: rv-backgroundShift 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* Header Styles - RESPONSIVE */
+.rv-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px 20px 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.rv-header-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 100px;
+  background: radial-gradient(ellipse, rgba(4, 95, 7, 0.2), transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+}
+
+.rv-title {
+  font-size: 3.5rem;
+  font-weight: 100;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.04em;
   font-family: 'Orbitron', sans-serif;
+}
 
-  }
-  
-  .rv-title-gradient {
-    background: linear-gradient(135deg, #8a8989 0%, #025404 50%, #002409 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.rv-title-gradient {
+  background: linear-gradient(135deg, #8a8989 0%, #025404 50%, #002409 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-family: 'Orbitron', sans-serif;
+  animation: rv-titleShimmer 3s ease-in-out infinite;
+}
 
-    animation: rv-titleShimmer 3s ease-in-out infinite;
-  }
-  
-  .rv-title-decoration {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .rv-title-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #065001, #eff0f1);
-    animation: rv-dotPulse 2s ease-in-out infinite;
-  }
-  
-  .rv-title-line {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #043a01, transparent);
-    animation: rv-lineFlow 3s ease-in-out infinite;
-  }
-  
-  /* Verification Card Styles */
-  .rv-verification-card {
-    max-width: 580px;
-    margin: 0 auto;
-    background: rgba(9, 123, 21, 0.02);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
-    animation: rv-cardSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2;
-  }
-  
-  .rv-verification-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, 
-      rgb(251, 252, 251) 0%, 
-      rgb(255, 255, 255) 50%, 
-      rgb(255, 255, 255) 100%);
-    border-radius: 24px;
-    z-index: -1;
-  }
-  
-  .rv-card-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 24px;
-    transition: all 0.3s ease;
-    z-index: -1;
-  }
-  
-  .rv-verification-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .rv-verification-icon-container {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  
-  .rv-verification-icon {
-    font-size: 4rem;
-    position: relative;
-    z-index: 2;
-    color: #015201;
-  }
-  
-  .rv-icon-pulse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgb(2, 85, 2), transparent 70%);
-    border-radius: 50%;
-    animation: rv-iconPulse 2s ease-in-out infinite;
-    z-index: 1;
-  }
-  
-  .rv-verification-title {
-    font-size: 1.8rem;
-    font-weight: 200;
-    color: rgb(14, 6, 6);
-    margin: 0 0 12px 0;
-    letter-spacing: -0.01em;
-  font-family: 'Orbitron', sans-serif;
+.rv-title-decoration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
 
-  }
-  
-  .rv-verification-subtitle {
-    color: rgba(12, 10, 10, 0.7);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  
-  /* Form Styles */
-  .rv-form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .rv-form-row {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .rv-form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .rv-form-group.rv-full-width {
-    width: 100%;
-  }
-  
-  .rv-label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: rgb(3, 41, 6);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  
-  .rv-input-wrapper {
-    position: relative;
-  }
-  
-  .rv-input {
-    width: 100%;
-    padding: 16px 20px;
-    background: rgb(247, 249, 247);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    font-size: 1rem;
-    color: rgb(9, 7, 7);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    outline: none;
-    font-family: inherit;
-    box-sizing: border-box;
-  }
-  
-  .rv-input-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(21, 89, 2, 0.2), rgba(4, 106, 35, 0.2));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: -1;
-  }
-  
-  /* Button Styles */
-  .rv-verify-button {
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    margin-top: 16px;
-    height: 64px;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .rv-button-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #053e02 0%, #025010 50%, #06bc1c 100%);
-    border-radius: 16px;
-    transition: all 0.3s ease;
-    color: #f3eeee;
-  }
-  
-  .rv-button-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    height: 100%;
-    color: #f3eeee;
+.rv-title-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #065001, #eff0f1);
+  animation: rv-dotPulse 2s ease-in-out infinite;
+}
 
-    font-weight: 600;
-    font-size: 1.05rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .rv-button-icon {
-    font-size: 1.2rem;
-  }
-  
-  .rv-button-arrow {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .rv-button-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: rv-spin 1s linear infinite;
-  }
-  
-  /* Error Message */
-  .rv-error-message {
-    padding: 16px 20px;
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.2);
-    border-radius: 12px;
-    color: #140404;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .rv-error-pulse {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(211, 27, 27, 0.1), transparent);
-    animation: rv-errorPulse 2s ease-in-out infinite;
-  }
-  
-  .rv-error-icon {
-    font-size: 1.1rem;
-    z-index: 2;
-  }
-  
-  /* Reservations Section */
-  .rv-reservations-section {
-    max-width: 1000px;
-    margin: 0 auto;
-    animation: rv-sectionFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    z-index: 2;
-  }
-  
-  .rv-dashboard-header {
-    background: rgba(255, 255, 255, 0.889);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    color: #002409;
-  }
-  
-  .rv-dashboard-title {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .rv-dashboard-title-text {
-    font-size: 2rem;
-    font-weight: 200;
-    color: rgb(8, 7, 7);
-    margin: 0;
-    letter-spacing: -0.02em;
-  font-family: 'Orbitron', sans-serif;
+.rv-title-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #043a01, transparent);
+  animation: rv-lineFlow 3s ease-in-out infinite;
+}
 
-  }
-  
-  .rv-dashboard-subtitle {
-    color: rgba(24, 20, 20, 0.6);
-    font-size: 0.9rem;
-    font-weight: 400;
-  }
-  
-  .rv-stats-card {
-    position: relative;
-    padding: 20px 28px;
-    background: linear-gradient(135deg, rgba(2, 50, 9, 0.1), rgba(12, 68, 2, 0.1));
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    min-width: 120px;
-  }
-  
-  .rv-stats-number {
-    font-size: 2.5rem;
-    font-weight: 100;
-    color: #02430c;
-    margin: 0;
-    line-height: 1;
-    
-  }
-  
-  .rv-stats-label {
-    font-size: 0.8rem;
-    color: rgba(241, 9, 9, 0.962);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 4px;
-  }
-  
-  .rv-stats-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(7, 87, 3, 0.1), transparent 70%);
-    border-radius: 16px;
-    animation: rv-statsGlow 3s ease-in-out infinite;
-    z-index: -1;
-  }
-  
-  /* Reservations List */
-  .rv-reservations-list {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  
-  .rv-reservation-card {
-    background: rgb(255, 255, 255);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    color: #002409;
-  }
-  
-  .rv-card-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgb(1, 45, 9), rgba(15, 97, 6, 0.922));
-    z-index: -2;
-  }
-  
-  .rv-card-hover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    z-index: -1;
-    opacity: 0;
-  }
-  
-  .rv-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-  }
-  
-  .rv-card-title {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  font-family: 'Orbitron', sans-serif;
-
-  }
-  
-  .rv-card-number {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, rgba(0, 245, 160, 0.1), rgba(116, 185, 255, 0.1));
-    border-radius: 12px;
-    border: 1px solid rgba(249, 252, 249, 0.573);
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #fcfffc;
-  }
-  
-  .rv-number-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, rgba(0, 245, 53, 0.3), transparent 70%);
-    border-radius: 50%;
-    animation: rv-numberGlow 2s ease-in-out infinite;
-    z-index: -1;
-  }
-  
-  .rv-card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .rv-card-name {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: white;
-    margin: 0;
-    letter-spacing: -0.01em;
-    
-  }
-  
-  .rv-card-date {
-    font-size: 0.85rem;
-    color: rgb(251, 9, 9);
-    font-weight: 400;
-  }
-  
-  /* Status Badge */
-  .rv-status-badge {
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #f39c12;
-
-    border: none;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .rv-confirmed {
-    background-color: rgba(39, 174, 96, 0.15);
-    color: #27ae60;
-  }
-  
-  .rv-cancelled {
-    background-color: rgba(231, 76, 60, 0.15);
-    color: #e74c3c;
-  }
-  
-  .rv-pending {
-    background-color: rgba(243, 156, 18, 0.15);
-    color: #f39c12;
-  }
-  
-  .rv-completed {
-    background-color: rgba(52, 152, 219, 0.15);
-    color: #3498db;
-  }
-  
-  .rv-status-icon {
-    font-size: 1rem;
-  }
-  
-  .rv-status-text {
-    text-transform: capitalize;
-    letter-spacing: 0.02em;
-  }
-  
-  .rv-card-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(255, 255, 255), transparent);
-    margin: 20px 0 28px 0;
-  }
-  
-  .rv-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  
-  .rv-section {
-    background: rgba(24, 20, 20, 0.134);
-    border-radius: 16px;
-    padding: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.477);
-  }
-  
-  .rv-section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  
-  .rv-section-icon {
-    font-size: 1.5rem;
-    filter: drop-shadow(0 0 10px rgba(180, 181, 181, 0.3));
-  }
-  
-  .rv-section-title {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: white;
-    margin: 0;
-    letter-spacing: -0.01em;
-  font-family: 'Orbitron', monospace;
-    
-  }
-  
-  .rv-details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  
-  .rv-detail-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: rgba(7, 211, 35, 0.03);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.342);
-    transition: all 0.3s ease;
-  }
-  
-  .rv-detail-icon {
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
-  
-  .rv-detail-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex: 1;
-  }
-  
-  .rv-detail-label {
-    font-size: 0.75rem;
-    color: rgb(253, 72, 72);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .rv-detail-value {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: white;
-  }
-  
-  .rv-price-value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #6ae972, #f3f4f3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Client Info */
-  .rv-client-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  
-  .rv-client-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0e4503, #20a405);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    box-shadow: 0 8px 32px rgba(0, 245, 160, 0.3);
-  }
-  
-  .rv-client-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .rv-client-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-  font-family: 'Orbitron', monospace;
-
-    color: white;
-    letter-spacing: -0.01em;
-  }
-  
-  .rv-client-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .rv-contact-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-  }
-  
-  .rv-contact-icon {
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-  
-  /* Loading Styles */
-  .rv-loading-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    gap: 30px;
-    position: relative;
-  }
-  
-  .rv-loading-orb {
-    width: 80px;
-    height: 80px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top: 3px solid #00f5a0;
-    border-radius: 50%;
-    animation: rv-orbSpin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-    position: relative;
-  }
-  
-  .rv-loading-pulse {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border: 2px solid rgba(0, 245, 160, 0.2);
-    border-radius: 50%;
-    animation: rv-pulseBig 2s ease-in-out infinite;
-  }
-  
-  .rv-loading-text {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
-  
-  /* Actions */
-  .rv-actions {
-    margin-top: 2.5rem;
-    text-align: center;
-  }
-  
-  .rv-new-verification-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: var(--rv-transition);
-  }
-  
-  .rv-new-verification-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
-    padding: 0.8rem 2rem;
-  }
-  
-  /* Animations */
-  @keyframes rv-titleShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  
-  @keyframes rv-backgroundShift {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(2deg); }
-  }
-  
-  @keyframes rv-dotPulse {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.5); opacity: 1; }
-  }
-  
-  @keyframes rv-lineFlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  
-  @keyframes rv-cardSlideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(60px) scale(0.95);
-      filter: blur(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
-    }
-  }
-  
-  @keyframes rv-sectionFadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes rv-iconPulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
-  }
-  
-  @keyframes rv-numberGlow {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
-  }
-  
-  @keyframes rv-statsGlow {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
-  }
-  
-  @keyframes rv-errorPulse {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-  }
-  
-  @keyframes rv-orbSpin {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
-    100% { transform: rotate(360deg) scale(1); }
-  }
-  
-  @keyframes rv-pulseBig {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.2); opacity: 0.1; }
-  }
-  
-  @keyframes rv-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  /* Effets hover ultra-modernes */
-  .rv-reservation-card:hover {
-    transform: translateY(-8px) scale(1.02) !important;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25) !important;
-    border-color: rgba(0, 245, 160, 0.3) !important;
-  }
-  
-  .rv-reservation-card:hover .rv-card-hover {
-    opacity: 1 !important;
-  }
-  
-  .rv-verify-button:hover:not(:disabled) {
-    transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: 0 20px 60px rgba(0, 245, 160, 0.4) !important;
-  }
-  
-  .rv-verify-button:hover:not(:disabled) .rv-button-arrow {
-    transform: translateX(4px) !important;
-  }
-  
-  .rv-input:focus {
-    border-color: rgba(0, 245, 160, 0.5) !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    transform: scale(1.02) !important;
-    box-shadow: 0 0 0 1px rgba(0, 245, 160, 0.2), 0 8px 32px rgba(0, 245, 160, 0.15) !important;
-  }
-  
-  .rv-input:focus + .rv-input-glow {
-    opacity: 1 !important;
-  }
-  
-  .rv-detail-card:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    transform: translateY(-2px) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-  }
-  
-  .rv-stats-card:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 20px 60px rgba(0, 245, 160, 0.2) !important;
-  }
-  
-  /* Animations de particules pour l'arrière-plan */
-  .rv-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
-      radial-gradient(2px 2px at 40px 70px, rgba(0, 245, 160, 0.2), transparent),
-      radial-gradient(1px 1px at 90px 40px, rgba(116, 185, 255, 0.3), transparent),
-      radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.1), transparent);
-    background-repeat: repeat;
-    background-size: 150px 150px;
-    animation: rv-particleFloat 20s linear infinite;
-    opacity: 0.3;
-    z-index: 0;
-  }
-  
-  @keyframes rv-particleFloat {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-  }
-  
-  /* Responsive ultra-fluide */
-  @media (max-width: 768px) {
-    .rv-form-row {
-      flex-direction: column !important;
-    }
-    
-    .rv-dashboard-header {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 20px !important;
-    }
-    
-    .rv-card-header {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 16px !important;
-    }
-    
-    .rv-details-grid {
-      grid-template-columns: 1fr !important;
-    }
-    
-    .rv-title {
-      font-size: 2.5rem !important;
-    }
-    
-    .rv-verification-card {
-      margin: 20px !important;
-      padding: 32px !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .rv-container {
-      padding: 16px !important;
-    }
-    
-    .rv-verification-card {
-      padding: 24px !important;
-      margin: 16px !important;
-    }
-    
-    .rv-title {
-      font-size: 2rem !important;
-    }
-    
-    .rv-dashboard-title-text {
-      font-size: 1.5rem !important;
-    }
-    
-    .rv-stats-number {
-      font-size: 2rem !important;
-    }
-  }
-  
-  /* Micro-interactions avancées */
-  .rv-button-content {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
-  
-  .rv-verify-button:active {
-    transform: translateY(-1px) scale(0.98) !important;
-  }
-  
-  .rv-detail-card:active {
-    transform: translateY(-1px) scale(0.98) !important;
-  }
-  
-  /* Effets de focus accessibles */
-  .rv-input:focus-visible {
-    outline: 2px solid rgba(0, 245, 160, 0.5) !important;
-    outline-offset: 2px !important;
-  }
-  
-  .rv-verify-button:focus-visible {
-    outline: 2px solid rgba(0, 245, 160, 0.5) !important;
-    outline-offset: 4px !important;
-  }
-  /* Ajouts CSS pour les nouvelles fonctionnalités */
-
-/* Styles des messages d'action */
-.rv-message {
-  max-width: 600px;
-  margin: 0 auto 40px auto;
-  padding: 16px 24px;
-  border-radius: 12px;
+/* Verification Card Styles - RESPONSIVE */
+.rv-verification-card {
+  max-width: 580px;
+  margin: 0 auto;
+  background: rgba(9, 123, 21, 0.02);
   backdrop-filter: blur(20px);
-  border: 1px solid;
+  border-radius: 24px;
+  padding: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
-  animation: rv-cardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+  animation: rv-cardSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
 }
 
-.rv-message-success {
-  background: rgba(39, 174, 96, 0.1);
-  border-color: rgba(39, 174, 96, 0.3);
-  color: #27ae60;
+.rv-verification-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgb(251, 252, 251) 0%, 
+    rgb(255, 255, 255) 50%, 
+    rgb(255, 255, 255) 100%);
+  border-radius: 24px;
+  z-index: -1;
 }
 
-.rv-message-error {
-  background: rgba(231, 76, 60, 0.1);
-  border-color: rgba(231, 76, 60, 0.3);
-  color: #e74c3c;
-}
-
-.rv-message-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 500;
-}
-
-.rv-message-icon {
-  display: flex;
-  align-items: center;
-}
-
-/* Boutons d'action */
-.rv-action-buttons {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.rv-print-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #046214, #055e04);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+.rv-card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
   transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.rv-verification-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.rv-verification-icon-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.rv-verification-icon {
+  font-size: 4rem;
+  position: relative;
+  z-index: 2;
+  color: #015201;
+}
+
+.rv-icon-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgb(2, 85, 2), transparent 70%);
+  border-radius: 50%;
+  animation: rv-iconPulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.rv-verification-title {
+  font-size: 1.8rem;
+  font-weight: 200;
+  color: rgb(14, 6, 6);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.rv-verification-subtitle {
+  color: rgba(12, 10, 10, 0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Form Styles - RESPONSIVE */
+.rv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rv-form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.rv-form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rv-form-group.rv-full-width {
+  width: 100%;
+}
+
+.rv-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgb(3, 41, 6);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.rv-input-wrapper {
+  position: relative;
+}
+
+.rv-input {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgb(247, 249, 247);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: rgb(9, 7, 7);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.rv-input-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(21, 89, 2, 0.2), rgba(4, 106, 35, 0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Button Styles */
+.rv-verify-button {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
+  margin-top: 16px;
+  height: 64px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.rv-print-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(4, 98, 20, 0.4);
-}
-
-.rv-print-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.rv-cancel-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+.rv-button-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #053e02 0%, #025010 50%, #06bc1c 100%);
+  border-radius: 16px;
   transition: all 0.3s ease;
+  color: #f3eeee;
 }
 
-.rv-cancel-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-}
-
-.rv-cancel-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.rv-reactivate-button {
+.rv-button-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #f39c12, #e67e22);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  color: #f3eeee;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.rv-reactivate-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+.rv-button-icon {
+  font-size: 1.2rem;
 }
 
-.rv-reactivate-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.rv-button-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
-/* Notice de réactivation */
-.rv-reactivation-notice {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: rgba(243, 156, 18, 0.1);
-  border: 1px solid rgba(243, 156, 18, 0.3);
-  border-radius: 8px;
-  color: #f39c12;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 20px;
-}
-
-/* Spinners */
-.rv-cancel-spinner {
-  width: 16px;
-  height: 16px;
+.rv-button-spinner {
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top: 2px solid white;
   border-radius: 50%;
   animation: rv-spin 1s linear infinite;
 }
 
-/* Responsive pour les boutons d'action */
-@media (max-width: 768px) {
-  .rv-action-buttons {
+/* Error Message */
+.rv-error-message {
+  padding: 16px 20px;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  border-radius: 12px;
+  color: #140404;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rv-error-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(211, 27, 27, 0.1), transparent);
+  animation: rv-errorPulse 2s ease-in-out infinite;
+}
+
+.rv-error-icon {
+  font-size: 1.1rem;
+  z-index: 2;
+}
+
+/* Reservations Section - RESPONSIVE */
+.rv-reservations-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: rv-sectionFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.rv-dashboard-header {
+  background: rgba(255, 255, 255, 0.889);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  color: #002409;
+}
+
+.rv-dashboard-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rv-dashboard-title-text {
+  font-size: 2rem;
+  font-weight: 200;
+  color: rgb(8, 7, 7);
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.rv-dashboard-subtitle {
+  color: rgba(24, 20, 20, 0.6);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.rv-stats-card {
+  position: relative;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(2, 50, 9, 0.1), rgba(12, 68, 2, 0.1));
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  min-width: 120px;
+}
+
+.rv-stats-number {
+  font-size: 2.5rem;
+  font-weight: 100;
+  color: #02430c;
+  margin: 0;
+  line-height: 1;
+}
+
+.rv-stats-label {
+  font-size: 0.8rem;
+  color: rgba(241, 9, 9, 0.962);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.rv-stats-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(7, 87, 3, 0.1), transparent 70%);
+  border-radius: 16px;
+  animation: rv-statsGlow 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Reservations List */
+.rv-reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.rv-reservation-card {
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  color: #002409;
+}
+
+.rv-card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgb(1, 45, 9), rgba(15, 97, 6, 0.922));
+  z-index: -2;
+}
+
+.rv-card-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+.rv-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.rv-card-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.rv-card-number {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(0, 245, 160, 0.1), rgba(116, 185, 255, 0.1));
+  border-radius: 12px;
+  border: 1px solid rgba(249, 252, 249, 0.573);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fcfffc;
+}
+
+.rv-number-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(0, 245, 53, 0.3), transparent 70%);
+  border-radius: 50%;
+  animation: rv-numberGlow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+.rv-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rv-card-name {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.rv-card-date {
+  font-size: 0.85rem;
+  color: rgb(251, 9, 9);
+  font-weight: 400;
+}
+
+/* Status Badge */
+.rv-status-badge {
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f39c12;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.rv-confirmed {
+  background-color: rgba(39, 174, 96, 0.15);
+  color: #27ae60;
+}
+
+.rv-cancelled {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.rv-pending {
+  background-color: rgba(243, 156, 18, 0.15);
+  color: #f39c12;
+}
+
+.rv-completed {
+  background-color: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.rv-status-icon {
+  font-size: 1rem;
+}
+
+.rv-status-text {
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.rv-card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255, 255, 255), transparent);
+  margin: 20px 0 28px 0;
+}
+
+.rv-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.rv-section {
+  background: rgba(24, 20, 20, 0.134);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.477);
+}
+
+.rv-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rv-section-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 10px rgba(180, 181, 181, 0.3));
+}
+
+.rv-section-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.01em;
+  font-family: 'Orbitron', monospace;
+}
+
+.rv-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.rv-detail-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(7, 211, 35, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.342);
+  transition: all 0.3s ease;
+}
+
+.rv-detail-icon {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.rv-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.rv-detail-label {
+  font-size: 0.75rem;
+  color: rgb(253, 72, 72);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rv-detail-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: white;
+}
+
+.rv-price-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6ae972, #f3f4f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Client Info */
+.rv-client-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rv-client-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0e4503, #20a405);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 245, 160, 0.3);
+}
+
+.rv-client-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rv-client-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Orbitron', monospace;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.rv-client-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rv-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.rv-contact-icon {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Loading Styles */
+.rv-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  gap: 30px;
+  position: relative;
+}
+
+.rv-loading-orb {
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #00f5a0;
+  border-radius: 50%;
+  animation: rv-orbSpin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  position: relative;
+}
+
+.rv-loading-pulse {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(0, 245, 160, 0.2);
+  border-radius: 50%;
+  animation: rv-pulseBig 2s ease-in-out infinite;
+}
+
+.rv-loading-text {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Actions */
+.rv-actions {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.rv-new-verification-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--rv-transition);
+}
+
+.rv-new-verification-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  padding: 0.8rem 2rem;
+}
+
+/* ========================================================================== */
+/* RESPONSIVITÉ HAUTE QUALITÉ - SANS MODIFIER LE DESIGN EXISTANT */
+/* ========================================================================== */
+
+/* Tablettes (768px - 1023px) */
+@media (max-width: 1023px) {
+  .rv-container {
+    padding: 0 20px;
+  }
+  
+  .rv-title {
+    font-size: 2.8rem;
+  }
+  
+  .rv-verification-card {
+    max-width: 90%;
+    padding: 40px 35px;
+  }
+  
+  .rv-dashboard-header {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+  
+  .rv-stats-card {
+    align-self: center;
+  }
+  
+  .rv-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .rv-card-header-right {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Mobiles Grands (481px - 767px) */
+@media (max-width: 767px) {
+  .rv-container {
+    padding: 0 16px;
+  }
+  
+  .rv-header {
+    margin-bottom: 40px;
+    padding-top: 30px;
+  }
+  
+  .rv-title {
+    font-size: 2.2rem;
+  }
+  
+  .rv-title-decoration {
+    gap: 8px;
+  }
+  
+  .rv-title-dot {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .rv-title-line {
+    width: 60px;
+  }
+  
+  .rv-verification-card {
+    max-width: 100%;
+    padding: 35px 25px;
+    border-radius: 20px;
+  }
+  
+  .rv-verification-title {
+    font-size: 1.5rem;
+  }
+  
+  .rv-form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .rv-dashboard-header {
+    padding: 25px;
+    border-radius: 18px;
+  }
+  
+  .rv-dashboard-title-text {
+    font-size: 1.7rem;
+  }
+  
+  .rv-stats-card {
+    padding: 18px 24px;
+    min-width: 110px;
+  }
+  
+  .rv-stats-number {
+    font-size: 2.2rem;
+  }
+  
+  .rv-reservation-card {
+    padding: 25px;
+    border-radius: 18px;
+  }
+  
+  .rv-card-title {
+    gap: 12px;
+  }
+  
+  .rv-card-number {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .rv-card-name {
+    font-size: 1.3rem;
+  }
+  
+  .rv-card-header-right {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .rv-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
   }
   
@@ -1188,26 +933,786 @@
     justify-content: center;
   }
   
+  .rv-details-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .rv-section {
+    padding: 20px;
+  }
+  
+  .rv-client-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .rv-client-avatar {
+    width: 55px;
+    height: 55px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobiles Petits (320px - 480px) */
+@media (max-width: 480px) {
+  .rv-container {
+    padding: 0 12px;
+  }
+  
+  .rv-header {
+    margin-bottom: 30px;
+    padding-top: 20px;
+  }
+  
+  .rv-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .rv-title-decoration {
+    gap: 6px;
+  }
+  
+  .rv-title-dot {
+    width: 5px;
+    height: 5px;
+  }
+  
+  .rv-title-line {
+    width: 50px;
+  }
+  
+  .rv-verification-card {
+    padding: 25px 20px;
+    border-radius: 18px;
+    margin: 0 8px;
+  }
+  
+  .rv-verification-icon {
+    font-size: 3rem;
+  }
+  
+  .rv-icon-pulse {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .rv-verification-title {
+    font-size: 1.3rem;
+  }
+  
+  .rv-verification-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .rv-form {
+    gap: 20px;
+  }
+  
+  .rv-input {
+    padding: 14px 16px;
+  }
+  
+  .rv-verify-button {
+    height: 56px;
+    margin-top: 12px;
+  }
+  
+  .rv-button-content {
+    font-size: 1rem;
+  }
+  
+  .rv-dashboard-header {
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .rv-dashboard-title-text {
+    font-size: 1.5rem;
+  }
+  
+  .rv-dashboard-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .rv-stats-card {
+    padding: 15px 20px;
+    min-width: 100px;
+  }
+  
+  .rv-stats-number {
+    font-size: 2rem;
+  }
+  
+  .rv-stats-label {
+    font-size: 0.75rem;
+  }
+  
+  .rv-reservations-list {
+    gap: 20px;
+  }
+  
+  .rv-reservation-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  
+  .rv-card-header {
+    margin-bottom: 20px;
+    gap: 15px;
+  }
+  
+  .rv-card-title {
+    gap: 10px;
+  }
+  
+  .rv-card-number {
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+  }
+  
+  .rv-card-name {
+    font-size: 1.2rem;
+  }
+  
+  .rv-card-date {
+    font-size: 0.8rem;
+  }
+  
+  .rv-status-badge {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+  
+  .rv-card-content {
+    gap: 20px;
+  }
+  
+  .rv-section {
+    padding: 18px;
+    border-radius: 14px;
+  }
+  
+  .rv-section-header {
+    margin-bottom: 15px;
+  }
+  
+  .rv-section-title {
+    font-size: 1rem;
+  }
+  
+  .rv-detail-card {
+    padding: 14px;
+    gap: 10px;
+  }
+  
+  .rv-detail-label {
+    font-size: 0.7rem;
+  }
+  
+  .rv-detail-value {
+    font-size: 0.9rem;
+  }
+  
+  .rv-client-info {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .rv-client-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .rv-client-name {
+    font-size: 1.1rem;
+  }
+  
+  .rv-contact-item {
+    font-size: 0.8rem;
+  }
+  
+  .rv-actions {
+    margin-top: 2rem;
+  }
+  
+  .rv-new-verification-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Très petits mobiles (max 320px) */
+@media (max-width: 320px) {
+  .rv-container {
+    padding: 0 8px;
+  }
+  
+  .rv-title {
+    font-size: 1.6rem;
+  }
+  
+  .rv-verification-card {
+    padding: 20px 15px;
+  }
+  
+  .rv-verification-title {
+    font-size: 1.2rem;
+  }
+  
+  .rv-input {
+    padding: 12px 14px;
+  }
+  
+  .rv-reservation-card {
+    padding: 16px;
+  }
+  
+  .rv-card-number {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .rv-card-name {
+    font-size: 1.1rem;
+  }
+}
+
+/* Mode paysage sur mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .rv-header {
+    padding-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .rv-verification-card {
+    padding: 25px;
+  }
+  
+  .rv-loading-container {
+    min-height: 50vh;
+  }
+}
+
+/* Support des écrans très larges */
+@media (min-width: 1440px) {
+  .rv-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+/* Amélioration de l'accessibilité tactile */
+@media (pointer: coarse) {
+  .rv-button-content,
+  .rv-action-buttons button,
+  .rv-new-verification-button {
+    min-height: 44px;
+  }
+  
+  .rv-input {
+    min-height: 44px;
+  }
+}
+
+/* ========================================================================== */
+/* ANIMATIONS ET EFFETS (inchangés) */
+/* ========================================================================== */
+
+@keyframes rv-titleShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes rv-backgroundShift {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes rv-dotPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+@keyframes rv-lineFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes rv-cardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes rv-sectionFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rv-iconPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes rv-numberGlow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes rv-statsGlow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@keyframes rv-errorPulse {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+@keyframes rv-orbSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes rv-pulseBig {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.1; }
+}
+
+@keyframes rv-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Effets hover ultra-modernes */
+.rv-reservation-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25) !important;
+  border-color: rgba(0, 245, 160, 0.3) !important;
+}
+
+.rv-reservation-card:hover .rv-card-hover {
+  opacity: 1 !important;
+}
+
+.rv-verify-button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 20px 60px rgba(0, 245, 160, 0.4) !important;
+}
+
+.rv-verify-button:hover:not(:disabled) .rv-button-arrow {
+  transform: translateX(4px) !important;
+}
+
+.rv-input:focus {
+  border-color: rgba(0, 245, 160, 0.5) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 0 0 1px rgba(0, 245, 160, 0.2), 0 8px 32px rgba(0, 245, 160, 0.15) !important;
+}
+
+.rv-input:focus + .rv-input-glow {
+  opacity: 1 !important;
+}
+
+.rv-detail-card:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.rv-stats-card:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 20px 60px rgba(0, 245, 160, 0.2) !important;
+}
+
+/* Animations de particules pour l'arrière-plan */
+.rv-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(0, 245, 160, 0.2), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(116, 185, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.1), transparent);
+  background-repeat: repeat;
+  background-size: 150px 150px;
+  animation: rv-particleFloat 20s linear infinite;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+@keyframes rv-particleFloat {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Micro-interactions avancées */
+.rv-button-content {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.rv-verify-button:active {
+  transform: translateY(-1px) scale(0.98) !important;
+}
+
+.rv-detail-card:active {
+  transform: translateY(-1px) scale(0.98) !important;
+}
+
+/* Effets de focus accessibles */
+.rv-input:focus-visible {
+  outline: 2px solid rgba(0, 245, 160, 0.5) !important;
+  outline-offset: 2px !important;
+}
+
+.rv-verify-button:focus-visible {
+  outline: 2px solid rgba(0, 245, 160, 0.5) !important;
+  outline-offset: 4px !important;
+}
+/* ========================================================================== */
+/* BOUTONS IMPRIMER ET ANNULER - STYLE ULTRA MODERNE */
+/* ========================================================================== */
+
+/* Conteneur des boutons d'action */
+.rv-action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Bouton Imprimer - Style Premium */
+.rv-print-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #046214 0%, #055e04 50%, #06bc1c 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(4, 98, 20, 0.3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.rv-print-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.rv-print-button:hover::before {
+  left: 100%;
+}
+
+.rv-print-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(4, 98, 20, 0.5);
+  background: linear-gradient(135deg, #057a1a 0%, #046c13 50%, #07d424 100%);
+}
+
+.rv-print-button:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 5px 20px rgba(4, 98, 20, 0.4);
+}
+
+.rv-print-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 4px 15px rgba(4, 98, 20, 0.2) !important;
+}
+
+/* Bouton Annuler - Style Élégant */
+.rv-cancel-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #ff6b6b 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(231, 76, 60, 0.3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.rv-cancel-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.rv-cancel-button:hover::before {
+  left: 100%;
+}
+
+.rv-cancel-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(231, 76, 60, 0.5);
+  background: linear-gradient(135deg, #e84334 0%, #d63031 50%, #ff7979 100%);
+}
+
+.rv-cancel-button:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+}
+
+.rv-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2) !important;
+}
+
+/* Bouton Réactiver - Style Warning Élégant */
+.rv-reactivate-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 50%, #f1c40f 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(243, 156, 18, 0.3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.rv-reactivate-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.rv-reactivate-button:hover::before {
+  left: 100%;
+}
+
+.rv-reactivate-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(243, 156, 18, 0.5);
+  background: linear-gradient(135deg, #f1a80e 0%, #d4740e 50%, #f7d354 100%);
+}
+
+.rv-reactivate-button:active:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+}
+
+.rv-reactivate-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.2) !important;
+}
+
+/* Spinners pour les états de chargement */
+.rv-cancel-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: rv-spin 1s linear infinite;
+}
+
+/* Icônes dans les boutons */
+.rv-print-button svg,
+.rv-cancel-button svg,
+.rv-reactivate-button svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.rv-print-button:hover:not(:disabled) svg,
+.rv-cancel-button:hover:not(:disabled) svg,
+.rv-reactivate-button:hover:not(:disabled) svg {
+  transform: scale(1.1);
+}
+
+/* ========================================================================== */
+/* RESPONSIVITÉ DES BOUTONS */
+/* ========================================================================== */
+
+/* Tablettes */
+@media (max-width: 1023px) {
+  .rv-action-buttons {
+    gap: 10px;
+  }
+  
+  .rv-print-button,
+  .rv-cancel-button,
+  .rv-reactivate-button {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 767px) {
+  .rv-action-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  
+  .rv-print-button,
+  .rv-cancel-button,
+  .rv-reactivate-button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
   .rv-card-header-right {
     width: 100%;
   }
 }
 
-/* Amélioration des icônes dans les détails */
-.rv-detail-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Petits mobiles */
+@media (max-width: 480px) {
+  .rv-print-button,
+  .rv-cancel-button,
+  .rv-reactivate-button {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+  
+  .rv-print-button svg,
+  .rv-cancel-button svg,
+  .rv-reactivate-button svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
-.rv-client-name {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* ========================================================================== */
+/* ANIMATION DE SPIN POUR LE CHARGEMENT */
+/* ========================================================================== */
+
+@keyframes rv-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.rv-contact-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* ========================================================================== */
+/* EFFETS SPÉCIAUX POUR LES BOUTONS */
+/* ========================================================================== */
+
+/* Effet de pulsation pour le bouton imprimer */
+.rv-print-button:not(:disabled) {
+  animation: rv-buttonPulse 3s ease-in-out infinite;
+}
+
+@keyframes rv-buttonPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(4, 98, 20, 0.3); }
+  50% { box-shadow: 0 8px 32px rgba(4, 98, 20, 0.5), 0 0 20px rgba(6, 188, 28, 0.4); }
+}
+
+/* Effet de brillance au survol */
+.rv-print-button:hover:not(:disabled)::after,
+.rv-cancel-button:hover:not(:disabled)::after,
+.rv-reactivate-button:hover:not(:disabled)::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: rv-buttonShine 0.6s ease;
+  margin-top: 30px;
+}
+
+@keyframes rv-buttonShine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* ========================================================================== */
+/* ACCESSIBILITÉ ET FOCUS */
+/* ========================================================================== */
+
+.rv-print-button:focus-visible,
+.rv-cancel-button:focus-visible,
+.rv-reactivate-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 245, 160, 0.5);
+}
+
+/* Support tactile amélioré */
+@media (pointer: coarse) {
+  .rv-print-button,
+  .rv-cancel-button,
+  .rv-reactivate-button {
+    min-height: 48px;
+    padding: 14px 24px;
+  }
 }
