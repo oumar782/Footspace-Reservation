@@ -4,7 +4,7 @@ import './ReservationModal.css';
 
 const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) => {
   const [clientInfo, setClientInfo] = useState({
-    nom: '',
+    nomclient: '',
     prenom: '',
     email: '',
     telephone: ''
@@ -38,38 +38,59 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
     return timeString;
   };
 
-// Dans ReservationModal.js
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-  
+
     try {
-      if (!clientInfo.nom || !clientInfo.prenom || !clientInfo.email || !clientInfo.telephone) {
+      // Validation des champs obligatoires
+      if (!clientInfo.nomclient || !clientInfo.prenom || !clientInfo.email || !clientInfo.telephone) {
         showToast('Veuillez remplir tous les champs obligatoires', 'error');
         setIsSubmitting(false);
         return;
       }
-  
-      // Générer un ID client unique basé sur l'email (plus sécurisé que Math.random())
-      const clientId = generateClientId(clientInfo.email);
-      
+
+      // Validation de l'email
+      if (!clientInfo.email.includes('@')) {
+        showToast('Veuillez saisir un email valide', 'error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validation du type de terrain
+      const typeterrain = creneau.typeTerrain || creneau.typeterrain;
+      if (!typeterrain || !['Normal', 'Synthétique'].includes(typeterrain)) {
+        showToast('Type de terrain invalide', 'error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validation de la surface
+      const surface = creneau.surface;
+      if (!surface || !['7X7', '9X9', '11X11'].includes(surface)) {
+        showToast('Surface invalide', 'error');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Préparation des données pour l'API
       const reservationData = {
         datereservation: creneau.datecreneaux,
         heurereservation: creneau.heure,
-        statut: 'En attente',
-        idclient: clientId, // Utiliser l'ID généré
-        numeroterrain: creneau.numeroterrain || 1,
-        nomclient: clientInfo.nom,
+        heurefin: creneau.heurefin,
+        statut: 'en attente',
+        nomclient: clientInfo.nomclient,
         prenom: clientInfo.prenom,
         email: clientInfo.email,
         telephone: clientInfo.telephone,
-        typeTerrain: creneau.typeTerrain,
-        tarif: creneau.tarif,
-        surface: creneau.surface,
-        heurefin: creneau.heurefin,
-        nomterrain: creneau.nomterrain
+        typeterrain: typeterrain,
+        tarif: creneau.tarif || 150,
+        surface: surface,
+        nomterrain: creneau.nomterrain || 'Terrain Principal'
       };
-  
+
+      console.log('📤 Envoi des données de réservation:', reservationData);
+
       const response = await fetch('https://backend-foot-omega.vercel.app/api/reservation/', {
         method: 'POST',
         headers: {
@@ -77,15 +98,18 @@ const handleSubmit = async (e) => {
         },
         body: JSON.stringify(reservationData),
       });
-  
+
       const result = await response.json();
-  
+
       if (result.success) {
         showToast('Réservation effectuée avec succès! Redirection vers vos réservations...');
         
-        // Stocker l'ID client pour les futures requêtes
-        localStorage.setItem('clientId', clientId);
+        // Stocker les infos client pour les futures requêtes
+        localStorage.setItem('clientEmail', clientInfo.email);
         localStorage.setItem('clientInfo', JSON.stringify(clientInfo));
+        
+        // Mettre à jour le statut du créneau
+        await updateCreneauStatus(creneau, 'réservé');
         
         // Redirection après un court délai pour voir le toast
         setTimeout(() => {
@@ -106,19 +130,34 @@ const handleSubmit = async (e) => {
       setIsSubmitting(false);
     }
   };
-  
-  // Fonction pour générer un ID client unique à partir de l'email
-  const generateClientId = (email) => {
-    let hash = 0;
-    for (let i = 0; i < email.length; i++) {
-      const char = email.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convertir en entier 32 bits
+
+  const updateCreneauStatus = async (creneau, newStatus) => {
+    try {
+      const updateResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneau.idcreneaux}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...creneau,
+          statut: newStatus
+        })
+      });
+      
+      const updateResult = await updateResponse.json();
+      if (updateResult.success) {
+        console.log('✅ Statut du créneau mis à jour');
+      }
+    } catch (error) {
+      console.error('❌ Erreur mise à jour créneau:', error);
     }
-    return Math.abs(hash);
   };
 
   if (!creneau || !isOpen) return null;
+
+  // Déterminer le type de terrain et la surface pour l'affichage
+  const typeterrain = creneau.typeTerrain || creneau.typeterrain || 'Normal';
+  const surface = creneau.surface || '7X7';
 
   return (
     <>
@@ -154,16 +193,16 @@ const handleSubmit = async (e) => {
                   <div className="readonly-field">{formatTime(creneau.heurefin)}</div>
                 </div>
                 <div className="info-item">
-                  <label>Type:</label>
-                  <div className="readonly-field">{creneau.typeTerrain}</div>
+                  <label>Type de terrain:</label>
+                  <div className="readonly-field">{typeterrain}</div>
                 </div>
                 <div className="info-item">
                   <label>Surface:</label>
-                  <div className="readonly-field">{creneau.surface}</div>
+                  <div className="readonly-field">{surface}</div>
                 </div>
                 <div className="info-item">
                   <label>Tarif:</label>
-                  <div className="readonly-field price">{creneau.tarif} DH</div>
+                  <div className="readonly-field price">{creneau.tarif || 150} DH</div>
                 </div>
               </div>
             </div>
@@ -175,14 +214,15 @@ const handleSubmit = async (e) => {
               
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="nom">Nom *</label>
+                  <label htmlFor="nomclient">Nom *</label>
                   <input
                     type="text"
-                    id="nom"
-                    name="nom"
-                    value={clientInfo.nom}
+                    id="nomclient"
+                    name="nomclient"
+                    value={clientInfo.nomclient}
                     onChange={handleInputChange}
                     required
+                    placeholder="Votre nom"
                   />
                 </div>
                 
@@ -195,6 +235,7 @@ const handleSubmit = async (e) => {
                     value={clientInfo.prenom}
                     onChange={handleInputChange}
                     required
+                    placeholder="Votre prénom"
                   />
                 </div>
               </div>
@@ -209,6 +250,7 @@ const handleSubmit = async (e) => {
                     value={clientInfo.email}
                     onChange={handleInputChange}
                     required
+                    placeholder="votre@email.com"
                   />
                 </div>
                 
@@ -221,7 +263,20 @@ const handleSubmit = async (e) => {
                     value={clientInfo.telephone}
                     onChange={handleInputChange}
                     required
+                    placeholder="06 12 34 56 78"
                   />
+                </div>
+              </div>
+
+              <div className="reservation-summary">
+                <h4>Récapitulatif de votre réservation</h4>
+                <div className="summary-details">
+                  <p><strong>Terrain:</strong> {creneau.nomterrain}</p>
+                  <p><strong>Date:</strong> {creneau.datecreneaux}</p>
+                  <p><strong>Horaire:</strong> {formatTime(creneau.heure)} - {formatTime(creneau.heurefin)}</p>
+                  <p><strong>Type:</strong> {typeterrain}</p>
+                  <p><strong>Surface:</strong> {surface}</p>
+                  <p className="total-price"><strong>Total:</strong> {creneau.tarif || 150} DH</p>
                 </div>
               </div>
 

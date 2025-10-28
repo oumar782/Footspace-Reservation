@@ -1026,3 +1026,188 @@
     outline: 2px solid rgba(0, 245, 160, 0.5) !important;
     outline-offset: 4px !important;
   }
+  /* Ajouts CSS pour les nouvelles fonctionnalités */
+
+/* Styles des messages d'action */
+.rv-message {
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  padding: 16px 24px;
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  border: 1px solid;
+  position: relative;
+  overflow: hidden;
+  animation: rv-cardSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rv-message-success {
+  background: rgba(39, 174, 96, 0.1);
+  border-color: rgba(39, 174, 96, 0.3);
+  color: #27ae60;
+}
+
+.rv-message-error {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+}
+
+.rv-message-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.rv-message-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Boutons d'action */
+.rv-action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.rv-print-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #046214, #055e04);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rv-print-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(4, 98, 20, 0.4);
+}
+
+.rv-print-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.rv-cancel-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.rv-cancel-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+}
+
+.rv-cancel-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.rv-reactivate-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.rv-reactivate-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+}
+
+.rv-reactivate-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Notice de réactivation */
+.rv-reactivation-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(243, 156, 18, 0.1);
+  border: 1px solid rgba(243, 156, 18, 0.3);
+  border-radius: 8px;
+  color: #f39c12;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+/* Spinners */
+.rv-cancel-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: rv-spin 1s linear infinite;
+}
+
+/* Responsive pour les boutons d'action */
+@media (max-width: 768px) {
+  .rv-action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .rv-print-button,
+  .rv-cancel-button,
+  .rv-reactivate-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .rv-card-header-right {
+    width: 100%;
+  }
+}
+
+/* Amélioration des icônes dans les détails */
+.rv-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rv-client-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rv-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
