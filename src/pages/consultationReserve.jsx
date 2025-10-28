@@ -23,6 +23,8 @@ import {
   Star,
   Eye
 } from 'lucide-react';
+import Header from "../composant/Header";
+import Footer from "../composant/Footer";
 
 const ReservationView = ({ reservationData, onBack }) => {
   const [reservations, setReservations] = useState([]);
@@ -555,386 +557,394 @@ const ReservationView = ({ reservationData, onBack }) => {
 
   if (loading) {
     return (
-      <div className="rv-container">
-        <div className="rv-background-pattern"></div>
-        <div className="rv-loading-container">
-          <div className="rv-loading-pulse"></div>
-          <div className="rv-loading-orb"></div>
-          <p className="rv-loading-text">Chargement de vos réservations...</p>
+      <>
+        <Header />
+        <div className="rv-container">
+          <div className="rv-background-pattern"></div>
+          <div className="rv-loading-container">
+            <div className="rv-loading-pulse"></div>
+            <div className="rv-loading-orb"></div>
+            <p className="rv-loading-text">Chargement de vos réservations...</p>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </>
     );
   }
 
   return (
-    <div className="rv-container">
-      <div className="rv-background-pattern"></div>
-      
-      <header className="rv-header">
-        <div className="rv-header-glow"></div>
-        <h1 className="rv-title">
-          <span className="rv-title-gradient">Mes Réservations</span>
-        </h1>
-        <div className="rv-title-decoration">
-          <div className="rv-title-dot"></div>
-          <div className="rv-title-line"></div>
-          <div className="rv-title-dot"></div>
-        </div>
-      </header>
-
-      {actionMessage.text && (
-        <div className={`rv-message rv-message-${actionMessage.type}`}>
-          <div className="rv-message-content">
-            <span className="rv-message-icon">
-              {actionMessage.type === 'success' ? <CheckCircle size={20} /> : <XCircle size={20} />}
-            </span>
-            {actionMessage.text}
+    <>
+      <Header />
+      <div className="rv-container">
+        <div className="rv-background-pattern"></div>
+        
+        <header className="rv-header">
+          <div className="rv-header-glow"></div>
+          <h1 className="rv-title">
+            <span className="rv-title-gradient">Mes Réservations</span>
+          </h1>
+          <div className="rv-title-decoration">
+            <div className="rv-title-dot"></div>
+            <div className="rv-title-line"></div>
+            <div className="rv-title-dot"></div>
           </div>
-        </div>
-      )}
+        </header>
 
-      {!isVerified ? (
-        <div className="rv-verification-card">
-          <div className="rv-card-glow"></div>
-          
-          <div className="rv-verification-header">
-            <div className="rv-verification-icon-container">
-              <div className="rv-icon-pulse"></div>
-              <div className="rv-verification-icon">
-                <Shield size={32} />
-              </div>
+        {actionMessage.text && (
+          <div className={`rv-message rv-message-${actionMessage.type}`}>
+            <div className="rv-message-content">
+              <span className="rv-message-icon">
+                {actionMessage.type === 'success' ? <CheckCircle size={20} /> : <XCircle size={20} />}
+              </span>
+              {actionMessage.text}
             </div>
-            <h2 className="rv-verification-title">Vérification de votre identité</h2>
-            <p className="rv-verification-subtitle">Pour consulter vos réservations, veuillez saisir vos informations personnelles:</p>
           </div>
-          
-          <form onSubmit={handleVerification} className="rv-form">
-            <div className="rv-form-row">
-              <div className="rv-form-group">
-                <label htmlFor="nom" className="rv-label">
-                  <User size={16} />
-                  Nom *
-                </label>
-                <div className="rv-input-wrapper">
-                  <input
-                    type="text"
-                    id="nom"
-                    name="nom"
-                    value={verificationForm.nom}
-                    onChange={handleInputChange}
-                    required
-                    className="rv-input"
-                    placeholder="Votre nom"
-                  />
-                  <div className="rv-input-glow"></div>
+        )}
+
+        {!isVerified ? (
+          <div className="rv-verification-card">
+            <div className="rv-card-glow"></div>
+            
+            <div className="rv-verification-header">
+              <div className="rv-verification-icon-container">
+                <div className="rv-icon-pulse"></div>
+                <div className="rv-verification-icon">
+                  <Shield size={32} />
                 </div>
               </div>
-              
-              <div className="rv-form-group">
-                <label htmlFor="prenom" className="rv-label">
-                  <User size={16} />
-                  Prénom *
-                </label>
-                <div className="rv-input-wrapper">
-                  <input
-                    type="text"
-                    id="prenom"
-                    name="prenom"
-                    value={verificationForm.prenom}
-                    onChange={handleInputChange}
-                    required
-                    className="rv-input"
-                    placeholder="Votre prénom"
-                  />
-                  <div className="rv-input-glow"></div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rv-form-group rv-full-width">
-              <label htmlFor="email" className="rv-label">
-                <Mail size={16} />
-                Email *
-              </label>
-              <div className="rv-input-wrapper">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={verificationForm.email}
-                  onChange={handleInputChange}
-                  required
-                  className="rv-input"
-                  placeholder="votre@email.com"
-                />
-                <div className="rv-input-glow"></div>
-              </div>
-            </div>
-
-            {verificationError && (
-              <div className="rv-error-message">
-                <div className="rv-error-pulse"></div>
-                <span className="rv-error-icon">
-                  <XCircle size={16} />
-                </span>
-                {verificationError}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              className="rv-verify-button"
-              disabled={loading}
-            >
-              <div className="rv-button-bg"></div>
-              <div className="rv-button-content">
-                <span className="rv-button-text">
-                  {loading ? 'Vérification...' : 'Vérifier mes réservations'}
-                </span>
-                {loading ? (
-                  <div className="rv-button-spinner"></div>
-                ) : (
-                  <span className="rv-button-arrow">→</span>
-                )}
-              </div>
-            </button>
-          </form>
-        </div>
-      ) : (
-        <div className="rv-reservations-section">
-          <div className="rv-dashboard-header">
-            <div className="rv-dashboard-title">
-              <h2 className="rv-dashboard-title-text">Vos Réservations</h2>
-              <p className="rv-dashboard-subtitle">Historique de toutes vos réservations</p>
+              <h2 className="rv-verification-title">Vérification de votre identité</h2>
+              <p className="rv-verification-subtitle">Pour consulter vos réservations, veuillez saisir vos informations personnelles:</p>
             </div>
             
-            <div className="rv-stats-card">
-              <div className="rv-stats-glow"></div>
-              <h3 className="rv-stats-number">{reservations.length}</h3>
-              <p className="rv-stats-label">Réservations</p>
+            <form onSubmit={handleVerification} className="rv-form">
+              <div className="rv-form-row">
+                <div className="rv-form-group">
+                  <label htmlFor="nom" className="rv-label">
+                    <User size={16} />
+                    Nom *
+                  </label>
+                  <div className="rv-input-wrapper">
+                    <input
+                      type="text"
+                      id="nom"
+                      name="nom"
+                      value={verificationForm.nom}
+                      onChange={handleInputChange}
+                      required
+                      className="rv-input"
+                      placeholder="Votre nom"
+                    />
+                    <div className="rv-input-glow"></div>
+                  </div>
+                </div>
+                
+                <div className="rv-form-group">
+                  <label htmlFor="prenom" className="rv-label">
+                    <User size={16} />
+                    Prénom *
+                  </label>
+                  <div className="rv-input-wrapper">
+                    <input
+                      type="text"
+                      id="prenom"
+                      name="prenom"
+                      value={verificationForm.prenom}
+                      onChange={handleInputChange}
+                      required
+                      className="rv-input"
+                      placeholder="Votre prénom"
+                    />
+                    <div className="rv-input-glow"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rv-form-group rv-full-width">
+                <label htmlFor="email" className="rv-label">
+                  <Mail size={16} />
+                  Email *
+                </label>
+                <div className="rv-input-wrapper">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={verificationForm.email}
+                    onChange={handleInputChange}
+                    required
+                    className="rv-input"
+                    placeholder="votre@email.com"
+                  />
+                  <div className="rv-input-glow"></div>
+                </div>
+              </div>
+
+              {verificationError && (
+                <div className="rv-error-message">
+                  <div className="rv-error-pulse"></div>
+                  <span className="rv-error-icon">
+                    <XCircle size={16} />
+                  </span>
+                  {verificationError}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                className="rv-verify-button"
+                disabled={loading}
+              >
+                <div className="rv-button-bg"></div>
+                <div className="rv-button-content">
+                  <span className="rv-button-text">
+                    {loading ? 'Vérification...' : 'Vérifier mes réservations'}
+                  </span>
+                  {loading ? (
+                    <div className="rv-button-spinner"></div>
+                  ) : (
+                    <span className="rv-button-arrow">→</span>
+                  )}
+                </div>
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="rv-reservations-section">
+            <div className="rv-dashboard-header">
+              <div className="rv-dashboard-title">
+                <h2 className="rv-dashboard-title-text">Vos Réservations</h2>
+                <p className="rv-dashboard-subtitle">Historique de toutes vos réservations</p>
+              </div>
+              
+              <div className="rv-stats-card">
+                <div className="rv-stats-glow"></div>
+                <h3 className="rv-stats-number">{reservations.length}</h3>
+                <p className="rv-stats-label">Réservations</p>
+              </div>
+            </div>
+
+            <div className="rv-reservations-list">
+              {reservations.map((reservation, index) => (
+                <div key={reservation.id} className="rv-reservation-card">
+                  <div className="rv-card-background"></div>
+                  <div className="rv-card-hover"></div>
+                  
+                  <div className="rv-card-header">
+                    <div className="rv-card-title">
+                      <div className="rv-card-number">
+                        <div className="rv-number-glow"></div>
+                        {index + 1}
+                      </div>
+                      <div className="rv-card-info">
+                        <h3 className="rv-card-name">{reservation.nomterrain}</h3>
+                        <p className="rv-card-date">{reservation.datereservation}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="rv-card-header-right">
+                      <span className={getStatusBadgeClass(reservation.statut)}>
+                        <span className="rv-status-icon">
+                          {getStatusIcon(reservation.statut)}
+                        </span>
+                        <span className="rv-status-text">{reservation.statut}</span>
+                      </span>
+                      
+                      <div className="rv-action-buttons">
+                        {reservation.statut === 'confirmée' && (
+                          <button 
+                            className="rv-print-button"
+                            onClick={() => generateProfessionalPDF(reservation)}
+                            disabled={printingId === reservation.id}
+                          >
+                            {printingId === reservation.id ? (
+                              <div className="rv-button-spinner"></div>
+                            ) : (
+                              <Printer size={16} />
+                            )}
+                            {printingId === reservation.id ? 'Génération...' : 'Imprimer'}
+                          </button>
+                        )}
+                        
+                        {canCancelReservation(reservation) && (
+                          <button 
+                            className="rv-cancel-button"
+                            onClick={() => handleCancelReservation(reservation.id)}
+                            disabled={cancellingId === reservation.id}
+                          >
+                            {cancellingId === reservation.id ? (
+                              <>
+                                <div className="rv-cancel-spinner"></div>
+                                Annulation...
+                              </>
+                            ) : (
+                              <>
+                                <XCircle size={16} />
+                                Annuler
+                              </>
+                            )}
+                          </button>
+                        )}
+                        
+                        {canReactivateReservation(reservation) && (
+                          <button 
+                            className="rv-reactivate-button"
+                            onClick={() => handleReactivateReservation(reservation.id)}
+                            disabled={reactivatingId === reservation.id}
+                          >
+                            {reactivatingId === reservation.id ? (
+                              <>
+                                <div className="rv-cancel-spinner"></div>
+                                Réactivation...
+                              </>
+                            ) : (
+                              <>
+                                <RotateCcw size={16} />
+                                Réactiver
+                              </>
+                            )}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="rv-card-divider"></div>
+                  
+                  <div className="rv-card-content">
+                    <div className="rv-section">
+                      <div className="rv-section-header">
+                        <span className="rv-section-icon">
+                          <MapPin size={20} />
+                        </span>
+                        <h4 className="rv-section-title">Informations du créneau</h4>
+                      </div>
+                      
+                      <div className="rv-details-grid">
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">
+                              <MapPin size={14} />
+                              Terrain
+                            </span>
+                            <span className="rv-detail-value">{reservation.nomterrain}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">
+                              <Calendar size={14} />
+                              Date
+                            </span>
+                            <span className="rv-detail-value">{reservation.datereservation}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">
+                              <Clock size={14} />
+                              Heure début
+                            </span>
+                            <span className="rv-detail-value">{formatTime(reservation.heurereservation)}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">
+                              <Clock size={14} />
+                              Heure fin
+                            </span>
+                            <span className="rv-detail-value">{formatTime(reservation.heurefin)}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">Type de terrain</span>
+                            <span className="rv-detail-value">{reservation.typeterrain || 'Non spécifié'}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">Surface</span>
+                            <span className="rv-detail-value">{reservation.surface || 'Non spécifié'}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">Tarif</span>
+                            <span className="rv-detail-value rv-price-value">{reservation.tarif} DH</span>
+                          </div>
+                        </div>
+
+                        <div className="rv-detail-card">
+                          <div className="rv-detail-content">
+                            <span className="rv-detail-label">Numéro réservation</span>
+                            <span className="rv-detail-value">#{reservation.id}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="rv-section">
+                      <div className="rv-section-header">
+                        <h4 className="rv-section-title">Informations personnelles</h4>
+                      </div>
+                      
+                      <div className="rv-client-info">
+                        <div className="rv-client-avatar">
+                          {reservation.prenom?.charAt(0)}{reservation.nomclient?.charAt(0)}
+                        </div>
+                        
+                        <div className="rv-client-details">
+                          <h4 className="rv-client-name">
+                            <User size={16} />
+                            {reservation.prenom} {reservation.nomclient}
+                          </h4>
+                          
+                          <div className="rv-client-contact">
+                            <div className="rv-contact-item">
+                              <Mail size={14} />
+                              <span>{reservation.email}</span>
+                            </div>
+                            
+                            <div className="rv-contact-item">
+                              <Phone size={14} />
+                              <span>{reservation.telephone}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {reservation.statut === 'annulée' && canReactivateReservation(reservation) && (
+                    <div className="rv-reactivation-notice">
+                      <Clock size={14} />
+                      <span>
+                        Délai de réactivation : {getReactivationTimeLeft(reservation)}h restante(s)
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="rv-actions">
+              <button className="rv-new-verification-button" onClick={() => setIsVerified(false)}>
+                <RotateCcw size={16} />
+                Nouvelle vérification
+              </button>
             </div>
           </div>
-
-          <div className="rv-reservations-list">
-            {reservations.map((reservation, index) => (
-              <div key={reservation.id} className="rv-reservation-card">
-                <div className="rv-card-background"></div>
-                <div className="rv-card-hover"></div>
-                
-                <div className="rv-card-header">
-                  <div className="rv-card-title">
-                    <div className="rv-card-number">
-                      <div className="rv-number-glow"></div>
-                      {index + 1}
-                    </div>
-                    <div className="rv-card-info">
-                      <h3 className="rv-card-name">{reservation.nomterrain}</h3>
-                      <p className="rv-card-date">{reservation.datereservation}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="rv-card-header-right">
-                    <span className={getStatusBadgeClass(reservation.statut)}>
-                      <span className="rv-status-icon">
-                        {getStatusIcon(reservation.statut)}
-                      </span>
-                      <span className="rv-status-text">{reservation.statut}</span>
-                    </span>
-                    
-                    <div className="rv-action-buttons">
-                      {reservation.statut === 'confirmée' && (
-                        <button 
-                          className="rv-print-button"
-                          onClick={() => generateProfessionalPDF(reservation)}
-                          disabled={printingId === reservation.id}
-                        >
-                          {printingId === reservation.id ? (
-                            <div className="rv-button-spinner"></div>
-                          ) : (
-                            <Printer size={16} />
-                          )}
-                          {printingId === reservation.id ? 'Génération...' : 'Imprimer'}
-                        </button>
-                      )}
-                      
-                      {canCancelReservation(reservation) && (
-                        <button 
-                          className="rv-cancel-button"
-                          onClick={() => handleCancelReservation(reservation.id)}
-                          disabled={cancellingId === reservation.id}
-                        >
-                          {cancellingId === reservation.id ? (
-                            <>
-                              <div className="rv-cancel-spinner"></div>
-                              Annulation...
-                            </>
-                          ) : (
-                            <>
-                              <XCircle size={16} />
-                              Annuler
-                            </>
-                          )}
-                        </button>
-                      )}
-                      
-                      {canReactivateReservation(reservation) && (
-                        <button 
-                          className="rv-reactivate-button"
-                          onClick={() => handleReactivateReservation(reservation.id)}
-                          disabled={reactivatingId === reservation.id}
-                        >
-                          {reactivatingId === reservation.id ? (
-                            <>
-                              <div className="rv-cancel-spinner"></div>
-                              Réactivation...
-                            </>
-                          ) : (
-                            <>
-                              <RotateCcw size={16} />
-                              Réactiver
-                            </>
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="rv-card-divider"></div>
-                
-                <div className="rv-card-content">
-                  <div className="rv-section">
-                    <div className="rv-section-header">
-                      <span className="rv-section-icon">
-                        <MapPin size={20} />
-                      </span>
-                      <h4 className="rv-section-title">Informations du créneau</h4>
-                    </div>
-                    
-                    <div className="rv-details-grid">
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">
-                            <MapPin size={14} />
-                            Terrain
-                          </span>
-                          <span className="rv-detail-value">{reservation.nomterrain}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">
-                            <Calendar size={14} />
-                            Date
-                          </span>
-                          <span className="rv-detail-value">{reservation.datereservation}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">
-                            <Clock size={14} />
-                            Heure début
-                          </span>
-                          <span className="rv-detail-value">{formatTime(reservation.heurereservation)}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">
-                            <Clock size={14} />
-                            Heure fin
-                          </span>
-                          <span className="rv-detail-value">{formatTime(reservation.heurefin)}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">Type de terrain</span>
-                          <span className="rv-detail-value">{reservation.typeterrain || 'Non spécifié'}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">Surface</span>
-                          <span className="rv-detail-value">{reservation.surface || 'Non spécifié'}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">Tarif</span>
-                          <span className="rv-detail-value rv-price-value">{reservation.tarif} DH</span>
-                        </div>
-                      </div>
-
-                      <div className="rv-detail-card">
-                        <div className="rv-detail-content">
-                          <span className="rv-detail-label">Numéro réservation</span>
-                          <span className="rv-detail-value">#{reservation.id}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="rv-section">
-                    <div className="rv-section-header">
-                      <h4 className="rv-section-title">Informations personnelles</h4>
-                    </div>
-                    
-                    <div className="rv-client-info">
-                      <div className="rv-client-avatar">
-                        {reservation.prenom?.charAt(0)}{reservation.nomclient?.charAt(0)}
-                      </div>
-                      
-                      <div className="rv-client-details">
-                        <h4 className="rv-client-name">
-                          <User size={16} />
-                          {reservation.prenom} {reservation.nomclient}
-                        </h4>
-                        
-                        <div className="rv-client-contact">
-                          <div className="rv-contact-item">
-                            <Mail size={14} />
-                            <span>{reservation.email}</span>
-                          </div>
-                          
-                          <div className="rv-contact-item">
-                            <Phone size={14} />
-                            <span>{reservation.telephone}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {reservation.statut === 'annulée' && canReactivateReservation(reservation) && (
-                  <div className="rv-reactivation-notice">
-                    <Clock size={14} />
-                    <span>
-                      Délai de réactivation : {getReactivationTimeLeft(reservation)}h restante(s)
-                    </span>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="rv-actions">
-            <button className="rv-new-verification-button" onClick={() => setIsVerified(false)}>
-              <RotateCcw size={16} />
-              Nouvelle vérification
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 
