@@ -1,82 +1,51 @@
 import React from 'react';
 import '../composant/homepage.css';
-import Header from "../composant/Header";
-import Footer from "../composant/Footer";
-// Icônes SVG en tant que composants
-const MapPin = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-    <circle cx="12" cy="10" r="3"/>
-  </svg>
-);
 
-const Calendar = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-    <line x1="16" y1="2" x2="16" y2="6"/>
-    <line x1="8" y1="2" x2="8" y2="6"/>
-    <line x1="3" y1="10" x2="21" y2="10"/>
-  </svg>
-);
-
-const Trophy = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-    <path d="M4 22h16"/>
-    <path d="M10 14.66V17c0 .55.47.98.97 1.21C12.04 18.75 14 20.24 14 22"/>
-    <path d="M14 14.66V17c0 .55-.53.98-1.03 1.21C11.96 18.75 10 20.24 10 22"/>
-    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-  </svg>
-);
-
-const Users = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-    <circle cx="9" cy="7" r="4"/>
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-  </svg>
-);
-
-const Star = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
-    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
-  </svg>
-);
-
-const ArrowRight = ({ className }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M5 12h14"/>
-    <path d="m12 5 7 7-7 7"/>
-  </svg>
-);
-
-const Play = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polygon points="5,3 19,12 5,21"/>
-  </svg>
-);
+// Import des icônes Lucide React
+import { 
+  MapPin, 
+  Calendar, 
+  Trophy, 
+  Users, 
+  Star, 
+  ArrowRight,
+  Play,
+  Mail,
+  Phone,
+  MapPin as MapPinIcon,
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Send,
+  Check,
+  Clock,
+  Award,
+  UserCheck,
+  Target,
+  Heart,
+  Zap
+} from 'lucide-react';
 
 const Index = () => {
   const features = [
     {
-      icon: <MapPin />,
+      icon: <MapPin size={32} />,
       title: "Terrains Premium",
       description: "Des installations modernes avec pelouse synthétique de qualité professionnelle"
     },
     {
-      icon: <Calendar />,
+      icon: <Calendar size={32} />,
       title: "Réservation Simple", 
       description: "Système de réservation en ligne 24h/24, 7j/7 avec confirmation immédiate"
     },
     {
-      icon: <Trophy />,
+      icon: <Trophy size={32} />,
       title: "Événements Sportifs",
       description: "Organisation de tournois et championnats pour tous niveaux"
     },
     {
-      icon: <Users />,
+      icon: <Users size={32} />,
       title: "Équipes & Clubs",
       description: "Tarifs préférentiels pour les clubs et réservations récurrentes"
     }
@@ -107,126 +76,168 @@ const Index = () => {
     { 
       img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&h=600&fit=crop",
       title: "Terrain Synthétique A", 
-      type: "11 vs 11" 
+      type: "11 vs 11",
+      price: "50€/h",
+      features: ["Éclairage LED", "Vestiaires", "Parking"]
     },
     { 
       img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop", 
       title: "Terrain Indoor", 
-      type: "5 vs 5" 
+      type: "5 vs 5",
+      price: "45€/h",
+      features: ["Climatisé", "Tribunes", "Bar"]
     },
     { 
       img: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&h=600&fit=crop", 
       title: "Terrain Premium", 
-      type: "7 vs 7" 
+      type: "7 vs 7",
+      price: "60€/h",
+      features: ["Pelouse pro", "Vidéo", "Spa"]
     }
   ];
 
   return (
     <div className="index-page">
-      <Header />
-     
+    
 
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-background">
-          <div className="hero-overlay"></div>
-        </div>
+      <section className="hero-modern">
+        <div className="hero-background"></div>
+        <div className="hero-overlay"></div>
+        <div className="hero-pattern"></div>
         
-        <div className="hero-content">
-          <div className="hero-text">
+        <div className="hero-container">
+          <div className="hero-content">
+            <div className="hero-badge">
+              <span className="hero-badge-dot"></span>
+              <span className="hero-badge-text">FOOTFIELD PREMIUM</span>
+            </div>
+            
             <h1 className="hero-title">
-              <span className="text-gradient">TERRAIN</span>
-              <br />
-              <span className="text-white">DE FOOT</span>
-              <br />
-              <span className="text-golden">PREMIUM</span>
+              <span className="hero-title-line">VOTRE</span>
+              <span className="hero-title-line hero-title-highlight">TERRAIN DE FOOT</span>
+              <span className="hero-title-line">D'EXCEPTION</span>
             </h1>
+            
             <p className="hero-subtitle">
               Découvrez nos installations sportives de haute qualité. 
-              Réservez votre terrain et vivez votre passion du football.
+              Réservez votre terrain et vivez votre passion du football dans des conditions professionnelles.
             </p>
-          </div>
-          
-          <div className="hero-buttons">
-            <a href="/reservation" className="btn-primary">
-              <Calendar />
-              <span>Réserver Maintenant</span>
-            </a>
-            <a href="/terrains" className="btn-primary">
-              <span>Voir nos terrains.</span>
-            </a>
-          </div>
-          
-          <div className="hero-stats">
-            <div className="stat-card">
-              <div className="stat-number">24/7</div>
-              <div className="stat-label">Ouvert tous les jours</div>
+            
+            <div className="hero-actions">
+              <a href="/reservation" className="hero-btn-primary">
+                <Calendar size={20} />
+                <span>Réserver Maintenant</span>
+                <ArrowRight size={20} className="hero-btn-icon" />
+              </a>
+              <a href="/terrains" className="hero-btn-secondary">
+                <Play size={20} />
+                <span>Découvrir nos terrains</span>
+              </a>
             </div>
-            <div className="stat-card">
-              <div className="stat-number">8</div>
-              <div className="stat-label">Terrains disponibles</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">5★</div>
-              <div className="stat-label">Note clients</div>
+            
+            <div className="hero-stats">
+              <div className="hero-stat-item">
+                <span className="hero-stat-number">24/7</span>
+                <span className="hero-stat-label">Ouvert tous les jours</span>
+              </div>
+              <div className="hero-stat-item">
+                <span className="hero-stat-number">8</span>
+                <span className="hero-stat-label">Terrains disponibles</span>
+              </div>
+              <div className="hero-stat-item">
+                <span className="hero-stat-number">5★</span>
+                <span className="hero-stat-label">Note moyenne</span>
+              </div>
+              <div className="hero-stat-item">
+                <span className="hero-stat-number">10k+</span>
+                <span className="hero-stat-label">Joueurs satisfaits</span>
+              </div>
             </div>
           </div>
         </div>
         
-       
+        <div className="hero-scroll-indicator">
+          <span>Scroll</span>
+          <ArrowRight size={20} style={{ transform: 'rotate(90deg)' }} />
+        </div>
       </section>
 
       {/* Features Section */}
-      <section className="features-section">
+      <section className="features-modern">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-titles">
-              Pourquoi Choisir <span className="text-gradient">FootField</span> ?
+          <div className="section-header-modern">
+            <span className="section-subtitle-modern">POURQUOI NOUS CHOISIR</span>
+            <h2 className="section-title-modern">
+              Une expérience <span className="gradient-text">football</span> unique
             </h2>
-            <p className="section-subtitle">
+            <p className="section-description-modern">
               Des installations modernes, un service professionnel et une passion partagée pour le football
             </p>
           </div>
           
-          <div className="features-grid">
+          <div className="features-grid-modern">
             {features.map((feature, index) => (
-              <div key={index} className="feature-card">
-                <div className="feature-icon">
+              <div key={index} className="feature-card-modern">
+                <div className="feature-icon-modern">
                   {feature.icon}
                 </div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
+                <h3 className="feature-title-modern">{feature.title}</h3>
+                <p className="feature-description-modern">{feature.description}</p>
+                <a href="/en-savoir-plus" className="feature-link-modern">
+                  En savoir plus <ArrowRight size={16} />
+                </a>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Terrains Preview */}
-      <section className="terrains-section">
+      {/* Terrains Section */}
+      <section className="terrains-modern">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-titles">
-              Nos <span className="text-gradient">Terrains</span>
+          <div className="section-header-modern">
+            <span className="section-subtitle-modern">NOS TERRAINS</span>
+            <h2 className="section-title-modern">
+              Des <span className="gradient-text-gold">installations</span> d'exception
             </h2>
-            <p className="section-subtitle">
-              Découvrez nos installations de qualité professionnelle
+            <p className="section-description-modern">
+              Découvrez nos terrains de qualité professionnelle
             </p>
           </div>
           
-          <div className="terrains-grid">
+          <div className="terrains-grid-modern">
             {fields.map((field, index) => (
-              <div key={index} className="terrain-card">
-                <div className="terrain-image">
+              <div key={index} className="terrain-card-modern">
+                <div className="terrain-image-modern">
                   <img src={field.img} alt={field.title} />
-                  <div className="terrain-overlay"></div>
+                  <div className="terrain-overlay-modern"></div>
+                  <div className="terrain-badge-modern">POPULAIRE</div>
                 </div>
-                <div className="terrain-content">
-                  <h3 className="terrain-title">{field.title}</h3>
+                
+                <div className="terrain-content-modern">
+                  <h3 className="terrain-title-modern">{field.title}</h3>
                   <p className="terrain-type">{field.type}</p>
-                  <div className="terrain-footer">
-                    <span className="terrain-price">À partir de 50€/h</span>
-                    <a href="/terrains" className="terrain-link">Voir détails →</a>
+                  <p className="terrain-desc-modern">
+                    Terrain aux normes professionnelles avec éclairage LED et vestiaires modernes.
+                  </p>
+                  
+                  <div className="terrain-features-modern">
+                    {field.features.map((feature, i) => (
+                      <span key={i} className="terrain-feature-modern">
+                        <Check size={14} /> {feature}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="terrain-footer-modern">
+                    <div className="terrain-price-modern">
+                      <span className="price-number-modern">{field.price}</span>
+                      <span className="price-unit-modern">/heure</span>
+                    </div>
+                    <a href={`/terrains/${index}`} className="terrain-btn-modern">
+                      Réserver <ArrowRight size={16} />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -234,35 +245,92 @@ const Index = () => {
           </div>
           
           <div className="section-ctas">
-            <a href="/terrains" className="btn-primary">
+            <a href="/terrains" className="hero-btn-primary">
               <span>Voir Tous les Terrains</span>
-              <ArrowRight />
+              <ArrowRight size={20} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="testimonials-section">
+      {/* Stats Section */}
+      <section className="stats-modern">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-titles">
-              Ce Que Disent Nos <span className="text-gradient">Clients</span>
+          <div className="stats-grid-modern">
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <Award size={32} />
+              </div>
+              <div className="stat-number-modern">2018</div>
+              <div className="stat-label-modern">Année de création</div>
+            </div>
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <MapPin size={32} />
+              </div>
+              <div className="stat-number-modern">8</div>
+              <div className="stat-label-modern">Terrains disponibles</div>
+            </div>
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <UserCheck size={32} />
+              </div>
+              <div className="stat-number-modern">10k+</div>
+              <div className="stat-label-modern">Clients satisfaits</div>
+            </div>
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <Trophy size={32} />
+              </div>
+              <div className="stat-number-modern">500+</div>
+              <div className="stat-label-modern">Matchs par mois</div>
+            </div>
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <Clock size={32} />
+              </div>
+              <div className="stat-number-modern">24/7</div>
+              <div className="stat-label-modern">Service client</div>
+            </div>
+            <div className="stat-card-modern">
+              <div className="stat-icon-modern">
+                <Star size={32} fill="currentColor" />
+              </div>
+              <div className="stat-number-modern">5★</div>
+              <div className="stat-label-modern">Note moyenne</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="testimonials-modern">
+        <div className="container">
+          <div className="section-header-modern">
+            <span className="section-subtitle-modern">TÉMOIGNAGES</span>
+            <h2 className="section-title-modern">
+              Ce que disent nos <span className="gradient-text">clients</span>
             </h2>
           </div>
           
-          <div className="testimonials-grid">
+          <div className="testimonials-grid-modern">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <div className="testimonial-stars">
+              <div key={index} className="testimonial-card-modern">
+                <div className="testimonial-quote-modern">"</div>
+                <div className="testimonial-stars-modern">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} />
+                    <Star key={i} size={16} fill="currentColor" />
                   ))}
                 </div>
-                <p className="testimonial-content">"{testimonial.content}"</p>
-                <div className="testimonial-author">
-                  <div className="author-name">{testimonial.name}</div>
-                  <div className="author-role">{testimonial.role}</div>
+                <p className="testimonial-text-modern">"{testimonial.content}"</p>
+                <div className="testimonial-author-modern">
+                  <div className="testimonial-avatar-modern">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div className="testimonial-info-modern">
+                    <div className="testimonial-name-modern">{testimonial.name}</div>
+                    <div className="testimonial-role-modern">{testimonial.role}</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -270,57 +338,160 @@ const Index = () => {
         </div>
       </section>
 
-     {/* CTA Section */}
-<section className="cta-sectionss">
-  <div className="cta-overlayss"></div>
-  <div className="cta-containerss">
-    <div className="cta-contentss">
-      <h2 className="cta-titless">
-        <span className="cta-title-textss">Prêt à </span>
-        <span className="cta-title-highlightss">Jouer</span>
-      </h2>
-      <p className="cta-subtitless">
-        Réservez votre terrain dès maintenant et profitez de nos installations premium
-      </p>
-      <div className="cta-buttonss">
-        <a href="/reservation" className="cta-btnss cta-btnss-primaryss">
-          <span className="cta-btnss-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 7V3M16 7V3M7 11H17M5 21H19C20.1046 21 21 20.1046 21 19V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V19C3 20.1046 3.89543 21 5 21Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-          <a href="/reservation" className="cta-btnss-text">Réserver un Terrain</a>
-          <span className="cta-btnss-arrow">→</span>
-        </a>
-        <a href="/contact" className="cta-btn cta-btn-secondary">
-          <span className="cta-btnss-text">Nous Contacter</span>
-        </a>
-      </div>
-      <div className="cta-featuress">
-        <div className="cta-features">
-          <div className="cta-features-icon">✓</div>
-          <span>Réservation instantanée</span>
+      {/* CTA Section */}
+      <section className="cta-sectionss">
+        <div className="cta-overlayss"></div>
+        <div className="cta-containerss">
+          <div className="cta-contentss">
+            <h2 className="cta-titless">
+              <span className="cta-title-textss">Prêt à </span>
+              <span className="cta-title-highlightss">Jouer</span>
+              <span className="cta-title-textss"> ?</span>
+            </h2>
+            <p className="cta-subtitless">
+              Réservez votre terrain dès maintenant et profitez de nos installations premium. 
+              Premier match offert pour toute nouvelle inscription !
+            </p>
+            
+            <div className="cta-buttonss">
+              <a href="/reservation" className="cta-btnss cta-btnss-primaryss">
+                <span className="cta-btnss-icon">
+                  <Calendar size={20} />
+                </span>
+                <span className="cta-btnss-text">Réserver un Terrain</span>
+                <span className="cta-btnss-arrow">→</span>
+              </a>
+              <a href="/contact" className="cta-btn cta-btn-secondary">
+                <span className="cta-btnss-text">Nous Contacter</span>
+              </a>
+            </div>
+            
+            <div className="cta-featuress">
+              <div className="cta-features">
+                <div className="cta-features-icon">
+                  <Check size={12} />
+                </div>
+                <span>Réservation instantanée</span>
+              </div>
+              <div className="cta-features">
+                <div className="cta-features-icon">
+                  <Check size={12} />
+                </div>
+                <span>Annulation gratuite 24h avant</span>
+              </div>
+              <div className="cta-features">
+                <div className="cta-features-icon">
+                  <Check size={12} />
+                </div>
+                <span>Support 7j/7</span>
+              </div>
+              <div className="cta-features">
+                <div className="cta-features-icon">
+                  <Check size={12} />
+                </div>
+                <span>Équipements inclus</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="cta-features">
-          <div className="cta-features-icon">✓</div>
-          <span>Annulation gratuite 24h avant</span>
-        </div>
-        <div className="cta-features">
-          <div className="cta-features-icon">✓</div>
-          <span>Support 7j/7</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
-     
-     
-<Footer/>
-
+      {/* Footer */}
+      <footer className="footer-modern">
+        <div className="container">
+          <div className="footer-grid-modern">
+            <div className="footer-brand-modern">
+              <div className="footer-logo-modern">
+                <div className="footer-logo-icon-modern">
+                  <Target size={24} />
+                </div>
+                <span className="footer-logo-text-modern">FootField</span>
+              </div>
+              <p className="footer-description-modern">
+                Le premier complexe de football premium en région parisienne. 
+                Des installations de qualité professionnelle pour tous les passionnés.
+              </p>
+              <div className="footer-social-modern">
+                <a href="#" className="footer-social-link-modern">
+                  <Facebook size={18} />
+                </a>
+                <a href="#" className="footer-social-link-modern">
+                  <Instagram size={18} />
+                </a>
+                <a href="#" className="footer-social-link-modern">
+                  <Twitter size={18} />
+                </a>
+                <a href="#" className="footer-social-link-modern">
+                  <Linkedin size={18} />
+                </a>
+              </div>
+            </div>
+            
+            <div className="footer-links-modern">
+              <h3 className="footer-title-modern">Liens Rapides</h3>
+              <ul className="footer-links-modern">
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/terrains">Nos Terrains</a></li>
+                <li><a href="/tarifs">Tarifs</a></li>
+                <li><a href="/about">À propos</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div className="footer-links-modern">
+              <h3 className="footer-title-modern">Informations</h3>
+              <ul className="footer-links-modern">
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/conditions">Conditions</a></li>
+                <li><a href="/confidentialité">Confidentialité</a></li>
+                <li><a href="/mentions">Mentions légales</a></li>
+                <li><a href="/carriere">Carrière</a></li>
+              </ul>
+            </div>
+            
+            <div className="footer-contact-modern">
+              <h3 className="footer-title-modern">Contact</h3>
+              <div className="footer-contact-item-modern">
+                <MapPinIcon size={16} />
+                <span>123 Avenue du Sport, 75000 Paris</span>
+              </div>
+              <div className="footer-contact-item-modern">
+                <Phone size={16} />
+                <span>01 23 45 67 89</span>
+              </div>
+              <div className="footer-contact-item-modern">
+                <Mail size={16} />
+                <span>contact@footfield.fr</span>
+              </div>
+              
+              <h3 className="footer-title-modern" style={{ marginTop: '30px' }}>Newsletter</h3>
+              <div className="footer-newsletter-modern">
+                <input 
+                  type="email" 
+                  placeholder="Votre email" 
+                  className="footer-newsletter-input-modern"
+                />
+                <button className="footer-newsletter-btn-modern">
+                  <Send size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="footer-bottom-modern">
+            <div className="footer-copyright-modern">
+              © 2024 FootField. Tous droits réservés.
+            </div>
+            <div className="footer-bottom-links-modern">
+              <a href="/conditions">Conditions d'utilisation</a>
+              <a href="/confidentialité">Politique de confidentialité</a>
+              <a href="/cookies">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
-
 
 export default Index;

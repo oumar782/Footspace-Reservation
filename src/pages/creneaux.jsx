@@ -130,7 +130,6 @@ const Creneaux = () => {
 
   return (
     <div className="creneaux-page">
-      <Header />
       
       {/* Toast notifications */}
       {toast.show && (
@@ -222,7 +221,6 @@ const Creneaux = () => {
         onReservationSuccess={handleReservationSuccess}
       />
 
-      <Footer />
     </div>
   );
 };

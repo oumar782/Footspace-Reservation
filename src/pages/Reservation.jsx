@@ -89,7 +89,6 @@ const Reservation = () => {
 
   return (
     <div className="reservation-premium">
-      <Header />
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -175,7 +174,6 @@ const Reservation = () => {
         </div>
       </div>
       
-      <Footer/>
     </div>
   );
 };

@@ -17,7 +17,6 @@ const Paiement = () => {
 
   return (
     <>
-      <Header />
 
      <div className="bouton">
          {/* Bouton pour consulter le créneau */}

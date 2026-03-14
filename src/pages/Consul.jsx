@@ -1,4 +1,3 @@
-// ReservationView.js
 import React, { useState, useEffect } from 'react';
 import './ReservationList.css';
 import { 
@@ -23,8 +22,7 @@ import {
   Star,
   Eye
 } from 'lucide-react';
-import Header from "../composant/Header";
-import Footer from "../composant/Footer";
+
 
 const ReservationView = ({ reservationData, onBack }) => {
   const [reservations, setReservations] = useState([]);
@@ -558,7 +556,6 @@ const ReservationView = ({ reservationData, onBack }) => {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="rv-container">
           <div className="rv-background-pattern"></div>
           <div className="rv-loading-container">
@@ -567,14 +564,12 @@ const ReservationView = ({ reservationData, onBack }) => {
             <p className="rv-loading-text">Chargement de vos réservations...</p>
           </div>
         </div>
-        <Footer />
       </>
     );
   }
 
   return (
     <>
-      <Header />
       <div className="rv-container">
         <div className="rv-background-pattern"></div>
         
@@ -620,8 +615,7 @@ const ReservationView = ({ reservationData, onBack }) => {
               <div className="rv-form-row">
                 <div className="rv-form-group">
                   <label htmlFor="nom" className="rv-label">
-                    <User size={16} />
-                    Nom *
+                    Prénom *
                   </label>
                   <div className="rv-input-wrapper">
                     <input
@@ -640,8 +634,7 @@ const ReservationView = ({ reservationData, onBack }) => {
                 
                 <div className="rv-form-group">
                   <label htmlFor="prenom" className="rv-label">
-                    <User size={16} />
-                    Prénom *
+                    Nom *
                   </label>
                   <div className="rv-input-wrapper">
                     <input
@@ -661,7 +654,6 @@ const ReservationView = ({ reservationData, onBack }) => {
 
               <div className="rv-form-group rv-full-width">
                 <label htmlFor="email" className="rv-label">
-                  <Mail size={16} />
                   Email *
                 </label>
                 <div className="rv-input-wrapper">
@@ -943,9 +935,8 @@ const ReservationView = ({ reservationData, onBack }) => {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 };
 
-export default ReservationView;
+export default ReservationView; 

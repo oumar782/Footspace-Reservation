@@ -94,7 +94,6 @@ const About = () => {
 
   return (
     <div className="about-pagess">
-      <Header />
 
       {/* Hero Section */}
       <section className="about-heross">
@@ -294,7 +293,6 @@ const About = () => {
       </section>
 
       {/* Footer */}
-      <Footer />
 
     </div>
   );

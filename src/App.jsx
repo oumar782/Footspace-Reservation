@@ -1,39 +1,28 @@
-import React, { useEffect } from 'react';  // Assurez-vous de bien importer useEffect
+// App.jsx
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import HomePage from "../src/pages/Homepage.jsx";
-import Terrains from "../src/pages/Terrains.jsx";
-import Reservation from "../src/pages/Reservation.jsx";
-import Paiement from './pages/paiement.jsx';
-import About from './pages/About.jsx';
-import Contact from "../src/contacts/Contact.jsx";  // Pas besoin de l'extension .jsx
-import Modalreserve from "../src/pages/ReservationModal.jsx";  // Pas besoin de l'extension .jsx
-import Consulreserve from "../src/pages/consultationReserve.jsx";  // Pas besoin de l'extension .jsx
-import Details from "../src/pages/Reservation-details.jsx";  // Pas besoin de l'extension .jsx
-
-
- 
-import Creneaux from './pages/creneaux.jsx';  
-
-
-import axios from 'axios';
+// Imports avec les chemins corrects
+import HomePage from "./pages/Homepage";
+import Header from "./composant/Header";
+import Footer from "./composant/Footer";
+import Terrains from "./pages/Terrains";
+import Reservation from "./pages/Reservation";
+import Paiement from './pages/paiement';
+import About from './pages/About';
+import Contact from "./contacts/Contact";
+import Modalreserve from "./pages/ReservationModal";
+import Consulreserve from "./pages/Consul";  // Sans l'extension .jsx
+import Details from "./pages/Reservation-details";
+import Abonnement from "./pages/Abonnement";
+import Creneaux from './pages/creneaux';
+import ConsultationAbonnement from './pages/ConsultationAbonnement';
 
 const App = () => {
-  useEffect(() => {
-    // Effectuer une requête GET vers le backend pour récupérer des données
-    axios.get('http://localhost:5000')  // Adresse de ton backend (assure-toi qu'il fonctionne)
-      .then(response => {
-        console.log(response.data);  // Affiche la réponse du backend dans la console
-      })
-      .catch(error => {
-        console.error('Il y a eu une erreur!', error);  // Si erreur, l'afficher
-      });
-  }, []);  // Le tableau vide [] signifie que ce code s'exécute uniquement au chargement initial
-
   return (
     <div className="App">
-      
       <Router>
+        <Header />
         <div>
           <Routes>
             <Route path="/" element={<Navigate to="/homes" />} />
@@ -45,12 +34,15 @@ const App = () => {
             <Route path="/creneaux" element={<Creneaux />} />
             <Route path="/about" element={<About />} />
             <Route path="/Formulaire-reservation" element={<Modalreserve />} />
-            <Route path="/Consultation-reservation" element={<Consulreserve />} />
+            <Route path="/consultation-reservation" element={<Consulreserve />} />
             <Route path="/details-reservation" element={<Details />} />
+            <Route path="/abonnement" element={<Abonnement />} />
+            <Route path="/consultation-abonnement" element={<ConsultationAbonnement />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
-</div>
+    </div>
   );
 };
 
