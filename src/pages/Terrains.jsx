@@ -49,7 +49,7 @@ const Terrains = [
     localisation: "Ain sebaa",
     tarif: "180",
     devise: "dh/h",
-    image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=1200",
+    image: "/terrain.jpg",
     type: "11 vs 11",
     note: 4.9,
     avis: 128,
@@ -76,7 +76,7 @@ const Terrains = [
     localisation: "Belvedere",
     tarif: "150",
     devise: "dh/h",
-    image: "https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&q=80&w=1200",
+    image: "/terrain.jpg",
     type: "11 vs 11",
     note: 4.8,
     avis: 96,
@@ -103,7 +103,7 @@ const Terrains = [
     localisation: "Maarif",
     tarif: "200",
     devise: "dh/h",
-    image: "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=1200",
+    image: "/terrain.jpg",
     type: "11 vs 11",
     note: 4.95,
     avis: 215,
@@ -211,7 +211,7 @@ function App() {
           </div>
         </div>
         
-        <div className="hero-scroll-indicator">
+        <div className="hero-scroll-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <span>Découvrir</span>
           <ArrowRight size={20} style={{ transform: 'rotate(90deg)' }} />
         </div>

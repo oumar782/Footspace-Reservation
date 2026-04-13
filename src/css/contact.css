@@ -214,7 +214,7 @@ body {
       rgba(62, 108, 26, 0.3) 0%,
       rgba(2, 126, 15, 0.2) 50%,
       rgba(181, 180, 178, 0.1) 100%),
-    url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=2000&q=80') center/cover;
+    url('/terrain.jpg') center/cover;
   animation: slowZoom 20s ease infinite alternate;
 }
 

@@ -74,21 +74,21 @@ const Index = () => {
 
   const fields = [
     { 
-      img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&h=600&fit=crop",
+      img: "/terrain.jpg",
       title: "Terrain Synthétique A", 
       type: "11 vs 11",
       price: "50€/h",
       features: ["Éclairage LED", "Vestiaires", "Parking"]
     },
     { 
-      img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop", 
+      img: "/terrain.jpg", 
       title: "Terrain Indoor", 
       type: "5 vs 5",
       price: "45€/h",
       features: ["Climatisé", "Tribunes", "Bar"]
     },
     { 
-      img: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&h=600&fit=crop", 
+      img: "/terrain.jpg", 
       title: "Terrain Premium", 
       type: "7 vs 7",
       price: "60€/h",

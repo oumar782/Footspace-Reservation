@@ -251,7 +251,7 @@ const Abonnement = () => {
       heure_fin: formData.heure_fin
     };
 
-    console.log('📤 Envoi des données:', payload);
+    console.log('Envoi des données:', payload);
 
     try {
       const response = await fetch('https://backend-foot-omega.vercel.app/api/clients/', {
@@ -263,20 +263,20 @@ const Abonnement = () => {
       });
 
       const data = await response.json();
-      console.log('📥 Réponse du serveur:', data);
+      console.log('Réponse du serveur:', data);
 
       if (response.ok && data.success) {
         toast.success('Demande d\'abonnement envoyée avec succès !');
         
         // Rediriger vers la page de consultation avec l'ID du client créé
         setTimeout(() => {
-          navigate(`/Consultation-reservation?id=${data.data.idclient}`);
+          navigate(`/consultation-abonnement?id=${data.data.idclient}`);
         }, 1500);
       } else {
         toast.error(data.message || 'Erreur lors de l\'envoi de la demande');
       }
     } catch (error) {
-      console.error('❌ Erreur:', error);
+      console.error('Erreur:', error);
       toast.error('Erreur de connexion au serveur');
     } finally {
       setIsSubmitting(false);
@@ -323,7 +323,7 @@ const Abonnement = () => {
           </div>
         </div>
         
-        <div className="hero-scroll-indicator">
+        <div className="hero-scroll-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <span>Découvrir</span>
           <ChevronRight size={20} style={{ transform: 'rotate(90deg)' }} />
         </div>
@@ -381,7 +381,7 @@ const Abonnement = () => {
                   onClick={() => {
                     setFormData(prev => ({ ...prev, type_abonnement: abo.id }));
                     setShowForm(true);
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 >
                   Choisir cette formule

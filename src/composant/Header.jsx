@@ -38,8 +38,8 @@ const Header = () => {
   const handleNavigation = (path) => {
     setIsOpen(false);
     navigate(path);
-    // Remonter immédiatement en haut (sécurité supplémentaire)
-    window.scrollTo(0, 0);
+    // Remonter immédiatement en haut avec animation smooth
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -69,7 +69,7 @@ const Header = () => {
 
         {/* Main Navigation */}
         <nav className="nav2-main-nav">
-          <Link to="/homes" className="nav2-brand-link" onClick={() => setIsOpen(false)}>
+          <Link to="/homes" className="nav2-brand-link" onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <div className="nav2-brand-logo">
               <Target className="nav2-brand-icon" size={24} />
             </div>
@@ -86,7 +86,7 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`nav2-nav-link ${isActive(item.href) ? 'nav2-active' : ''}`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               >
                 {item.name}
                 {isActive(item.href) && <span className="nav2-active-indicator"></span>}
@@ -148,7 +148,7 @@ const Header = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                     className={`nav2-mobile-nav-link ${isActive(item.href) ? 'nav2-active' : ''}`}
                   >
                     {item.name}

@@ -207,7 +207,7 @@ const Contact = () => {
           </div>
         </div>
         
-        <div className="hero-scroll-indicator">
+        <div className="hero-scroll-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <span>Découvrir</span>
           <ChevronRight size={20} style={{ transform: 'rotate(90deg)' }} />
         </div>
