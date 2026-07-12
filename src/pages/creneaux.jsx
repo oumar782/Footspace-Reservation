@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../composant/Header';
-import Footer from '../composant/Footer';
+import { useLocation } from 'react-router-dom';
+import { Search, X, Clock } from 'lucide-react';
 import ReservationModal from './ReservationModal';
 import '../css/creneaux.css';
 
-// Fonction utilitaire pour normaliser les noms de propriétés
+// ✅ Fonction utilitaire corrigée - Garde la ville et le quartier
 const normalizeCreneauData = (creneau) => {
+  // Si le créneau a déjà les bonnes propriétés, on les garde
+  if (creneau.ville && creneau.quartier) {
+    return {
+      ...creneau,
+      nomterrain: creneau.nomterrain || creneau.nomterrain || 'Non spécifié',
+      heure: creneau.heure,
+      heurefin: creneau.heurefin,
+      typeTerrain: creneau.typeTerrain || creneau.typeterrain || 'Non spécifié',
+      surface: creneau.surface || creneau.SurfaceTerrains || 'Non spécifié',
+      tarif: creneau.tarif || 0,
+      statut: creneau.statut || 'Non spécifié',
+      datecreneaux: creneau.datecreneaux || '',
+      numeroterrain: creneau.numeroterrain || 0,
+      idcreneaux: creneau.idcreneaux || null,
+      ville: creneau.ville || 'Non spécifié',
+      quartier: creneau.quartier || 'Non spécifié'
+    };
+  }
+
+  // Sinon, on normalise les noms de propriétés
   const lowerCaseCreneau = {};
   for (const key in creneau) {
     lowerCaseCreneau[key.toLowerCase()] = creneau[key];
@@ -22,26 +41,44 @@ const normalizeCreneauData = (creneau) => {
     statut: lowerCaseCreneau.statut || 'Non spécifié',
     datecreneaux: lowerCaseCreneau.datecreneaux || '',
     numeroterrain: lowerCaseCreneau.numeroterrain || 0,
-    idcreneaux: lowerCaseCreneau.idcreneaux || null
+    idcreneaux: lowerCaseCreneau.idcreneaux || null,
+    ville: lowerCaseCreneau.ville || 'Non spécifié',
+    quartier: lowerCaseCreneau.quartier || 'Non spécifié'
   };
 };
 
 const Creneaux = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { creneaux } = location.state || { creneaux: [] };
   
-  // États pour le modal
   const [selectedCreneau, setSelectedCreneau] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedHour, setSelectedHour] = useState(''); // ✅ État pour le filtre d'heure
 
-  // Normaliser les données de tous les créneaux
   const normalizedCreneaux = creneaux.map(normalizeCreneauData);
   
-  console.log('Créneaux normalisés:', normalizedCreneaux);
+  console.log('✅ Créneaux normalisés:', normalizedCreneaux);
 
-  // Afficher un toast
+  // ✅ Fonction pour extraire l'heure au format HH:MM
+  const extractHour = (timeString) => {
+    if (!timeString) return '';
+    if (timeString.length === 5) return timeString;
+    if (timeString.length >= 8) return timeString.substring(0, 5);
+    return timeString;
+  };
+
+  // ✅ Filtrer les créneaux par nom de terrain ET par heure
+  const filteredCreneaux = normalizedCreneaux.filter(creneau => {
+    const matchName = creneau.nomterrain.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchHour = selectedHour === '' || extractHour(creneau.heure) === selectedHour;
+    return matchName && matchHour;
+  });
+
+  // ✅ Obtenir toutes les heures uniques pour le filtre
+  const uniqueHours = [...new Set(normalizedCreneaux.map(c => extractHour(c.heure)))].sort();
+
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type });
     setTimeout(() => {
@@ -49,7 +86,6 @@ const Creneaux = () => {
     }, 4000);
   };
 
-  // Fonction pour formater l'heure (hh:mm:ss → hh:mm)
   const formatTime = (timeString) => {
     if (!timeString) return '';
     if (timeString.length === 5) return timeString;
@@ -57,18 +93,15 @@ const Creneaux = () => {
     return timeString;
   };
 
-  // Fonction pour mettre à jour le statut du créneau
   const updateCreneauStatus = async (creneauId, newStatus) => {
     try {
-      // D'abord, récupérer le créneau actuel
-      const creneauResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneauId}`);
+      const creneauResponse = await fetch(`http://localhost:5000/api/gestioncreneaux/${creneauId}`);
       const creneauData = await creneauResponse.json();
       
       if (creneauData.success) {
         const creneau = creneauData.data;
         
-        // Mettre à jour le statut
-        const updateResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneauId}`, {
+        const updateResponse = await fetch(`http://localhost:5000/api/gestioncreneaux/${creneauId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -84,54 +117,47 @@ const Creneaux = () => {
       }
       return false;
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du créneau:', error);
+      console.error('Erreur mise à jour créneau:', error);
       return false;
     }
   };
 
-  // Fonction pour ouvrir le modal de réservation
   const handleOpenReservationModal = (creneau) => {
     setSelectedCreneau(creneau);
     setIsModalOpen(true);
   };
 
-  // Fonction pour fermer le modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedCreneau(null);
   };
 
-  // Fonction appelée après une réservation réussie
   const handleReservationSuccess = async (reservationData) => {
     console.log('Réservation créée avec succès:', reservationData);
     
-    // Mettre à jour le statut du créneau en "réservé"
     if (selectedCreneau && selectedCreneau.idcreneaux) {
       const updated = await updateCreneauStatus(selectedCreneau.idcreneaux, 'réservé');
       if (updated) {
         showToast('Créneau réservé avec succès !', 'success');
-        
-        // Mettre à jour l'affichage local
-        const updatedCreneaux = normalizedCreneaux.map(creneau => 
-          creneau.idcreneaux === selectedCreneau.idcreneaux 
-            ? { ...creneau, statut: 'réservé' }
-            : creneau
-        );
-        
-        // Note: Dans une vraie application, vous voudriez peut-être recharger les données
-        // ou utiliser un state global pour gérer cela
       } else {
-        showToast('Erreur lors de la mise à jour du statut du créneau', 'error');
+        showToast('Erreur lors de la mise à jour du statut', 'error');
       }
     }
     
     handleCloseModal();
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm('');
+  };
+
+  const handleClearHourFilter = () => {
+    setSelectedHour('');
+  };
+
   return (
-    <div className="creneaux-page">
-      
-      {/* Toast notifications */}
+    <div className="res-layout">
+      <div className="res-layout-main creneaux-page">
       {toast.show && (
         <div className={`toast toast-${toast.type}`}>
           <span className="toast-message">{toast.message}</span>
@@ -140,9 +166,69 @@ const Creneaux = () => {
       
       <div className="creneaux-container">
         <h1 className="creneaux-title">Les Créneaux Disponibles</h1>
+        
+        {/* ✅ Barre de recherche et filtres */}
+        <div className="filters-container">
+          {/* Recherche par nom de terrain */}
+          <div className="search-wrapper">
+            <Search className="search-icon" size={20} />
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Rechercher un terrain..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {searchTerm && (
+              <button className="clear-search-btn" onClick={handleClearSearch}>
+                <X size={18} />
+              </button>
+            )}
+          </div>
+
+          {/* ✅ Filtre par heure */}
+          <div className="filter-hour-wrapper">
+            <Clock className="filter-icon" size={20} />
+            <select
+              className="filter-hour-select"
+              value={selectedHour}
+              onChange={(e) => setSelectedHour(e.target.value)}
+            >
+              <option value="">Toutes les heures</option>
+              {uniqueHours.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
+              ))}
+            </select>
+            {selectedHour && (
+              <button className="clear-filter-btn" onClick={handleClearHourFilter}>
+                <X size={18} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Statistiques des filtres */}
+        <div className="search-stats">
+          {filteredCreneaux.length} créneau{filteredCreneaux.length > 1 ? 'x' : ''} trouvé{filteredCreneaux.length > 1 ? 's' : ''}
+          {searchTerm && (
+            <span className="filter-tag">
+              Terrain: "{searchTerm}"
+              <button className="remove-filter-tag" onClick={handleClearSearch}>×</button>
+            </span>
+          )}
+          {selectedHour && (
+            <span className="filter-tag">
+              Heure: {selectedHour}
+              <button className="remove-filter-tag" onClick={handleClearHourFilter}>×</button>
+            </span>
+          )}
+        </div>
+
         <div className="creneaux-grid">
-          {normalizedCreneaux.length > 0 ? (
-            normalizedCreneaux.map((creneau, index) => (
+          {filteredCreneaux.length > 0 ? (
+            filteredCreneaux.map((creneau, index) => (
               <div key={index} className="creneau-card">
                 <div className="creneau-info">
                   <div className="info-row">
@@ -171,7 +257,23 @@ const Creneaux = () => {
 
                   <div className="info-row">
                     <span className="info-label">Surface :</span>
-                    <span className="info-value">{creneau.surface}</span>
+                    <span className="info-value">{creneau.surfaceterrains}</span>
+                  </div>
+                  <hr />
+
+                  <div className="info-row">
+                    <span className="info-label">Ville :</span>
+                    <span className="info-value" style={{ color: '#2e7d32', fontWeight: '600' }}>
+                      {creneau.ville || 'Non spécifiée'}
+                    </span>
+                  </div>
+                  <hr />
+
+                  <div className="info-row">
+                    <span className="info-label">Quartier :</span>
+                    <span className="info-value" style={{ color: '#2e7d32', fontWeight: '600' }}>
+                      {creneau.quartier || 'Non spécifié'}
+                    </span>
                   </div>
                   <hr />
 
@@ -207,20 +309,32 @@ const Creneaux = () => {
             ))
           ) : (
             <div className="no-creneaux">
-              <p>Aucun créneau disponible.</p>
+              <p>
+                {searchTerm || selectedHour 
+                  ? `Aucun créneau trouvé pour ces critères` 
+                  : 'Aucun créneau disponible.'
+                }
+              </p>
+              {(searchTerm || selectedHour) && (
+                <button className="clear-search-btn-large" onClick={() => {
+                  handleClearSearch();
+                  handleClearHourFilter();
+                }}>
+                  Voir tous les créneaux
+                </button>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* Modal de réservation */}
       <ReservationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         creneau={selectedCreneau}
         onReservationSuccess={handleReservationSuccess}
       />
-
+      </div>
     </div>
   );
 };

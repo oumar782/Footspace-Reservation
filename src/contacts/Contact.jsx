@@ -51,22 +51,22 @@ const Contact = () => {
     {
       icon: <MapPin size={32} />,
       title: "Adresse",
-      details: ["123 Avenue du Stade", "75001 Paris, France"],
+      details: ["Boulevard Mohammed V", "Casablanca, Maroc"],
       link: "https://maps.google.com",
       linkText: "Voir sur Google Maps"
     },
     {
       icon: <Phone size={32} />,
       title: "Téléphone",
-      details: ["01 23 45 67 89", "Urgences: 06 12 34 56 78"],
-      link: "tel:+33123456789",
+      details: ["+212 6 21 97 62 88", "WhatsApp disponible"],
+      link: "tel:+212621976288",
       linkText: "Appeler maintenant"
     },
     {
       icon: <Mail size={32} />,
       title: "Email",
-      details: ["contact@footfield.fr", "reservation@footfield.fr"],
-      link: "mailto:contact@footfield.fr",
+      details: ["contact@playzone.ma", "reservation@playzone.ma"],
+      link: "mailto:contact@playzone.ma",
       linkText: "Envoyer un email"
     },
     {

@@ -1,0 +1,400 @@
+.pz-page-header {
+  margin-bottom: 2rem;
+}
+
+.pz-page-header h1 {
+  font-size: 2rem;
+  color: #1e293b;
+  margin: 0 0 0.5rem;
+}
+
+.pz-page-header p {
+  color: #64748b;
+  margin: 0;
+}
+
+.pz-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.pz-filters label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.pz-filters select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 0.9rem;
+  color: #1e293b;
+  cursor: pointer;
+}
+
+.pz-toast {
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+}
+
+.pz-toast.success {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.pz-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #94a3b8;
+}
+
+.pz-empty svg { margin-bottom: 1rem; opacity: 0.4; }
+.pz-empty p { font-size: 1.1rem; margin: 0 0 0.5rem; }
+.pz-empty small { font-size: 0.85rem; }
+
+/* Sessions */
+.pz-sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.pz-session-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s;
+}
+
+.pz-session-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.pz-session-card.highlighted {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  animation: highlightPulse 2s ease;
+}
+
+.pz-session-card.full { opacity: 0.7; }
+
+.pz-session-sport {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.pz-session-sport span:first-child { font-size: 1.5rem; }
+
+.pz-session-status {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.pz-session-status.open { background: #ecfdf5; color: #059669; }
+.pz-session-status.full { background: #fef2f2; color: #dc2626; }
+
+.pz-session-card h3 { margin: 0 0 0.75rem; color: #1e293b; font-size: 1.1rem; }
+
+.pz-session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.pz-session-info span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.pz-session-host {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.pz-session-players-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.pz-progress-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.pz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.pz-progress-fill.tournament {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.pz-players-avatars {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.pz-player-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.pz-player-dot.empty {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border: 2px dashed #cbd5e1;
+}
+
+.pz-join-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pz-join-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+
+/* Coaches */
+.pz-recommended-section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border-radius: 16px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.pz-recommended-section h2 {
+  margin: 0 0 0.35rem;
+  color: #4f46e5;
+  font-size: 1.2rem;
+}
+
+.pz-recommended-desc {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.pz-coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Tournaments */
+.pz-tournaments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+.pz-tournament-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.pz-tournament-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.pz-tournament-card.full { opacity: 0.75; }
+
+.pz-tournament-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pz-tournament-type {
+  display: inline-block;
+  background: #fef3c7;
+  color: #d97706;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.pz-tournament-card h3 { margin: 0 0 0.5rem; color: #1e293b; }
+
+.pz-tournament-desc {
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.pz-tournament-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.pz-tournament-details div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pz-tournament-teams { margin-bottom: 1rem; }
+
+.pz-tournament-teams-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+.pz-tournament-teams-header span:last-child { margin-left: auto; }
+
+.pz-tournament-fee {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #6366f1;
+  margin-bottom: 0.75rem;
+}
+
+.pz-register-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pz-register-btn:hover { transform: translateY(-1px); }
+.pz-register-btn.registered { background: linear-gradient(135deg, #10b981, #34d399); }
+.pz-register-btn.full { background: #94a3b8; cursor: not-allowed; }
+
+/* Modal */
+.pz-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.pz-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+}
+
+.pz-modal h3 { margin: 0 0 0.25rem; color: #1e293b; }
+.pz-modal-subtitle { color: #64748b; font-size: 0.9rem; margin: 0 0 1.25rem; }
+
+.pz-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pz-modal input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.pz-modal input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.pz-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.pz-modal-actions button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.pz-modal-actions button[type="button"] {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.pz-modal-actions button[type="submit"] {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes highlightPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.35); }
+}
+
+[dir="rtl"] .pz-session-status { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .pz-tournament-teams-header span:last-child { margin-left: 0; margin-right: auto; }

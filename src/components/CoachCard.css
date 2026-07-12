@@ -1,0 +1,791 @@
+/* ═══════════════════════════════════════════════════════════════
+   COACH CARD — Design Premium
+   Colors: #3e6c1a, #027e0f, #b5b4b2, #FFD700
+═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --green-deep: #3e6c1a;
+  --green-bright: #027e0f;
+  --green-muted: #b5b4b2;
+  --gold: #FFD700;
+  --gold-light: #FFED4E;
+  --gold-gradient: linear-gradient(135deg, var(--gold), var(--gold-light));
+  --green-gradient: linear-gradient(135deg, var(--green-deep), var(--green-bright));
+  --shadow-green: 0 4px 20px rgba(2, 126, 15, 0.15);
+  --shadow-gold: 0 4px 20px rgba(255, 215, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 12px 48px rgba(2, 126, 15, 0.2);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --radius-full: 9999px;
+  --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── COACH CARD ─────────────────────────────────────────────── */
+.coach-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid rgba(62, 108, 26, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.coach-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--green-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.coach-card:hover::before {
+  transform: scaleX(1);
+}
+
+.coach-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(2, 126, 15, 0.15);
+}
+
+.coach-card.recommended {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, #fafcf8 100%);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.08);
+}
+
+.coach-card.recommended:hover {
+  box-shadow: 0 12px 48px rgba(255, 215, 0, 0.2);
+  border-color: var(--gold);
+}
+
+/* ── RECOMMENDED BADGE ──────────────────────────────────────── */
+.coach-recommended-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--gold-gradient);
+  color: #1a2418;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-recommended-badge svg {
+  color: #1a2418;
+}
+
+/* ── CARD HEADER ────────────────────────────────────────────── */
+.coach-card-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.coach-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(2, 126, 15, 0.2);
+  transition: all var(--transition-bounce);
+}
+
+.coach-card:hover .coach-avatar {
+  transform: scale(1.02) rotate(-3deg);
+  box-shadow: 0 6px 24px rgba(2, 126, 15, 0.3);
+}
+
+.coach-avatar-emoji {
+  font-size: 1.6rem;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  border: 2px solid white;
+}
+
+.coach-avatar-initials {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-md) + 3px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.coach-status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  border: 2px solid white;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── COACH INFO ─────────────────────────────────────────────── */
+.coach-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.coach-info h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a2418;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.coach-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.coach-discipline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(2, 126, 15, 0.08);
+  color: var(--green-bright);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-discipline svg {
+  color: var(--gold);
+}
+
+.coach-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a2418;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--green-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.coach-location svg {
+  color: var(--gold);
+}
+
+.coach-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.coach-price-amount {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--green-bright);
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.coach-price-unit {
+  font-size: 0.65rem;
+  color: var(--green-muted);
+  font-weight: 500;
+}
+
+/* ── PROFILE TAGS ────────────────────────────────────────────── */
+.coach-profile-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(62, 108, 26, 0.06);
+  border-bottom: 1px solid rgba(62, 108, 26, 0.06);
+}
+
+.coach-profile-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--green-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coach-profile-tag {
+  background: linear-gradient(135deg, rgba(2, 126, 15, 0.05), rgba(62, 108, 26, 0.05));
+  color: var(--green-bright);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(62, 108, 26, 0.12);
+}
+
+.coach-avatar-emoji,
+.coach-avatar-ring {
+  display: none !important;
+}
+
+/* legacy dna hidden */
+.coach-dna { display: none; }
+
+/* ── BIO ────────────────────────────────────────────────────── */
+.coach-bio {
+  color: #4a5a47;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  font-weight: 400;
+}
+
+/* ── SKILLS RINGS ───────────────────────────────────────────── */
+.coach-skills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.coach-skill-item {
+  text-align: center;
+}
+
+.coach-skill-ring {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 0.25rem;
+  position: relative;
+}
+
+.coach-skill-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.coach-skill-bg {
+  fill: none;
+  stroke: #e8ebe6;
+  stroke-width: 3;
+}
+
+.coach-skill-fill {
+  fill: none;
+  stroke: var(--color, #027e0f);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1.2s ease;
+}
+
+.coach-skill-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #1a2418;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-skill-label {
+  font-size: 0.6rem;
+  color: var(--green-muted);
+  display: block;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── EXPAND BUTTON ──────────────────────────────────────────── */
+.coach-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(2, 126, 15, 0.03);
+  border: 1px solid rgba(62, 108, 26, 0.08);
+  border-radius: var(--radius-sm);
+  color: var(--green-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.coach-expand-btn:hover {
+  background: rgba(2, 126, 15, 0.06);
+  color: var(--green-bright);
+  border-color: rgba(2, 126, 15, 0.15);
+  transform: translateY(-1px);
+}
+
+.coach-expand-btn svg {
+  transition: transform var(--transition-base);
+}
+
+.coach-expand-btn:hover svg {
+  color: var(--gold);
+}
+
+/* ── DETAILS EXPANDED ───────────────────────────────────────── */
+.coach-details {
+  border-top: 1px solid rgba(62, 108, 26, 0.08);
+  padding-top: 1rem;
+  margin-bottom: 0.75rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.coach-detail-section {
+  margin-bottom: 1rem;
+}
+
+.coach-detail-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #1a2418;
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-detail-section h4 svg {
+  color: var(--gold);
+}
+
+.coach-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.coach-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.coach-tag.cert {
+  background: rgba(2, 126, 15, 0.06);
+  color: var(--green-bright);
+  border: 1px solid rgba(2, 126, 15, 0.1);
+}
+
+.coach-tag.cert svg {
+  color: var(--gold);
+}
+
+.coach-tag.spec {
+  background: rgba(255, 215, 0, 0.08);
+  color: #8a6d00;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.coach-tag.spec svg {
+  color: var(--gold);
+}
+
+.coach-timeline {
+  padding-left: 1rem;
+}
+
+.coach-timeline-item {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.coach-timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green-bright), transparent);
+}
+
+.coach-timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  flex-shrink: 0;
+  margin-top: 3px;
+  box-shadow: var(--shadow-gold);
+}
+
+.coach-timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.coach-timeline-year {
+  font-size: 0.65rem;
+  color: var(--green-muted);
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-timeline-content strong {
+  font-size: 0.85rem;
+  color: #1a2418;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.coach-timeline-content span:last-child {
+  font-size: 0.75rem;
+  color: var(--green-muted);
+}
+
+.coach-detail-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--green-muted);
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(62, 108, 26, 0.06);
+}
+
+.coach-detail-row div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.coach-detail-row div svg {
+  color: var(--gold);
+}
+
+/* ── BOOK BUTTON ────────────────────────────────────────────── */
+.coach-book-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  background: var(--green-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-bounce);
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.coach-book-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.coach-book-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.coach-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-green), var(--shadow-gold);
+}
+
+.coach-book-btn:active {
+  transform: scale(0.97);
+}
+
+.coach-book-btn.booked {
+  background: var(--gold-gradient);
+  color: #1a2418;
+  box-shadow: var(--shadow-gold);
+}
+
+.coach-book-btn.booked:hover {
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.coach-book-btn:disabled {
+  cursor: default;
+}
+
+.coach-book-btn svg {
+  flex-shrink: 0;
+}
+
+/* ── RTL SUPPORT ────────────────────────────────────────────── */
+[dir="rtl"] .coach-recommended-badge {
+  right: auto;
+  left: 1rem;
+}
+
+[dir="rtl"] .coach-avatar-emoji {
+  right: auto;
+  left: -6px;
+}
+
+[dir="rtl"] .coach-status-dot {
+  right: auto;
+  left: 2px;
+}
+
+[dir="rtl"] .coach-price {
+  text-align: left;
+}
+
+[dir="rtl"] .coach-timeline {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .coach-timeline-item:not(:last-child)::before {
+  left: auto;
+  right: 5px;
+}
+
+[dir="rtl"] .coach-card::before {
+  transform-origin: right;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .coach-card {
+    padding: 1.25rem;
+  }
+
+  .coach-skills {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .coach-card-header {
+    flex-wrap: wrap;
+  }
+
+  .coach-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .coach-avatar-initials {
+    font-size: 1.2rem;
+  }
+
+  .coach-avatar-emoji {
+    font-size: 1.2rem;
+    width: 22px;
+    height: 22px;
+    top: -4px;
+    right: -4px;
+  }
+
+  .coach-price {
+    width: 100%;
+    text-align: left;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(62, 108, 26, 0.06);
+  }
+
+  .coach-price-amount {
+    display: inline;
+    font-size: 1.1rem;
+  }
+
+  .coach-price-unit {
+    font-size: 0.6rem;
+  }
+
+  .coach-info h3 {
+    font-size: 1rem;
+  }
+
+  .coach-detail-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .coach-book-btn {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .coach-card {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .coach-avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .coach-avatar-initials {
+    font-size: 1rem;
+  }
+
+  .coach-avatar-emoji {
+    font-size: 1rem;
+    width: 20px;
+    height: 20px;
+    top: -3px;
+    right: -3px;
+  }
+
+  .coach-status-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .coach-skill-ring {
+    width: 44px;
+    height: 44px;
+  }
+
+  .coach-skill-value {
+    font-size: 0.55rem;
+  }
+
+  .coach-skill-label {
+    font-size: 0.55rem;
+  }
+
+  .coach-recommended-badge {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.6rem;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .coach-dna-tag {
+    font-size: 0.6rem;
+  }
+
+  .coach-bio {
+    font-size: 0.8rem;
+  }
+}
+
+/* ── REDUCED MOTION ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .coach-card,
+  .coach-avatar,
+  .coach-avatar-ring,
+  .coach-status-dot,
+  .coach-skill-fill,
+  .coach-book-btn,
+  .coach-expand-btn {
+    animation: none;
+    transition: none;
+  }
+
+  .coach-avatar-ring {
+    display: none;
+  }
+
+  .coach-status-dot {
+    animation: none;
+  }
+}

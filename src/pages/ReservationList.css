@@ -12,7 +12,148 @@
   --rv-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   --rv-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+/* ========== STYLES POUR LA LOCALISATION ========== */
 
+.rv-location-card {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%) !important;
+  border-left: 3px solid #4CAF50 !important;
+}
+
+.rv-location-label {
+  color: #2e7d32 !important;
+  font-weight: 600 !important;
+}
+
+.rv-location-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rv-location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  animation: fadeInBadge 0.5s ease;
+}
+
+.rv-location-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+.rv-location-empty {
+  color: #999;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* ========== ANIMATIONS ========== */
+
+@keyframes fadeInBadge {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+}
+
+/* ========== GRID AMÉLIORÉ ========== */
+
+.rv-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.rv-detail-card {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.rv-detail-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-color: #4CAF50;
+}
+
+.rv-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rv-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #888;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rv-detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.rv-price-value {
+  color: #e74c3c;
+  font-size: 16px;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .rv-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .rv-location-badge {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rv-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
 * {
   box-sizing: border-box;
   margin: 0;

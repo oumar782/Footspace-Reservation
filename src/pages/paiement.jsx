@@ -7,7 +7,7 @@ import Header from '../composant/Header.jsx';
 import { Link } from "react-router-dom";
 const Paiement = () => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email] = useState('');
   const [date, setDate] = useState('');
 
   const handleSubmit = (e) => {

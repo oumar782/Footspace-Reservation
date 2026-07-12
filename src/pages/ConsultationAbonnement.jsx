@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './consultationAbonnement.css';
 
 import { 
@@ -22,7 +22,6 @@ import {
 
 const ConsultationAbonnement = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [abonnements, setAbonnements] = useState([]);
   const [loading, setLoading] = useState(false);
   const [verificationForm, setVerificationForm] = useState({
@@ -389,7 +388,7 @@ const ConsultationAbonnement = () => {
             </form>
 
             {/* Section de débogage - visible uniquement en développement */}
-            {debugInfo && process.env.NODE_ENV === 'development' && (
+            {debugInfo && import.meta.env.DEV && (
               <div style={{ marginTop: '20px', padding: '15px', background: '#f0f0f0', borderRadius: '8px', fontSize: '12px' }}>
                 <h4 style={{ marginBottom: '10px' }}>🔧 Informations de débogage :</h4>
                 <p><strong>Recherche :</strong> {debugInfo.recherche.nom} {debugInfo.recherche.prenom} ({debugInfo.recherche.email})</p>

@@ -1,0 +1,89 @@
+.post-res-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 9, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+}
+
+.post-res-container {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid #e2e4de;
+  box-shadow: 0 24px 60px rgba(26, 36, 24, 0.2);
+}
+
+.post-res-header { text-align: center; margin-bottom: 1.5rem; }
+
+.post-res-icon { color: #027e0f; margin-bottom: 0.5rem; }
+
+.post-res-header h2 {
+  color: #1a2418;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem;
+}
+
+.post-res-header p { color: #64748b; margin: 0; font-size: 0.9rem; }
+
+.post-res-options { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.post-res-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  border: 1px solid #e2e4de;
+  background: #fafcf8;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.post-res-card:hover {
+  border-color: #027e0f;
+  box-shadow: 0 4px 16px rgba(2, 126, 15, 0.12);
+}
+
+.post-res-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3e6c1a, #027e0f);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.post-res-card-content { flex: 1; }
+.post-res-card-content h3 { margin: 0 0 0.2rem; color: #1a2418; font-size: 0.95rem; }
+.post-res-card-content p { margin: 0; color: #64748b; font-size: 0.82rem; }
+.post-res-card > svg:last-child { color: #94a3b8; flex-shrink: 0; }
+
+.post-res-skip {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  padding: 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.post-res-success {
+  text-align: center;
+  padding: 1.5rem;
+  color: #027e0f;
+}
+
+.post-res-success p { color: #2d3a2a; margin-top: 0.75rem; }

@@ -1,481 +1,707 @@
-import React from 'react';
-import './terrain.css';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-
-// Import des icônes Lucide React
-import { 
-  MapPin, 
-  Calendar, 
-  Trophy, 
-  Users, 
-  Star, 
-  ArrowRight,
-  Mail,
-  Phone,
-  MapPin as MapPinIcon,
-  Facebook,
-  Instagram,
-  Twitter,
-  Linkedin,
-  Send,
-  Check,
-  Clock,
-  Award,
-  UserCheck,
-  Target,
-  Heart,
-  Zap,
-  Sun,
-  Moon,
-  Cloud,
-  Wind,
-  Droplets,
-  Shield,
-  Wifi,
-  Coffee,
-  Car,
-  ShowerHead,
-  Lock,
-  Camera,
-  Speaker,
-  Thermometer
+import {
+  MapPin, Calendar, Trophy, Users, Star, ArrowRight,
+  Mail, Phone, Facebook, Instagram, Twitter, Linkedin,
+  Send, Check, Award, Target, Heart, Zap, Sun,
+  Wind, Droplets, Car, ShowerHead, Wifi, Coffee,
+  Camera, Speaker, ChevronDown, X, Clock, Shield,
+  Sparkles, ThumbsUp, TrendingUp, Crown, Volume2,
+  Dumbbell, ParkingCircle, Bath, Tv, UtensilsCrossed,
+  Volleyball, Bike, Activity, CircleDot, Grid,
+  Ruler, Timer, Footprints, Landmark, Building2,
+  Trees, Waves, Flame, Snowflake, Music, Gamepad2,
+  Ticket, Sparkle, Gem, Medal, BadgeCheck, 
+  CircleCheck, CircleUser, Gauge, Weight, 
+  HeartPulse, FlameKindling, Radio, Headphones,
+  BikeIcon, DumbbellIcon, FootprintsIcon,
+  Circle, Square, LayoutDashboard, BarChart3,
+  PieChart, LineChart, Settings2, ClipboardList,
+  Monitor, Cpu, HardDrive, Server, Cloud,
+  Database, Network, Signal, Gauge as GaugeIcon,
+  Timer as TimerIcon, Settings, Plus, Minus,
+  XCircle, CheckCircle, Info, AlertCircle,
+  Wrench, HardHat, Construction, Building,
+  Thermometer, Droplets as DropletsIcon,
+  Lightbulb, AlertTriangle, CheckCircle2,
+  RefreshCw, Activity as ActivityIcon,
+  Wifi as WifiIcon, Radio as RadioIcon,
+  Monitor as MonitorIcon, Cpu as CpuIcon
 } from 'lucide-react';
+import './terrain.css';
 
-const Terrains = [
+// ─── SPORTS CATEGORIES ──────────────────────────────────────────
+const SPORTS = [
+  { id: 'football', label: 'Football', icon: Trophy, color: '#2e7d32' },
+  { id: 'tennis', label: 'Tennis', icon: Circle, color: '#f9a825' },
+  { id: 'padel', label: 'Padel', icon: Target, color: '#e65100' },
+  { id: 'basketball', label: 'Basketball', icon: Activity, color: '#c62828' },
+  { id: 'volleyball', label: 'Volleyball', icon: Volleyball, color: '#1565c0' },
+  { id: 'handball', label: 'Handball', icon: Users, color: '#00838f' },
+  { id: 'badminton', label: 'Badminton', icon: Zap, color: '#4e342e' },
+  { id: 'squash', label: 'Squash', icon: Square, color: '#4a148c' },
+];
+
+// ─── TERRAINS DATA ─────────────────────────────────────────────
+const TERRAINS = [
+  // ===== FOOTBALL =====
   {
     id: 1,
+    sport: 'football',
     titre: "Stade Municipal Elite",
-    surface: "105 x 68 m",
-    localisation: "Ain sebaa",
-    tarif: "180",
-    devise: "dh/h",
-    image: "/terrain.jpg",
+    surface: "105 × 68 m",
+    ville: "Casablanca",
+    quartier: "Ain Sebaa",
+    tarif: "180", devise: "dh/h",
+    image: "https://images.unsplash.com/photo-1522778119026-d647f0594c86?w=800&h=600&fit=crop",
+    imageDetail: "https://images.unsplash.com/photo-1522778119026-d647f0594c86?w=1200&h=800&fit=crop",
     type: "11 vs 11",
-    note: 4.9,
-    avis: 128,
-    badge: "PREMIUM",
+    note: 4.9, avis: 128,
+    badge: "PREMIUM", badgeClass: "badge-premium",
+    description: "Un stade d'exception aux normes internationales, équipé des dernières technologies pour offrir une expérience de jeu inégalée.",
+    horaires: "8h00 - 23h00",
+    dureeMatch: "90 min",
+    niveauRequis: "Tous niveaux",
     caracteristiques: [
-      { icon: <Sun size={16} />, text: "Pelouse naturelle" },
-      { icon: <Zap size={16} />, text: "Éclairage LED" },
-      { icon: <ShowerHead size={16} />, text: "Vestiaires premium" },
-      { icon: <Users size={16} />, text: "Tribune 500 places" }
+      { icon: Sun, text: "Pelouse naturelle" },
+      { icon: Zap, text: "Éclairage LED" },
+      { icon: ShowerHead, text: "Vestiaires premium" },
+      { icon: Users, text: "Tribune 500 places" },
     ],
-    equipements: [
-      "Éclairage professionnel",
-      "Vestiaires avec douches",
-      "Parking sécurisé",
-      "Infirmerie",
-      "Bufet",
-      "Wifi gratuit"
+    equipements: ["Éclairage professionnel", "Vestiaires avec douches", "Parking sécurisé", "Infirmerie", "Buffet", "Wifi gratuit"],
+    avisRecents: [
+      { nom: "Karim B.", note: 5, commentaire: "Terrain exceptionnel, pelouse impeccable!", date: "2024-01-15" },
+      { nom: "Mehdi L.", note: 4.8, commentaire: "Très bonne organisation, je recommande", date: "2024-01-10" }
     ]
   },
   {
     id: 2,
+    sport: 'football',
     titre: "Complex Sportif Modern",
-    surface: "100 x 65 m",
-    localisation: "Belvedere",
-    tarif: "150",
-    devise: "dh/h",
-    image: "/terrain.jpg",
+    surface: "100 × 65 m",
+    ville: "Casablanca",
+    quartier: "Belvedère",
+    tarif: "150", devise: "dh/h",
+    image: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&h=600&fit=crop",
+    imageDetail: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1200&h=800&fit=crop",
     type: "11 vs 11",
-    note: 4.8,
-    avis: 96,
-    badge: "POPULAIRE",
+    note: 4.8, avis: 96,
+    badge: "POPULAIRE", badgeClass: "badge-populaire",
+    description: "Complexe moderne avec du gazon synthétique dernière génération. Idéal pour les matchs intensifs toute l'année.",
+    horaires: "7h00 - 22h00",
+    dureeMatch: "90 min",
+    niveauRequis: "Intermédiaire à avancé",
     caracteristiques: [
-      { icon: <Wind size={16} />, text: "Gazon synthétique dernière génération" },
-      { icon: <Droplets size={16} />, text: "Système d'arrosage automatique" },
-      { icon: <Car size={16} />, text: "Parking sécurisé" },
-      { icon: <Trophy size={16} />, text: "Équipements professionnels" }
+      { icon: Wind, text: "Gazon synthétique" },
+      { icon: Droplets, text: "Arrosage automatique" },
+      { icon: Car, text: "Parking sécurisé" },
+      { icon: Trophy, text: "Équipements pro" },
     ],
-    equipements: [
-      "Gazon dernière génération",
-      "Éclairage haute intensité",
-      "Vestiaires modernes",
-      "Parking surveillé",
-      "Terrasse panoramique",
-      "Club house"
+    equipements: ["Gazon dernière génération", "Éclairage haute intensité", "Vestiaires modernes", "Parking surveillé", "Terrasse panoramique", "Club house"],
+    avisRecents: [
+      { nom: "Sofia R.", note: 4.7, commentaire: "Super terrain, très bon entretien", date: "2024-01-14" }
     ]
   },
   {
     id: 3,
+    sport: 'football',
     titre: "Arena Sport Center",
-    surface: "95 x 60 m",
-    localisation: "Maarif",
-    tarif: "200",
-    devise: "dh/h",
-    image: "/terrain.jpg",
+    surface: "95 × 60 m",
+    ville: "Casablanca",
+    quartier: "Maârif",
+    tarif: "200", devise: "dh/h",
+    image: "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&h=600&fit=crop",
+    imageDetail: "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=1200&h=800&fit=crop",
     type: "11 vs 11",
-    note: 4.95,
-    avis: 215,
-    badge: "VIP",
+    note: 4.95, avis: 215,
+    badge: "VIP", badgeClass: "badge-vip",
+    description: "L'expérience ultime du football avec une pelouse hybride certifiée FIFA Pro.",
+    horaires: "24h/24",
+    dureeMatch: "90 min",
+    niveauRequis: "Tous niveaux",
     caracteristiques: [
-      { icon: <Award size={16} />, text: "Pelouse hybride FIFA Pro" },
-      { icon: <Camera size={16} />, text: "Vidéo-surveillance" },
-      { icon: <Coffee size={16} />, text: "Espace VIP avec salon" },
-      { icon: <Speaker size={16} />, text: "Sonorisation immersive" }
+      { icon: Award, text: "Pelouse hybride FIFA Pro" },
+      { icon: Camera, text: "Vidéo-surveillance" },
+      { icon: Coffee, text: "Espace VIP" },
+      { icon: Speaker, text: "Sonorisation immersive" },
     ],
-    equipements: [
-      "Pelouse certifiée FIFA",
-      "Éclairage 4K",
-      "Vestiaires luxe",
-      "Salon VIP",
-      "Spa & massage",
-      "Restaurant gastronomique"
+    equipements: ["Pelouse certifiée FIFA", "Éclairage 4K", "Vestiaires luxe", "Salon VIP", "Spa & massage", "Restaurant gastronomique"],
+    avisRecents: [
+      { nom: "Yassine M.", note: 5, commentaire: "Un terrain de rêve! Service VIP au top", date: "2024-01-16" },
+      { nom: "Leila K.", note: 4.9, commentaire: "Magnifique expérience, à refaire", date: "2024-01-12" }
     ]
-  }
+  },
+  {
+    id: 4,
+    sport: 'football',
+    titre: "Terrain Atlas Pro",
+    surface: "70 × 50 m",
+    ville: "Casablanca",
+    quartier: "Ain Sebaa",
+    tarif: "130", devise: "dh/h",
+    image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&h=600&fit=crop",
+    imageDetail: "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=1200&h=800&fit=crop",
+    type: "7 vs 7",
+    note: 4.7, avis: 74,
+    badge: "POPULAIRE", badgeClass: "badge-populaire",
+    description: "Terrain idéal pour les matchs à 7, parfait pour les sessions entre amis ou les tournois amateurs.",
+    horaires: "8h00 - 22h00",
+    dureeMatch: "60 min",
+    niveauRequis: "Débutant à intermédiaire",
+    caracteristiques: [
+      { icon: Wind, text: "Gazon synthétique" },
+      { icon: ShowerHead, text: "Vestiaires" },
+      { icon: Car, text: "Parking" },
+      { icon: Wifi, text: "Wifi gratuit" },
+    ],
+    equipements: ["Gazon synthétique", "Vestiaires", "Parking", "Wifi", "Éclairage LED", "Équipement inclus"],
+    avisRecents: []
+  },
+  // ... (autres terrains)
 ];
 
-const services = [
-  {
-    titre: "Réservation Flexible",
-    description: "Réservez votre créneau en ligne 24/7 avec confirmation instantanée et modification gratuite jusqu'à 4h avant.",
-    icon: <Calendar size={40} />,
-    features: ["24h/24", "7j/7", "Instantané"]
-  },
-  {
-    titre: "Vestiaires Premium",
-    description: "Accès à des vestiaires modernes avec douches, casiers sécurisés, serviettes et produits de soin inclus.",
-    icon: <ShowerHead size={40} />,
-    features: ["Douches chaudes", "Casiers", "Serviettes"]
-  },
-  {
-    titre: "Équipement Pro",
-    description: "Matériel professionnel disponible sur demande : ballons, chasubles, plots, et équipement d'entraînement.",
-    icon: <Trophy size={40} />,
-    features: ["Ballons", "Chasubles", "Plots"]
-  },
-  {
-    titre: "Éclairage LED",
-    description: "Système d'éclairage dernière génération pour des matchs en soirée dans des conditions optimales.",
-    icon: <Sun size={40} />,
-    features: ["Haute intensité", "Éco-énergie", "Sans ombre"]
-  },
-  {
-    titre: "Parking Sécurisé",
-    description: "Parking gratuit et surveillé pour tous les joueurs avec places réservées et vidéo-surveillance 24h/24.",
-    icon: <Car size={40} />,
-    features: ["Gratuit", "Surveillé", "Gratuit"]
-  },
-  {
-    titre: "Wifi & Streaming",
-    description: "Connexion wifi haut débit et possibilité de streaming pour diffuser vos matchs en direct.",
-    icon: <Wifi size={40} />,
-    features: ["Haut débit", "Streaming", "Live"]
-  }
+// ─── INFRASTRUCTURE MANAGEMENT DATA ────────────────────────────
+const infrastructureMetrics = [
+  { label: "Terrains Actifs", value: "8/8", status: "green", icon: CheckCircle2 },
+  { label: "Taux d'Occupation", value: "87%", status: "green", icon: TrendingUp },
+  { label: "Maintenance", value: "2 interventions", status: "warning", icon: AlertTriangle },
+  { label: "Température Moyenne", value: "22°C", status: "green", icon: Thermometer },
+  { label: "Qualité de l'Air", value: "Excellent", status: "green", icon: CheckCircle },
+  { label: "Éclairage", value: "Optimal", status: "green", icon: Lightbulb }
 ];
+
+const infrastructureFeatures = [
+  { icon: LayoutDashboard, title: "Dashboard Centralisé", desc: "Visualisez en temps réel l'état de toutes vos infrastructures sportives depuis un seul écran." },
+  { icon: BarChart3, title: "Analyses Prédictives", desc: "Anticipez les besoins de maintenance grâce à l'analyse des données historiques et des tendances." },
+  { icon: AlertCircle, title: "Alertes Intelligentes", desc: "Recevez des notifications en temps réel sur l'état de vos équipements et installations." },
+  { icon: Settings2, title: "Gestion des Maintenances", desc: "Planifiez, suivez et optimisez vos interventions de maintenance préventive et corrective." },
+  { icon: Wrench, title: "Suivi des Équipements", desc: "Gérez l'inventaire de vos équipements sportifs avec suivi du cycle de vie." },
+  { icon: ClipboardList, title: "Rapports Personnalisés", desc: "Générez des rapports détaillés sur l'utilisation, la performance et l'état de vos installations." }
+];
+
+const VILLES = ["Toutes les villes", "Casablanca", "Rabat", "Marrakech"];
+
+const QUARTIERS_BY_VILLE = {
+  Casablanca: ["Tous les quartiers", "Ain Sebaa", "Belvedère", "Maârif"],
+  Rabat: ["Tous les quartiers", "Agdal", "Hassan"],
+  Marrakech: ["Tous les quartiers", "Palmeraie", "Guéliz"],
+};
 
 const stats = [
-  { number: "8", label: "Terrains", icon: <MapPin size={24} /> },
-  { number: "10k+", label: "Joueurs", icon: <Users size={24} /> },
-  { number: "500+", label: "Matchs/mois", icon: <Trophy size={24} /> },
-  { number: "4.9★", label: "Note moyenne", icon: <Star size={24} fill="currentColor" /> }
+  { number: "15+", label: "Terrains", icon: MapPin },
+  { number: "12k+", label: "Joueurs", icon: Users },
+  { number: "800+", label: "Matchs/mois", icon: Trophy },
+  { number: "4.8★", label: "Note moyenne", icon: Star },
 ];
 
-function App() {
+// ─── COMPONENT ────────────────────────────────────────────────────
+export default function Terrains() {
+  const [selectedVille, setSelectedVille] = useState("Toutes les villes");
+  const [selectedQuartier, setSelectedQuartier] = useState("Tous les quartiers");
+  const [selectedSport, setSelectedSport] = useState(null);
+  const [selectedTerrain, setSelectedTerrain] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const quartiers = selectedVille !== "Toutes les villes"
+    ? QUARTIERS_BY_VILLE[selectedVille] || []
+    : [];
+
+  const filtered = useMemo(() => {
+    return TERRAINS.filter(t => {
+      if (selectedVille !== "Toutes les villes" && t.ville !== selectedVille) return false;
+      if (selectedQuartier !== "Tous les quartiers" && t.quartier !== selectedQuartier) return false;
+      if (selectedSport && t.sport !== selectedSport) return false;
+      return true;
+    });
+  }, [selectedVille, selectedQuartier, selectedSport]);
+
+  const handleVilleChange = (ville) => {
+    setSelectedVille(ville);
+    setSelectedQuartier("Tous les quartiers");
+  };
+
+  const handleOpenModal = (terrain) => {
+    setSelectedTerrain(terrain);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const getSportIcon = (sportId) => {
+    const sport = SPORTS.find(s => s.id === sportId);
+    return sport ? sport.icon : Trophy;
+  };
+
+  const getSportColor = (sportId) => {
+    const sport = SPORTS.find(s => s.id === sportId);
+    return sport ? sport.color : '#2e7d32';
+  };
+
+  const getSportLabel = (sportId) => {
+    const sport = SPORTS.find(s => s.id === sportId);
+    return sport ? sport.label : 'Sport';
+  };
+
+  // ─── RENDER ────────────────────────────────────────────────────
   return (
-    <div className="terrains-page">
-      {/* Navbar (Header est déjà inclus dans le composant) */}
-      
-      {/* Hero Section */}
-      <section className="terrains-hero">
-        <div className="hero-background"></div>
-        <div className="hero-overlay"></div>
-        <div className="hero-pattern"></div>
-        
-        <div className="hero-container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span className="hero-badge-dot"></span>
-              <span className="hero-badge-text">⚽ TERRAINS D'EXCEPTION ⚽</span>
+    <div className="t-page">
+      {/* ── HERO ─────────────────────────────────────────────────── */}
+      <section className="t-hero">
+        <div className="t-hero-background">
+          <div className="t-hero-overlay" />
+          <div className="t-hero-pattern" />
+        </div>
+        <div className="t-hero-container">
+          <div className="t-hero-content">
+            <div className="t-hero-badge">
+              <span className="t-hero-badge-dot" />
+              <span className="t-hero-badge-text">Gestion d'Infrastructure Sportive</span>
             </div>
-            
-            <h1 className="hero-title">
-              <span className="hero-title-line">Terrains de Football</span>
-              <span className="hero-title-line hero-title-highlight">Premium</span>
+            <h1 className="t-hero-title">
+              <span className="t-hero-title-line">Terrains de Sport</span>
+              <span className="t-hero-title-line t-hero-title-gold">Premium & Intelligent</span>
             </h1>
-            
-            <p className="hero-subtitle">
-              Des installations d'exception pour des performances d'élite. 
-              Découvrez nos terrains aux normes professionnelles.
+            <p className="t-hero-subtitle">
+              Gérez vos installations sportives avec notre plateforme intelligente. 
+              Analyse en temps réel, maintenance prédictive et optimisation des ressources.
             </p>
-            
-            <div className="hero-stats">
-              {stats.map((stat, index) => (
-                <div key={index} className="hero-stat-item">
-                  <div className="hero-stat-icon">{stat.icon}</div>
-                  <div className="hero-stat-number">{stat.number}</div>
-                  <div className="hero-stat-label">{stat.label}</div>
-                </div>
-              ))}
+            <div className="t-hero-actions">
+              <a href="#terrain-list" className="t-btn-primary">
+                <Calendar size={20} />
+                <span>Explorer les Terrains</span>
+                <ArrowRight size={20} className="t-btn-arrow" />
+              </a>
+              <a href="#infrastructure" className="t-btn-secondary">
+                <LayoutDashboard size={20} />
+                <span>Dashboard Infrastructure</span>
+              </a>
+            </div>
+            <div className="t-hero-stats">
+              {stats.map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <div key={i} className="t-hero-stat">
+                    <div className="t-hero-stat-icon"><Icon size={24} /></div>
+                    <div className="t-hero-stat-number">{s.number}</div>
+                    <div className="t-hero-stat-label">{s.label}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
-        
-        <div className="hero-scroll-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div className="t-hero-scroll">
           <span>Découvrir</span>
-          <ArrowRight size={20} style={{ transform: 'rotate(90deg)' }} />
+          <ArrowRight size={18} style={{ transform: 'rotate(90deg)' }} />
         </div>
       </section>
 
-      {/* Terrains Section */}
-      <section className="terrains-section">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">NOS TERRAINS</span>
-            <h2 className="section-title-modern">
-              Des <span className="gradient-text-gold">installations</span> d'exception
+      {/* ── INFRASTRUCTURE MANAGEMENT SECTION ────────────────────── */}
+      <section id="infrastructure" className="t-infrastructure">
+        <div className="t-container">
+          <div className="t-section-header">
+            <span className="t-section-subtitle">Gestion d'Infrastructure</span>
+            <h2 className="t-section-title">
+              <span className="t-gradient-text">Dashboard</span> Intelligent
             </h2>
-            <p className="section-description-modern">
-              Des infrastructures professionnelles pour des expériences uniques
+            <p className="t-section-desc">
+              Une solution complète pour la gestion, l'analyse et l'optimisation de vos installations sportives
             </p>
           </div>
-          
-          <div className="terrains-grid-modern">
-            {Terrains.map((terrain) => (
-              <div key={terrain.id} className="terrain-card-modern">
-                <div className="terrain-image-modern">
-                  <img src={terrain.image} alt={terrain.titre} />
-                  <div className="terrain-overlay-modern"></div>
-                  <div className="terrain-badge-modern">{terrain.badge}</div>
-                  
-                  <div className="terrain-rating-modern">
-                    <Star size={14} fill="currentColor" />
-                    <span>{terrain.note}</span>
-                    <span className="rating-count">({terrain.avis})</span>
+
+          <div className="t-infrastructure-grid">
+            {/* Métriques */}
+            <div className="t-infra-metrics">
+              <div className="t-infra-metrics-header">
+                <div className="t-infra-metrics-title">
+                  <BarChart3 size={20} />
+                  <h3>État des Installations</h3>
+                </div>
+                <span className="t-infra-status">
+                  <span className="t-status-dot" />
+                  Système Opérationnel
+                </span>
+              </div>
+              <div className="t-infra-metrics-grid">
+                {infrastructureMetrics.map((metric, index) => {
+                  const Icon = metric.icon;
+                  return (
+                    <div key={index} className="t-infra-metric">
+                      <div className={`t-metric-icon t-metric-icon--${metric.status}`}>
+                        <Icon size={16} />
+                      </div>
+                      <div className="t-metric-info">
+                        <span className="t-metric-label">{metric.label}</span>
+                        <span className="t-metric-value">{metric.value}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Chart */}
+            <div className="t-infra-chart">
+              <div className="t-chart-header">
+                <Signal size={18} />
+                <span>Performance des Terrains</span>
+              </div>
+              <div className="t-chart-bars">
+                <div className="t-chart-bar" style={{ height: '95%' }}><span>T1</span></div>
+                <div className="t-chart-bar" style={{ height: '85%' }}><span>T2</span></div>
+                <div className="t-chart-bar" style={{ height: '70%' }}><span>T3</span></div>
+                <div className="t-chart-bar" style={{ height: '90%' }}><span>T4</span></div>
+                <div className="t-chart-bar" style={{ height: '60%' }}><span>T5</span></div>
+                <div className="t-chart-bar" style={{ height: '80%' }}><span>T6</span></div>
+                <div className="t-chart-bar" style={{ height: '75%' }}><span>T7</span></div>
+                <div className="t-chart-bar" style={{ height: '92%' }}><span>T8</span></div>
+              </div>
+              <div className="t-chart-labels">
+                <span>Taux d'occupation moyen: 81%</span>
+                <span><CheckCircle2 size={14} /> 6 terrains actifs</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Features */}
+          <div className="t-infra-features">
+            {infrastructureFeatures.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="t-infra-feature">
+                  <div className="t-infra-feature-icon">
+                    <Icon size={24} />
+                  </div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SPORTS FILTER ────────────────────────────────────────── */}
+      <section className="t-sports-filter">
+        <div className="t-container">
+          <div className="t-sports-filter-container">
+            <button 
+              className={`t-sport-filter ${!selectedSport ? 'active' : ''}`}
+              onClick={() => setSelectedSport(null)}
+            >
+              <Grid size={18} />
+              <span>Tous les sports</span>
+            </button>
+            {SPORTS.map(sport => {
+              const Icon = sport.icon;
+              return (
+                <button
+                  key={sport.id}
+                  className={`t-sport-filter ${selectedSport === sport.id ? 'active' : ''}`}
+                  style={{ '--sport-color': sport.color }}
+                  onClick={() => setSelectedSport(selectedSport === sport.id ? null : sport.id)}
+                >
+                  <Icon size={18} />
+                  <span>{sport.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TERRAINS LIST ─────────────────────────────────────────── */}
+      <section id="terrain-list" className="t-terrains">
+        <div className="t-container">
+          <div className="t-section-header">
+            <span className="t-section-subtitle">Nos Terrains</span>
+            <h2 className="t-section-title">
+              Des <span className="t-gradient-gold">Installations</span> d'Exception
+            </h2>
+            <p className="t-section-desc">
+              {selectedSport 
+                ? `Découvrez nos terrains de ${getSportLabel(selectedSport)}` 
+                : 'Des infrastructures professionnelles pour tous les sports'
+              }
+            </p>
+          </div>
+
+          {/* ── FILTER BAR ───────────────────────────────────────── */}
+          <div className="t-filter-bar">
+            <div className="t-filter-selects">
+              <div className="t-filter-group">
+                <label className="t-filter-label">
+                  <MapPin size={13} /> Ville
+                </label>
+                <div className="t-filter-wrapper">
+                  <select
+                    className="t-filter-select"
+                    value={selectedVille}
+                    onChange={e => handleVilleChange(e.target.value)}
+                  >
+                    {VILLES.map(v => (
+                      <option key={v} value={v}>{v}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={15} className="t-filter-arrow" />
+                </div>
+              </div>
+
+              <div className={`t-filter-group ${selectedVille === "Toutes les villes" ? 'disabled' : ''}`}>
+                <label className="t-filter-label">
+                  <MapPin size={13} /> Quartier
+                </label>
+                <div className="t-filter-wrapper">
+                  <select
+                    className="t-filter-select"
+                    value={selectedQuartier}
+                    onChange={e => setSelectedQuartier(e.target.value)}
+                    disabled={selectedVille === "Toutes les villes"}
+                  >
+                    {(selectedVille !== "Toutes les villes"
+                      ? quartiers
+                      : ["Tous les quartiers"]
+                    ).map(q => (
+                      <option key={q} value={q}>{q}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={15} className="t-filter-arrow" />
+                </div>
+              </div>
+
+              <div className="t-filter-results">
+                <span className="t-filter-results-number">{filtered.length}</span>
+                <span className="t-filter-results-text">
+                  terrain{filtered.length !== 1 ? 's' : ''} trouvé{filtered.length !== 1 ? 's' : ''}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── CARDS GRID ───────────────────────────────────────── */}
+          {filtered.length === 0 ? (
+            <div className="t-empty">
+              <div className="t-empty-icon"><MapPin size={40} /></div>
+              <h3>Aucun terrain disponible</h3>
+              <p>Aucun terrain ne correspond à votre sélection. Essayez un autre sport, quartier ou ville.</p>
+              <button className="t-empty-reset" onClick={() => {
+                handleVilleChange("Toutes les villes");
+                setSelectedSport(null);
+              }}>
+                Voir tous les terrains
+              </button>
+            </div>
+          ) : (
+            <div className="t-terrains-grid">
+              {filtered.map(terrain => {
+                const SportIcon = getSportIcon(terrain.sport);
+                return (
+                  <div key={terrain.id} className="t-terrain-card">
+                    <div className="t-terrain-image">
+                      <img src={terrain.image} alt={terrain.titre} loading="lazy" />
+                      <div className="t-terrain-overlay" />
+                      <div className={`t-terrain-badge ${terrain.badgeClass}`}>{terrain.badge}</div>
+                      <div className="t-terrain-sport" style={{ backgroundColor: getSportColor(terrain.sport) }}>
+                        <SportIcon size={14} />
+                        <span>{getSportLabel(terrain.sport)}</span>
+                      </div>
+                      <div className="t-terrain-rating">
+                        <Star size={13} fill="currentColor" />
+                        <span>{terrain.note}</span>
+                        <span className="t-rating-count">({terrain.avis})</span>
+                      </div>
+                      <div className="t-terrain-location">
+                        <MapPin size={11} />
+                        {terrain.quartier}, {terrain.ville}
+                      </div>
+                    </div>
+
+                    <div className="t-terrain-content">
+                      <h3 className="t-terrain-title">{terrain.titre}</h3>
+
+                      <div className="t-terrain-meta">
+                        <span className="t-terrain-type">{terrain.type}</span>
+                        <span className="t-terrain-surface">{terrain.surface}</span>
+                      </div>
+
+                      <div className="t-terrain-features">
+                        {terrain.caracteristiques.slice(0, 3).map((c, i) => {
+                          const Icon = c.icon;
+                          return (
+                            <span key={i} className="t-terrain-feature">
+                              <Icon size={14} /> {c.text}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      <div className="t-terrain-equipments">
+                        <h4>Équipements inclus :</h4>
+                        <div className="t-equipments-grid">
+                          {terrain.equipements.slice(0, 4).map((e, i) => (
+                            <span key={i} className="t-equipment-item">
+                              <Check size={11} /> {e}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="t-terrain-footer">
+                        <div className="t-terrain-price">
+                          <span className="t-price-number">{terrain.tarif}</span>
+                          <span className="t-price-unit"> {terrain.devise}</span>
+                        </div>
+                        <div className="t-terrain-actions">
+                          <Link to="/reservation" className="t-btn-primary-small">
+                            <Calendar size={14} /> Réserver
+                          </Link>
+                          <button onClick={() => handleOpenModal(terrain)} className="t-btn-secondary-small">
+                            Détails
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── MODAL DETAILS ────────────────────────────────────────── */}
+      {isModalOpen && selectedTerrain && (
+        <div className="t-modal-overlay" onClick={handleCloseModal}>
+          <div className="t-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="t-modal-close" onClick={handleCloseModal}>
+              <X size={24} />
+            </button>
+            
+            <div className="t-modal-header">
+              <div className="t-modal-image">
+                <img src={selectedTerrain.imageDetail || selectedTerrain.image} alt={selectedTerrain.titre} />
+                <div className={`t-modal-badge ${selectedTerrain.badgeClass}`}>{selectedTerrain.badge}</div>
+                <div className="t-modal-sport" style={{ backgroundColor: getSportColor(selectedTerrain.sport) }}>
+                  {React.createElement(getSportIcon(selectedTerrain.sport), { size: 14 })}
+                  <span>{getSportLabel(selectedTerrain.sport)}</span>
+                </div>
+              </div>
+              <div className="t-modal-header-content">
+                <h2>{selectedTerrain.titre}</h2>
+                <div className="t-modal-location">
+                  <MapPin size={16} />
+                  <span>{selectedTerrain.quartier}, {selectedTerrain.ville}</span>
+                </div>
+                <div className="t-modal-rating">
+                  <Star size={16} fill="currentColor" />
+                  <span>{selectedTerrain.note}</span>
+                  <span className="t-modal-rating-count">({selectedTerrain.avis} avis)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="t-modal-body">
+              <div className="t-modal-section">
+                <h3><Sparkles size={18} /> Description</h3>
+                <p>{selectedTerrain.description}</p>
+              </div>
+
+              <div className="t-modal-info-grid">
+                <div className="t-modal-info">
+                  <Clock size={20} />
+                  <div>
+                    <strong>Horaires</strong>
+                    <span>{selectedTerrain.horaires}</span>
                   </div>
                 </div>
-                
-                <div className="terrain-content-modern">
-                  <h3 className="terrain-title-modern">{terrain.titre}</h3>
-                  
-                  <div className="terrain-meta-modern">
-                    <div className="terrain-meta-item">
-                      <MapPin size={14} />
-                      <span>{terrain.localisation}</span>
-                    </div>
-                    <div className="terrain-meta-item">
-                      <span className="terrain-type">{terrain.type}</span>
-                    </div>
-                    <div className="terrain-meta-item">
-                      <span className="terrain-surface">{terrain.surface}</span>
-                    </div>
+                <div className="t-modal-info">
+                  <Trophy size={20} />
+                  <div>
+                    <strong>Durée match</strong>
+                    <span>{selectedTerrain.dureeMatch}</span>
                   </div>
-                  
-                  <div className="terrain-features-modern">
-                    {terrain.caracteristiques.map((carac, idx) => (
-                      <span key={idx} className="terrain-feature-modern">
-                        {carac.icon} {carac.text}
-                      </span>
-                    ))}
+                </div>
+                <div className="t-modal-info">
+                  <Users size={20} />
+                  <div>
+                    <strong>Niveau requis</strong>
+                    <span>{selectedTerrain.niveauRequis}</span>
                   </div>
-                  
-                  <div className="terrain-equipements-modern">
-                    <h4>Équipements inclus :</h4>
-                    <div className="equipements-grid">
-                      {terrain.equipements.map((equip, idx) => (
-                        <span key={idx} className="equipement-item">
-                          <Check size={12} /> {equip}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="terrain-footer-modern">
-                    <div className="terrain-price-modern">
-                      <span className="price-number-modern">{terrain.tarif}</span>
-                      <span className="price-unit-modern"> {terrain.devise}</span>
-                    </div>
-                    
-                    <div className="terrain-actions-modern">
-                      <Link to="/reservation" className="terrain-btn-primary">
-                        <Calendar size={16} />
-                        Réserver
-                      </Link>
-                      <Link to={`/terrains/${terrain.id}`} className="terrain-btn-secondary">
-                        Détails
-                      </Link>
-                    </div>
+                </div>
+                <div className="t-modal-info">
+                  <Calendar size={20} />
+                  <div>
+                    <strong>Réservation</strong>
+                    <span>En ligne 24/7</span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Services Section */}
-      <section className="services-modern">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">SERVICES EXCLUSIFS</span>
-            <h2 className="section-title-modern">
-              Services <span className="gradient-text">Premium</span>
-            </h2>
-            <p className="section-description-modern">
-              Une expérience complète pour des performances optimales
-            </p>
-          </div>
-          
-          <div className="services-grid-modern">
-            {services.map((service, index) => (
-              <div key={index} className="service-card-modern">
-                <div className="service-icon-modern">
-                  {service.icon}
+              <div className="t-modal-section">
+                <h3><Award size={18} /> Caractéristiques</h3>
+                <div className="t-modal-features">
+                  {selectedTerrain.caracteristiques.map((c, i) => {
+                    const Icon = c.icon;
+                    return (
+                      <div key={i} className="t-modal-feature">
+                        <Icon size={16} />
+                        <span>{c.text}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-                <h3 className="service-title-modern">{service.titre}</h3>
-                <p className="service-description-modern">{service.description}</p>
-                <div className="service-features-modern">
-                  {service.features.map((feature, idx) => (
-                    <span key={idx} className="service-feature">
-                      <Check size={12} /> {feature}
-                    </span>
+              </div>
+
+              <div className="t-modal-section">
+                <h3><Shield size={18} /> Équipements inclus</h3>
+                <div className="t-modal-equipments">
+                  {selectedTerrain.equipements.map((e, i) => (
+                    <div key={i} className="t-modal-equipment">
+                      <Check size={14} />
+                      <span>{e}</span>
+                    </div>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-background"></div>
-        <div className="cta-overlay"></div>
-        
-        <div className="container">
-          <div className="cta-content">
-            <h2 className="cta-title">
-              Prêt à <span className="gradient-text-gold">dominer</span> le terrain ?
-            </h2>
-            <p className="cta-subtitle">
-              Réservez dès maintenant et bénéficiez de -20% sur votre première réservation
-            </p>
-            
-            <div className="cta-buttons">
-              <Link to="/reservation" className="cta-btn-primary">
-                <Calendar size={20} />
-                Réserver un terrain
-                <ArrowRight size={20} />
-              </Link>
-              <Link to="/contact" className="cta-btn-secondary">
-                Nous contacter
-              </Link>
-            </div>
-            
-            <div className="cta-features">
-              <div className="cta-feature">
-                <Check size={16} />
-                <span>Réservation instantanée</span>
-              </div>
-              <div className="cta-feature">
-                <Check size={16} />
-                <span>Annulation gratuite</span>
-              </div>
-              <div className="cta-feature">
-                <Check size={16} />
-                <span>Support 24/7</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer-modern">
-        <div className="container">
-          <div className="footer-grid-modern">
-            <div className="footer-brand-modern">
-              <div className="footer-logo-modern">
-                <div className="footer-logo-icon-modern">
-                  <Target size={24} />
+              {selectedTerrain.avisRecents && selectedTerrain.avisRecents.length > 0 && (
+                <div className="t-modal-section">
+                  <h3><ThumbsUp size={18} /> Avis récents</h3>
+                  <div className="t-modal-reviews">
+                    {selectedTerrain.avisRecents.map((review, i) => (
+                      <div key={i} className="t-modal-review">
+                        <div className="t-review-header">
+                          <strong>{review.nom}</strong>
+                          <div className="t-review-rating">
+                            <Star size={12} fill="currentColor" />
+                            <span>{review.note}</span>
+                          </div>
+                        </div>
+                        <p>"{review.commentaire}"</p>
+                        <span className="t-review-date">{review.date}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <span className="footer-logo-text-modern">FootField</span>
+              )}
+
+              <div className="t-modal-footer">
+                <div className="t-modal-price">
+                  <span className="t-modal-price-number">{selectedTerrain.tarif}</span>
+                  <span className="t-modal-price-unit"> {selectedTerrain.devise}</span>
+                </div>
+                <Link to="/reservation" className="t-modal-btn" onClick={handleCloseModal}>
+                  <Calendar size={18} /> Réserver maintenant
+                </Link>
               </div>
-              <p className="footer-description-modern">
-                Le premier complexe de football premium en région parisienne. 
-                Des installations de qualité professionnelle pour tous les passionnés.
-              </p>
-              <div className="footer-social-modern">
-                <a href="#" className="footer-social-link-modern">
-                  <Facebook size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Instagram size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Twitter size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Linkedin size={18} />
-                </a>
-              </div>
-            </div>
-            
-            <div className="footer-links-modern">
-              <h3 className="footer-title-modern">Liens Rapides</h3>
-              <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/terrains">Nos Terrains</a></li>
-                <li><a href="/tarifs">Tarifs</a></li>
-                <li><a href="/about">À propos</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-links-modern">
-              <h3 className="footer-title-modern">Informations</h3>
-              <ul>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/conditions">Conditions</a></li>
-                <li><a href="/confidentialite">Confidentialité</a></li>
-                <li><a href="/mentions">Mentions légales</a></li>
-                <li><a href="/carriere">Carrière</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-contact-modern">
-              <h3 className="footer-title-modern">Contact</h3>
-              <div className="footer-contact-item-modern">
-                <MapPinIcon size={16} />
-                <span>123 Avenue du Sport, 75000 Paris</span>
-              </div>
-              <div className="footer-contact-item-modern">
-                <Phone size={16} />
-                <span>01 23 45 67 89</span>
-              </div>
-              <div className="footer-contact-item-modern">
-                <Mail size={16} />
-                <span>contact@footfield.fr</span>
-              </div>
-              
-              <h3 className="footer-title-modern" style={{ marginTop: '30px' }}>Newsletter</h3>
-              <div className="footer-newsletter-modern">
-                <input 
-                  type="email" 
-                  placeholder="Votre email" 
-                  className="footer-newsletter-input-modern"
-                />
-                <button className="footer-newsletter-btn-modern">
-                  <Send size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="footer-bottom-modern">
-            <div className="footer-copyright-modern">
-              © 2024 FootField. Tous droits réservés.
-            </div>
-            <div className="footer-bottom-links-modern">
-              <a href="/conditions">Conditions d'utilisation</a>
-              <a href="/confidentialite">Politique de confidentialité</a>
-              <a href="/cookies">Cookies</a>
             </div>
           </div>
         </div>
-      </footer>
+      )}
     </div>
   );
 }
-
-export default App;

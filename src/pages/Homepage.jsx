@@ -1,9 +1,7 @@
 import React from 'react';
 import '../composant/homepage.css';
 
-// Import des icônes Lucide React
 import { 
-  MapPin, 
   Calendar, 
   Trophy, 
   Users, 
@@ -12,7 +10,7 @@ import {
   Play,
   Mail,
   Phone,
-  MapPin as MapPinIcon,
+  MapPin,
   Facebook,
   Instagram,
   Twitter,
@@ -24,168 +22,255 @@ import {
   UserCheck,
   Target,
   Heart,
-  Zap
+  Zap,
+  Shield,
+  Sparkles,
+  Gem,
+  Flame,
+  Crown,
+  Footprints,
+  Dumbbell,
+  Activity,
+  ShoppingBag,
+  Medal,
+  Compass,
+  TrendingUp,
+  Briefcase,
+  Globe,
+  Headphones,
+  CreditCard,
+  BarChart3,
+  PieChart,
+  LineChart,
+  Settings2,
+  ClipboardList,
+  Users2,
+  LayoutDashboard,
+  Wifi,
+  Thermometer,
+  Droplets,
+  Lightbulb,
+  AlertTriangle,
+  CheckCircle2,
+  RefreshCw,
+  Monitor,
+  Cpu,
+  HardDrive,
+  Server,
+  Cloud,
+  Database,
+  Network,
+  Radio,
+  Signal,
+  Gauge,
+  Timer,
+  Settings,
+  Plus,
+  Minus,
+  XCircle,
+  CheckCircle,
+  Info,
+  AlertCircle
 } from 'lucide-react';
 
-const Index = () => {
+const Homepage = () => {
+  const services = [
+    {
+      icon: <Calendar size={28} />,
+      title: "Réservation de Terrains",
+      description: "Réservez instantanément votre terrain parmi 8 installations premium. Disponibilité en temps réel 24h/24.",
+      color: "#0a750d",
+      link: "/reservation"
+    },
+    {
+      icon: <Trophy size={28} />,
+      title: "Gestion de Tournoi",
+      description: "Plateforme complète pour créer, gérer et suivre vos tournois. Tableaux, scores, statistiques et classements en temps réel.",
+      color: "#ffd700",
+      link: "/tournois"
+    },
+    {
+      icon: <BarChart3 size={28} />,
+      title: "Analyse d'Infrastructure",
+      description: "Dashboard intelligent pour surveiller et analyser vos installations sportives. Données en temps réel, maintenance prédictive.",
+      color: "#3498db",
+      link: "/infrastructure"
+    },
+    {
+      icon: <Users size={28} />,
+      title: "Coaching Personnalisé",
+      description: "Bénéficiez de séances avec nos coachs certifiés. Progressez rapidement grâce à des programmes sur mesure.",
+      color: "#e67e22",
+      link: "/coaches"
+    },
+    {
+      icon: <ShoppingBag size={28} />,
+      title: "Marketplace Sportive",
+      description: "Découvrez notre boutique d'équipements premium. Maillots, chaussures et accessoires pour tous les sports.",
+      color: "#3498db",
+      link: "/boutique"
+    },
+    {
+      icon: <Medal size={28} />,
+      title: "Matchs Organisés",
+      description: "Organisez vos matchs entre amis ou en équipe. Service d'arbitrage et statistiques inclus.",
+      color: "#e74c3c",
+      link: "/sessions"
+    }
+  ];
+
+  const infrastructureMetrics = [
+    { label: "Terrains Actifs", value: "8/8", status: "green", icon: <CheckCircle2 size={16} /> },
+    { label: "Taux d'Occupation", value: "87%", status: "green", icon: <TrendingUp size={16} /> },
+    { label: "Maintenance", value: "2 interventions", status: "warning", icon: <AlertTriangle size={16} /> },
+    { label: "Température", value: "22°C", status: "green", icon: <Thermometer size={16} /> },
+    { label: "Qualité de l'Air", value: "Excellent", status: "green", icon: <CheckCircle size={16} /> },
+    { label: "Éclairage", value: "Optimal", status: "green", icon: <Lightbulb size={16} /> }
+  ];
+
+  const tournamentStats = [
+    { label: "Tournois Actifs", value: "12", icon: <Trophy size={20} /> },
+    { label: "Équipes Inscrites", value: "48", icon: <Users2 size={20} /> },
+    { label: "Matchs Disputés", value: "156", icon: <Activity size={20} /> },
+    { label: "Prochains Tournois", value: "8", icon: <Calendar size={20} /> }
+  ];
+
   const features = [
     {
-      icon: <MapPin size={32} />,
-      title: "Terrains Premium",
-      description: "Des installations modernes avec pelouse synthétique de qualité professionnelle"
+      icon: <Zap size={24} />,
+      title: "Réservation Flash",
+      description: "Confirmation immédiate et paiement sécurisé pour vos réservations"
     },
     {
-      icon: <Calendar size={32} />,
-      title: "Réservation Simple", 
-      description: "Système de réservation en ligne 24h/24, 7j/7 avec confirmation immédiate"
+      icon: <LayoutDashboard size={24} />,
+      title: "Dashboard Infrastructure",
+      description: "Visualisez en temps réel l'état de vos installations et anticipez les maintenances"
     },
     {
-      icon: <Trophy size={32} />,
-      title: "Événements Sportifs",
-      description: "Organisation de tournois et championnats pour tous niveaux"
+      icon: <ClipboardList size={24} />,
+      title: "Gestion de Tournoi",
+      description: "Créez des tournois, gérez les équipes, suivez les scores et publiez les classements"
     },
     {
-      icon: <Users size={32} />,
-      title: "Équipes & Clubs",
-      description: "Tarifs préférentiels pour les clubs et réservations récurrentes"
+      icon: <ShoppingBag size={24} />,
+      title: "Boutique Intégrée",
+      description: "Matériel sportif de marques reconnues à prix compétitifs"
     }
+  ];
+
+  const stats = [
+    { number: "8", label: "Terrains Premium", icon: <MapPin size={28} /> },
+    { number: "500+", label: "Matchs par Mois", icon: <Activity size={28} /> },
+    { number: "150+", label: "Tournois Organisés", icon: <Trophy size={28} /> },
+    { number: "12k+", label: "Athlètes Accompagnés", icon: <Users size={28} /> },
+    { number: "24/7", label: "Service Disponible", icon: <Clock size={28} /> },
+    { number: "98%", label: "Satisfaction Globale", icon: <Star size={28} /> }
   ];
 
   const testimonials = [
     {
       name: "Marc Dubois",
-      role: "Capitaine FC Parisien", 
-      content: "Des terrains exceptionnels ! La qualité de la pelouse et des équipements fait vraiment la différence.",
+      role: "Capitaine FC Parisien",
+      content: "PlayZone a révolutionné notre façon de jouer. Des terrains exceptionnels, un service impeccable et une ambiance unique.",
       rating: 5
     },
     {
       name: "Sophie Martin",
-      role: "Entraîneur jeunes",
-      content: "Parfait pour nos entraînements. L'équipe est professionnelle et les créneaux très flexibles.",
+      role: "Entraîneuse Nationale",
+      content: "Le meilleur complexe sportif du Maroc. Les installations sont de classe mondiale et l'équipe est d'un professionnalisme remarquable.",
       rating: 5
     },
     {
-      name: "Ahmed Benzema",
-      role: "Joueur amateur",
-      content: "Le meilleur complexe de la région ! Vestiaires propres, terrain impeccable, je recommande à 100%.",
+      name: "Karim El Fassi",
+      role: "Organisateur Tournois",
+      content: "Organiser des tournois ici est un véritable plaisir. Tout est pensé pour offrir une expérience exceptionnelle aux participants.",
       rating: 5
-    }
-  ];
-
-  const fields = [
-    { 
-      img: "/terrain.jpg",
-      title: "Terrain Synthétique A", 
-      type: "11 vs 11",
-      price: "50€/h",
-      features: ["Éclairage LED", "Vestiaires", "Parking"]
-    },
-    { 
-      img: "/terrain.jpg", 
-      title: "Terrain Indoor", 
-      type: "5 vs 5",
-      price: "45€/h",
-      features: ["Climatisé", "Tribunes", "Bar"]
-    },
-    { 
-      img: "/terrain.jpg", 
-      title: "Terrain Premium", 
-      type: "7 vs 7",
-      price: "60€/h",
-      features: ["Pelouse pro", "Vidéo", "Spa"]
     }
   ];
 
   return (
-    <div className="index-page">
-    
-
+    <div className="sp-homepage">
       {/* Hero Section */}
-      <section className="hero-modern">
-        <div className="hero-background"></div>
-        <div className="hero-overlay"></div>
-        <div className="hero-pattern"></div>
+      <section className="sp-hero">
+        <div className="sp-hero-backdrop"></div>
+        <div className="sp-hero-overlay"></div>
+        <div className="sp-hero-pattern"></div>
         
-        <div className="hero-container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span className="hero-badge-dot"></span>
-              <span className="hero-badge-text">FOOTFIELD PREMIUM</span>
+        <div className="sp-hero-container">
+          <div className="sp-hero-content">
+            <div className="sp-hero-badge">
+              <span className="sp-hero-badge-dot"></span>
+              <span className="sp-hero-badge-text">Écosystème Sportif Complet</span>
             </div>
             
-            <h1 className="hero-title">
-              <span className="hero-title-line">VOTRE</span>
-              <span className="hero-title-line hero-title-highlight">TERRAIN DE FOOT</span>
-              <span className="hero-title-line">D'EXCEPTION</span>
+            <h1 className="sp-hero-title">
+              <span className="sp-hero-title-line">Votre Univers</span>
+              <span className="sp-hero-title-line sp-hero-title-gold">Sportif</span>
+              <span className="sp-hero-title-line">Intelligent</span>
             </h1>
             
-            <p className="hero-subtitle">
-              Découvrez nos installations sportives de haute qualité. 
-              Réservez votre terrain et vivez votre passion du football dans des conditions professionnelles.
+            <p className="sp-hero-subtitle">
+              Réservez, jouez, organisez et gérez votre infrastructure sportive sur une plateforme unique. 
+              PlayZone réunit tout l'écosystème pour une expérience sans précédent.
             </p>
             
-            <div className="hero-actions">
-              <a href="/reservation" className="hero-btn-primary">
+            <div className="sp-hero-actions">
+              <a href="/reservation" className="sp-btn-primary">
                 <Calendar size={20} />
-                <span>Réserver Maintenant</span>
-                <ArrowRight size={20} className="hero-btn-icon" />
+                <span>Réserver un Terrain</span>
+                <ArrowRight size={20} className="sp-btn-arrow" />
               </a>
-              <a href="/terrains" className="hero-btn-secondary">
-                <Play size={20} />
-                <span>Découvrir nos terrains</span>
+              <a href="/tournois" className="sp-btn-secondary">
+                <Trophy size={20} />
+                <span>Gérer un Tournoi</span>
               </a>
             </div>
             
-            <div className="hero-stats">
-              <div className="hero-stat-item">
-                <span className="hero-stat-number">24/7</span>
-                <span className="hero-stat-label">Ouvert tous les jours</span>
+            <div className="sp-hero-stats">
+              <div className="sp-hero-stat">
+                <span className="sp-hero-stat-number">8</span>
+                <span className="sp-hero-stat-label">Terrains Premium</span>
               </div>
-              <div className="hero-stat-item">
-                <span className="hero-stat-number">8</span>
-                <span className="hero-stat-label">Terrains disponibles</span>
+              <div className="sp-hero-stat">
+                <span className="sp-hero-stat-number">500+</span>
+                <span className="sp-hero-stat-label">Matchs par Mois</span>
               </div>
-              <div className="hero-stat-item">
-                <span className="hero-stat-number">5★</span>
-                <span className="hero-stat-label">Note moyenne</span>
+              <div className="sp-hero-stat">
+                <span className="sp-hero-stat-number">150+</span>
+                <span className="sp-hero-stat-label">Tournois Organisés</span>
               </div>
-              <div className="hero-stat-item">
-                <span className="hero-stat-number">10k+</span>
-                <span className="hero-stat-label">Joueurs satisfaits</span>
+              <div className="sp-hero-stat">
+                <span className="sp-hero-stat-number">12k+</span>
+                <span className="sp-hero-stat-label">Athlètes</span>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="hero-scroll-indicator">
-          <span>Scroll</span>
-          <ArrowRight size={20} style={{ transform: 'rotate(90deg)' }} />
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="features-modern">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">POURQUOI NOUS CHOISIR</span>
-            <h2 className="section-title-modern">
-              Une expérience <span className="gradient-text">football</span> unique
+      {/* Services Section */}
+      <section className="sp-services">
+        <div className="sp-container">
+          <div className="sp-section-header">
+            <span className="sp-section-subtitle">Nos Services</span>
+            <h2 className="sp-section-title">
+              Tout pour le <span className="sp-gradient-text">Sportif</span> Moderne
             </h2>
-            <p className="section-description-modern">
-              Des installations modernes, un service professionnel et une passion partagée pour le football
+            <p className="sp-section-desc">
+              Une gamme complète de services pour répondre à tous vos besoins sportifs
             </p>
           </div>
           
-          <div className="features-grid-modern">
-            {features.map((feature, index) => (
-              <div key={index} className="feature-card-modern">
-                <div className="feature-icon-modern">
-                  {feature.icon}
+          <div className="sp-services-grid">
+            {services.map((service, index) => (
+              <div key={index} className="sp-service-card">
+                <div className="sp-service-icon" style={{ background: `linear-gradient(135deg, ${service.color}, ${service.color}dd)` }}>
+                  {service.icon}
                 </div>
-                <h3 className="feature-title-modern">{feature.title}</h3>
-                <p className="feature-description-modern">{feature.description}</p>
-                <a href="/en-savoir-plus" className="feature-link-modern">
-                  En savoir plus <ArrowRight size={16} />
+                <h3 className="sp-service-title">{service.title}</h3>
+                <p className="sp-service-desc">{service.description}</p>
+                <a href={service.link} className="sp-service-link">
+                  Explorer <ArrowRight size={16} />
                 </a>
               </div>
             ))}
@@ -193,143 +278,235 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Terrains Section */}
-      <section className="terrains-modern">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">NOS TERRAINS</span>
-            <h2 className="section-title-modern">
-              Des <span className="gradient-text-gold">installations</span> d'exception
+      {/* Infrastructure Analytics Section */}
+      <section className="sp-infrastructure">
+        <div className="sp-container">
+          <div className="sp-section-header sp-section-header-light">
+            <span className="sp-section-subtitle">Analyse d'Infrastructure</span>
+            <h2 className="sp-section-title sp-title-light">
+              Dashboard <span className="sp-gradient-gold">Intelligent</span>
             </h2>
-            <p className="section-description-modern">
-              Découvrez nos terrains de qualité professionnelle
+            <p className="sp-section-desc sp-desc-light">
+              Surveillez et analysez vos installations sportives en temps réel
             </p>
           </div>
           
-          <div className="terrains-grid-modern">
-            {fields.map((field, index) => (
-              <div key={index} className="terrain-card-modern">
-                <div className="terrain-image-modern">
-                  <img src={field.img} alt={field.title} />
-                  <div className="terrain-overlay-modern"></div>
-                  <div className="terrain-badge-modern">POPULAIRE</div>
+          <div className="sp-infrastructure-grid">
+            <div className="sp-infrastructure-main">
+              <div className="sp-infrastructure-header">
+                <div className="sp-infrastructure-title">
+                  <BarChart3 size={20} />
+                  <h3>État des Installations</h3>
                 </div>
-                
-                <div className="terrain-content-modern">
-                  <h3 className="terrain-title-modern">{field.title}</h3>
-                  <p className="terrain-type">{field.type}</p>
-                  <p className="terrain-desc-modern">
-                    Terrain aux normes professionnelles avec éclairage LED et vestiaires modernes.
-                  </p>
-                  
-                  <div className="terrain-features-modern">
-                    {field.features.map((feature, i) => (
-                      <span key={i} className="terrain-feature-modern">
-                        <Check size={14} /> {feature}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <div className="terrain-footer-modern">
-                    <div className="terrain-price-modern">
-                      <span className="price-number-modern">{field.price}</span>
-                      <span className="price-unit-modern">/heure</span>
+                <span className="sp-infrastructure-status">
+                  <span className="sp-status-dot"></span>
+                  Système Opérationnel
+                </span>
+              </div>
+              <div className="sp-infrastructure-metrics">
+                {infrastructureMetrics.map((metric, index) => (
+                  <div key={index} className="sp-infrastructure-metric">
+                    <div className="sp-metric-icon" style={{ 
+                      background: metric.status === 'green' ? 'rgba(10, 117, 13, 0.1)' : 'rgba(255, 215, 0, 0.1)',
+                      color: metric.status === 'green' ? '#0a750d' : '#ffd700'
+                    }}>
+                      {metric.icon}
                     </div>
-                    <a href={`/terrains/${index}`} className="terrain-btn-modern">
-                      Réserver <ArrowRight size={16} />
-                    </a>
+                    <div className="sp-metric-info">
+                      <span className="sp-metric-label">{metric.label}</span>
+                      <span className="sp-metric-value">{metric.value}</span>
+                    </div>
                   </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="sp-infrastructure-side">
+              <div className="sp-infrastructure-chart">
+                <div className="sp-chart-header">
+                  <Signal size={18} />
+                  <span>Performance des Terrains</span>
+                </div>
+                <div className="sp-chart-bars">
+                  <div className="sp-chart-bar" style={{ height: '95%' }}><span>T1</span></div>
+                  <div className="sp-chart-bar" style={{ height: '85%' }}><span>T2</span></div>
+                  <div className="sp-chart-bar" style={{ height: '70%' }}><span>T3</span></div>
+                  <div className="sp-chart-bar" style={{ height: '90%' }}><span>T4</span></div>
+                  <div className="sp-chart-bar" style={{ height: '60%' }}><span>T5</span></div>
+                  <div className="sp-chart-bar" style={{ height: '80%' }}><span>T6</span></div>
+                  <div className="sp-chart-bar" style={{ height: '75%' }}><span>T7</span></div>
+                  <div className="sp-chart-bar" style={{ height: '92%' }}><span>T8</span></div>
+                </div>
+                <div className="sp-chart-labels">
+                  <span>Taux d'occupation moyen: 81%</span>
+                  <span><CheckCircle2 size={14} /> 6 terrains actifs</span>
                 </div>
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tournament Management Section */}
+      <section className="sp-tournament">
+        <div className="sp-container">
+          <div className="sp-section-header">
+            <span className="sp-section-subtitle">Gestion de Tournoi</span>
+            <h2 className="sp-section-title">
+              Plateforme <span className="sp-gradient-text">Tournoi</span> Complete
+            </h2>
+            <p className="sp-section-desc">
+              Créez, gérez et suivez vos tournois en temps réel
+            </p>
           </div>
           
-          <div className="section-ctas">
-            <a href="/terrains" className="hero-btn-primary">
-              <span>Voir Tous les Terrains</span>
+          <div className="sp-tournament-grid">
+            <div className="sp-tournament-stats">
+              {tournamentStats.map((stat, index) => (
+                <div key={index} className="sp-tournament-stat">
+                  <div className="sp-tournament-stat-icon" style={{ 
+                    background: index === 0 ? 'rgba(255, 215, 0, 0.15)' :
+                               index === 1 ? 'rgba(10, 117, 13, 0.15)' :
+                               index === 2 ? 'rgba(52, 152, 219, 0.15)' :
+                               'rgba(231, 76, 60, 0.15)',
+                    color: index === 0 ? '#ffd700' :
+                           index === 1 ? '#0a750d' :
+                           index === 2 ? '#3498db' :
+                           '#e74c3c'
+                  }}>
+                    {stat.icon}
+                  </div>
+                  <div className="sp-tournament-stat-info">
+                    <span className="sp-tournament-stat-number">{stat.value}</span>
+                    <span className="sp-tournament-stat-label">{stat.label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="sp-tournament-features">
+              <div className="sp-tournament-feature-item">
+                <div className="sp-tournament-feature-icon" style={{ background: '#ffd700', color: '#1a2418' }}>
+                  <Plus size={18} />
+                </div>
+                <div>
+                  <h4>Création Rapide</h4>
+                  <p>Créez des tournois en quelques clics</p>
+                </div>
+              </div>
+              <div className="sp-tournament-feature-item">
+                <div className="sp-tournament-feature-icon" style={{ background: '#0a750d', color: 'white' }}>
+                  <Users2 size={18} />
+                </div>
+                <div>
+                  <h4>Gestion des Équipes</h4>
+                  <p>Inscrivez et gérez les équipes participantes</p>
+                </div>
+              </div>
+              <div className="sp-tournament-feature-item">
+                <div className="sp-tournament-feature-icon" style={{ background: '#3498db', color: 'white' }}>
+                  <ClipboardList size={18} />
+                </div>
+                <div>
+                  <h4>Suivi des Scores</h4>
+                  <p>Scores en direct et classements automatiques</p>
+                </div>
+              </div>
+              <div className="sp-tournament-feature-item">
+                <div className="sp-tournament-feature-icon" style={{ background: '#e67e22', color: 'white' }}>
+                  <Trophy size={18} />
+                </div>
+                <div>
+                  <h4>Récompenses</h4>
+                  <p>Gestion des prix et récompenses des vainqueurs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="sp-tournament-cta">
+            <a href="/tournois" className="sp-btn-primary">
+              <Trophy size={20} />
+              <span>Créer un Tournoi</span>
               <ArrowRight size={20} />
+            </a>
+            <a href="/infrastructure" className="sp-btn-outline">
+              <BarChart3 size={20} />
+              <span>Voir le Dashboard</span>
             </a>
           </div>
         </div>
       </section>
 
+      {/* Features Section */}
+      <section className="sp-features">
+        <div className="sp-container">
+          <div className="sp-section-header">
+            <span className="sp-section-subtitle">Pourquoi PlayZone</span>
+            <h2 className="sp-section-title">
+              Une <span className="sp-gradient-text">Excellence</span> à Tous les Niveaux
+            </h2>
+            <p className="sp-section-desc">
+              Des services premium pensés pour les sportifs exigeants
+            </p>
+          </div>
+          
+          <div className="sp-features-grid">
+            {features.map((feature, index) => (
+              <div key={index} className="sp-feature-card">
+                <div className="sp-feature-icon">
+                  {feature.icon}
+                </div>
+                <h3 className="sp-feature-title">{feature.title}</h3>
+                <p className="sp-feature-desc">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
-      <section className="stats-modern">
-        <div className="container">
-          <div className="stats-grid-modern">
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <Award size={32} />
+      <section className="sp-stats">
+        <div className="sp-container">
+          <div className="sp-stats-grid">
+            {stats.map((stat, index) => (
+              <div key={index} className="sp-stat-card">
+                <div className="sp-stat-icon">{stat.icon}</div>
+                <div className="sp-stat-number">{stat.number}</div>
+                <div className="sp-stat-label">{stat.label}</div>
               </div>
-              <div className="stat-number-modern">2018</div>
-              <div className="stat-label-modern">Année de création</div>
-            </div>
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <MapPin size={32} />
-              </div>
-              <div className="stat-number-modern">8</div>
-              <div className="stat-label-modern">Terrains disponibles</div>
-            </div>
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <UserCheck size={32} />
-              </div>
-              <div className="stat-number-modern">10k+</div>
-              <div className="stat-label-modern">Clients satisfaits</div>
-            </div>
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <Trophy size={32} />
-              </div>
-              <div className="stat-number-modern">500+</div>
-              <div className="stat-label-modern">Matchs par mois</div>
-            </div>
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <Clock size={32} />
-              </div>
-              <div className="stat-number-modern">24/7</div>
-              <div className="stat-label-modern">Service client</div>
-            </div>
-            <div className="stat-card-modern">
-              <div className="stat-icon-modern">
-                <Star size={32} fill="currentColor" />
-              </div>
-              <div className="stat-number-modern">5★</div>
-              <div className="stat-label-modern">Note moyenne</div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="testimonials-modern">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">TÉMOIGNAGES</span>
-            <h2 className="section-title-modern">
-              Ce que disent nos <span className="gradient-text">clients</span>
+      <section className="sp-testimonials">
+        <div className="sp-container">
+          <div className="sp-section-header">
+            <span className="sp-section-subtitle">Témoignages</span>
+            <h2 className="sp-section-title">
+              La Voix de Notre <span className="sp-gradient-text">Communauté</span>
             </h2>
           </div>
           
-          <div className="testimonials-grid-modern">
+          <div className="sp-testimonials-grid">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card-modern">
-                <div className="testimonial-quote-modern">"</div>
-                <div className="testimonial-stars-modern">
+              <div key={index} className="sp-testimonial-card">
+                <div className="sp-testimonial-quote">"</div>
+                <div className="sp-testimonial-stars">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} size={16} fill="currentColor" />
                   ))}
                 </div>
-                <p className="testimonial-text-modern">"{testimonial.content}"</p>
-                <div className="testimonial-author-modern">
-                  <div className="testimonial-avatar-modern">
+                <p className="sp-testimonial-text">"{testimonial.content}"</p>
+                <div className="sp-testimonial-author">
+                  <div className="sp-testimonial-avatar">
                     {testimonial.name.charAt(0)}
                   </div>
-                  <div className="testimonial-info-modern">
-                    <div className="testimonial-name-modern">{testimonial.name}</div>
-                    <div className="testimonial-role-modern">{testimonial.role}</div>
+                  <div className="sp-testimonial-info">
+                    <div className="sp-testimonial-name">{testimonial.name}</div>
+                    <div className="sp-testimonial-role">{testimonial.role}</div>
                   </div>
                 </div>
               </div>
@@ -339,159 +516,55 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-sectionss">
-        <div className="cta-overlayss"></div>
-        <div className="cta-containerss">
-          <div className="cta-contentss">
-            <h2 className="cta-titless">
-              <span className="cta-title-textss">Prêt à </span>
-              <span className="cta-title-highlightss">Jouer</span>
-              <span className="cta-title-textss"> ?</span>
+      <section className="sp-cta">
+        <div className="sp-cta-overlay"></div>
+        <div className="sp-cta-container">
+          <div className="sp-cta-content">
+            <h2 className="sp-cta-title">
+              <span className="sp-cta-title-text">Rejoignez l'</span>
+              <span className="sp-cta-title-gold">Excellence</span>
+              <span className="sp-cta-title-text"> Sportive</span>
             </h2>
-            <p className="cta-subtitless">
-              Réservez votre terrain dès maintenant et profitez de nos installations premium. 
-              Premier match offert pour toute nouvelle inscription !
+            <p className="sp-cta-subtitle">
+              Plus qu'un complexe sportif, une plateforme intelligente où la performance, 
+              la gestion et le plaisir se rencontrent. Réservez, organisez, analysez et équipez-vous.
             </p>
             
-            <div className="cta-buttonss">
-              <a href="/reservation" className="cta-btnss cta-btnss-primaryss">
-                <span className="cta-btnss-icon">
-                  <Calendar size={20} />
-                </span>
-                <span className="cta-btnss-text">Réserver un Terrain</span>
-                <span className="cta-btnss-arrow">→</span>
+            <div className="sp-cta-buttons">
+              <a href="/reservation" className="sp-cta-btn-primary">
+                <span className="sp-cta-btn-icon"><Calendar size={20} /></span>
+                <span>Réserver un Terrain</span>
+                <span className="sp-cta-btn-arrow">→</span>
               </a>
-              <a href="/contact" className="cta-btn cta-btn-secondary">
-                <span className="cta-btnss-text">Nous Contacter</span>
+              <a href="/tournois" className="sp-cta-btn-secondary">
+                <Trophy size={20} />
+                <span>Organiser un Tournoi</span>
               </a>
             </div>
             
-            <div className="cta-featuress">
-              <div className="cta-features">
-                <div className="cta-features-icon">
-                  <Check size={12} />
-                </div>
-                <span>Réservation instantanée</span>
+            <div className="sp-cta-features">
+              <div className="sp-cta-feature">
+                <div className="sp-cta-feature-icon"><Check size={12} /></div>
+                <span>Réservation Instantanée</span>
               </div>
-              <div className="cta-features">
-                <div className="cta-features-icon">
-                  <Check size={12} />
-                </div>
-                <span>Annulation gratuite 24h avant</span>
+              <div className="sp-cta-feature">
+                <div className="sp-cta-feature-icon"><Check size={12} /></div>
+                <span>Gestion de Tournoi</span>
               </div>
-              <div className="cta-features">
-                <div className="cta-features-icon">
-                  <Check size={12} />
-                </div>
-                <span>Support 7j/7</span>
+              <div className="sp-cta-feature">
+                <div className="sp-cta-feature-icon"><Check size={12} /></div>
+                <span>Analyse Infrastructure</span>
               </div>
-              <div className="cta-features">
-                <div className="cta-features-icon">
-                  <Check size={12} />
-                </div>
-                <span>Équipements inclus</span>
+              <div className="sp-cta-feature">
+                <div className="sp-cta-feature-icon"><Check size={12} /></div>
+                <span>Marketplace Intégrée</span>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="footer-modern">
-        <div className="container">
-          <div className="footer-grid-modern">
-            <div className="footer-brand-modern">
-              <div className="footer-logo-modern">
-                <div className="footer-logo-icon-modern">
-                  <Target size={24} />
-                </div>
-                <span className="footer-logo-text-modern">FootField</span>
-              </div>
-              <p className="footer-description-modern">
-                Le premier complexe de football premium en région parisienne. 
-                Des installations de qualité professionnelle pour tous les passionnés.
-              </p>
-              <div className="footer-social-modern">
-                <a href="#" className="footer-social-link-modern">
-                  <Facebook size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Instagram size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Twitter size={18} />
-                </a>
-                <a href="#" className="footer-social-link-modern">
-                  <Linkedin size={18} />
-                </a>
-              </div>
-            </div>
-            
-            <div className="footer-links-modern">
-              <h3 className="footer-title-modern">Liens Rapides</h3>
-              <ul className="footer-links-modern">
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/terrains">Nos Terrains</a></li>
-                <li><a href="/tarifs">Tarifs</a></li>
-                <li><a href="/about">À propos</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-links-modern">
-              <h3 className="footer-title-modern">Informations</h3>
-              <ul className="footer-links-modern">
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/conditions">Conditions</a></li>
-                <li><a href="/confidentialité">Confidentialité</a></li>
-                <li><a href="/mentions">Mentions légales</a></li>
-                <li><a href="/carriere">Carrière</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-contact-modern">
-              <h3 className="footer-title-modern">Contact</h3>
-              <div className="footer-contact-item-modern">
-                <MapPinIcon size={16} />
-                <span>123 Avenue du Sport, 75000 Paris</span>
-              </div>
-              <div className="footer-contact-item-modern">
-                <Phone size={16} />
-                <span>01 23 45 67 89</span>
-              </div>
-              <div className="footer-contact-item-modern">
-                <Mail size={16} />
-                <span>contact@footfield.fr</span>
-              </div>
-              
-              <h3 className="footer-title-modern" style={{ marginTop: '30px' }}>Newsletter</h3>
-              <div className="footer-newsletter-modern">
-                <input 
-                  type="email" 
-                  placeholder="Votre email" 
-                  className="footer-newsletter-input-modern"
-                />
-                <button className="footer-newsletter-btn-modern">
-                  <Send size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="footer-bottom-modern">
-            <div className="footer-copyright-modern">
-              © 2024 FootField. Tous droits réservés.
-            </div>
-            <div className="footer-bottom-links-modern">
-              <a href="/conditions">Conditions d'utilisation</a>
-              <a href="/confidentialité">Politique de confidentialité</a>
-              <a href="/cookies">Cookies</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
 
-export default Index;
+export default Homepage;
