@@ -4,9 +4,7 @@ import { Search, X, Clock } from 'lucide-react';
 import ReservationModal from './ReservationModal';
 import '../css/creneaux.css';
 
-// ✅ Fonction utilitaire corrigée - Garde la ville et le quartier
 const normalizeCreneauData = (creneau) => {
-  // Si le créneau a déjà les bonnes propriétés, on les garde
   if (creneau.ville && creneau.quartier) {
     return {
       ...creneau,
@@ -25,7 +23,6 @@ const normalizeCreneauData = (creneau) => {
     };
   }
 
-  // Sinon, on normalise les noms de propriétés
   const lowerCaseCreneau = {};
   for (const key in creneau) {
     lowerCaseCreneau[key.toLowerCase()] = creneau[key];
@@ -55,13 +52,12 @@ const Creneaux = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedHour, setSelectedHour] = useState(''); // ✅ État pour le filtre d'heure
+  const [selectedHour, setSelectedHour] = useState('');
 
   const normalizedCreneaux = creneaux.map(normalizeCreneauData);
   
   console.log('✅ Créneaux normalisés:', normalizedCreneaux);
 
-  // ✅ Fonction pour extraire l'heure au format HH:MM
   const extractHour = (timeString) => {
     if (!timeString) return '';
     if (timeString.length === 5) return timeString;
@@ -69,14 +65,12 @@ const Creneaux = () => {
     return timeString;
   };
 
-  // ✅ Filtrer les créneaux par nom de terrain ET par heure
   const filteredCreneaux = normalizedCreneaux.filter(creneau => {
     const matchName = creneau.nomterrain.toLowerCase().includes(searchTerm.toLowerCase());
     const matchHour = selectedHour === '' || extractHour(creneau.heure) === selectedHour;
     return matchName && matchHour;
   });
 
-  // ✅ Obtenir toutes les heures uniques pour le filtre
   const uniqueHours = [...new Set(normalizedCreneaux.map(c => extractHour(c.heure)))].sort();
 
   const showToast = (message, type = 'success') => {
@@ -167,9 +161,7 @@ const Creneaux = () => {
       <div className="creneaux-container">
         <h1 className="creneaux-title">Les Créneaux Disponibles</h1>
         
-        {/* ✅ Barre de recherche et filtres */}
         <div className="filters-container">
-          {/* Recherche par nom de terrain */}
           <div className="search-wrapper">
             <Search className="search-icon" size={20} />
             <input
@@ -186,7 +178,6 @@ const Creneaux = () => {
             )}
           </div>
 
-          {/* ✅ Filtre par heure */}
           <div className="filter-hour-wrapper">
             <Clock className="filter-icon" size={20} />
             <select
@@ -209,7 +200,6 @@ const Creneaux = () => {
           </div>
         </div>
 
-        {/* Statistiques des filtres */}
         <div className="search-stats">
           {filteredCreneaux.length} créneau{filteredCreneaux.length > 1 ? 'x' : ''} trouvé{filteredCreneaux.length > 1 ? 's' : ''}
           {searchTerm && (
@@ -286,7 +276,7 @@ const Creneaux = () => {
                   <div className="info-row">
                     <span className="info-label">Statut :</span>
                     <span className={`status-tag ${creneau.statut === 'disponible' ? 'available' : 'unavailable'}`}>
-                      {creneau.statut}
+                      {creneau.statut === 'disponible' ? 'Disponible' : 'Non disponible'}
                     </span>
                   </div>
                   <hr />
@@ -311,7 +301,7 @@ const Creneaux = () => {
             <div className="no-creneaux">
               <p>
                 {searchTerm || selectedHour 
-                  ? `Aucun créneau trouvé pour ces critères` 
+                  ? 'Aucun créneau trouvé pour ces critères' 
                   : 'Aucun créneau disponible.'
                 }
               </p>

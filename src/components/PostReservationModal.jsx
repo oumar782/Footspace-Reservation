@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users, GraduationCap, ArrowRight, CheckCircle } from 'lucide-react';
-import { useLanguage } from '../i18n/useLanguage';
 import { createSessionFromReservation } from '../utils/sessionStorage';
 import './PostReservationModal.css';
 
 const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, creneau }) => {
-  const { t } = useLanguage();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -23,7 +21,7 @@ const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, crenea
   const handleMatch = () => {
     setLoading(true);
     createSessionFromReservation(reservation, creneau);
-    setMessage(t.postReservation.sessionCreated);
+    setMessage('Session créée avec succès !');
     setTimeout(() => {
       navigate('/sessions', { state: { highlightSession: Date.now(), sport } });
       finish();
@@ -31,7 +29,7 @@ const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, crenea
   };
 
   const handleCoach = () => {
-    setMessage(t.postReservation.redirectCoach);
+    setMessage('Redirection vers les coachs...');
     setTimeout(() => {
       navigate('/coaches', { state: { recommendedSport: sport } });
       finish();
@@ -48,8 +46,8 @@ const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, crenea
       <div className="post-res-container">
         <div className="post-res-header">
           <CheckCircle className="post-res-icon" size={32} />
-          <h2>{t.postReservation.title}</h2>
-          <p>{t.postReservation.subtitle}</p>
+          <h2>Réservation confirmée !</h2>
+          <p>Que souhaitez-vous faire maintenant ?</p>
         </div>
 
         {message ? (
@@ -62,8 +60,8 @@ const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, crenea
             <button className="post-res-card" onClick={handleMatch} disabled={loading}>
               <div className="post-res-icon-wrap"><Users size={28} /></div>
               <div className="post-res-card-content">
-                <h3>{t.postReservation.needMatch}</h3>
-                <p>{t.postReservation.needMatchDesc}</p>
+                <h3>Chercher un match</h3>
+                <p>Trouvez des joueurs pour jouer ensemble</p>
               </div>
               <ArrowRight size={18} />
             </button>
@@ -71,13 +69,15 @@ const PostReservationModal = ({ isOpen, onClose, onComplete, reservation, crenea
             <button className="post-res-card" onClick={handleCoach} disabled={loading}>
               <div className="post-res-icon-wrap"><GraduationCap size={28} /></div>
               <div className="post-res-card-content">
-                <h3>{t.postReservation.needCoach}</h3>
-                <p>{t.postReservation.needCoachDesc}</p>
+                <h3>Prendre un coach</h3>
+                <p>Améliorez votre niveau avec un coach</p>
               </div>
               <ArrowRight size={18} />
             </button>
 
-            <button className="post-res-skip" onClick={handleSkip}>{t.postReservation.skip}</button>
+            <button className="post-res-skip" onClick={handleSkip}>
+              Passer pour l'instant
+            </button>
           </div>
         )}
       </div>

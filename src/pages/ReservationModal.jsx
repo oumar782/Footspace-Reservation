@@ -64,7 +64,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
 
   const updateCreneauStatus = async (creneau, newStatus) => {
     try {
-      const updateResponse = await fetch(`http://localhost:5000/api/gestioncreneaux/${creneau.idcreneaux}`, {
+      const updateResponse = await fetch(`https://backend-foot-omega.vercel.app/api/gestioncreneaux/${creneau.idcreneaux}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
       console.log('Donnees envoyees a l\'API:', JSON.stringify(reservationData, null, 2));
 
       // Envoi de la requete POST a l'API
-      const response = await fetch('http://localhost:5000/api/reservation/', {
+      const response = await fetch('https://backend-foot-omega.vercel.app/api/reservation/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
