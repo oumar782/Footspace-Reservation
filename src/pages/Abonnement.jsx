@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './abonnement.css';
-
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './abonnement.css';
 
-// Import des icônes Lucide React
 import { 
   Calendar, 
   Users, 
@@ -24,7 +22,11 @@ import {
   Loader,
   ChevronRight,
   X,
-  CalendarDays
+  CalendarDays,
+  Sparkles,
+  Gem,
+  Trophy,
+  Zap
 } from 'lucide-react';
 
 const Abonnement = () => {
@@ -45,7 +47,6 @@ const Abonnement = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
-  // Types d'abonnements disponibles
   const abonnements = [
     {
       id: 'mensuel',
@@ -110,7 +111,6 @@ const Abonnement = () => {
     }
   ];
 
-  // Modes de paiement
   const modesPaiement = [
     { value: 'Carte', label: 'Carte Bancaire' },
     { value: 'Especes', label: 'Espèces' },
@@ -118,32 +118,21 @@ const Abonnement = () => {
     { value: 'Virement', label: 'Virement Bancaire' }
   ];
 
-  // Créneaux horaires disponibles
   const creneauxHoraires = [
     '06:00', '08:00', '10:00', '12:00', '14:00', 
     '16:00', '18:00', '20:00', '22:00'
   ];
 
-  // Obtenir la date du jour au format YYYY-MM-DD pour l'input min
   const today = new Date().toISOString().split('T')[0];
-  
-  // Calculer la date max (1 an à partir d'aujourd'hui)
   const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
   const maxDate = nextYear.toISOString().split('T')[0];
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-
-    // Auto-calcul de la date de fin si le type d'abonnement change et que la date de début est déjà définie
+    setFormData(prev => ({ ...prev, [field]: value }));
     if (field === 'type_abonnement' && formData.date_debut) {
       calculateEndDate(value, formData.date_debut);
     }
-    
-    // Auto-calcul de la date de fin si la date de début change
     if (field === 'date_debut' && value) {
       calculateEndDate(formData.type_abonnement, value);
     }
@@ -151,31 +140,16 @@ const Abonnement = () => {
 
   const calculateEndDate = (type, startDate) => {
     if (!type || !startDate) return;
-    
     const date = new Date(startDate);
-    
     switch (type) {
-      case 'mensuel':
-        date.setMonth(date.getMonth() + 1);
-        break;
-      case 'trimestriel':
-        date.setMonth(date.getMonth() + 3);
-        break;
-      case 'semestriel':
-        date.setMonth(date.getMonth() + 6);
-        break;
-      case 'annuel':
-        date.setFullYear(date.getFullYear() + 1);
-        break;
-      default:
-        date.setMonth(date.getMonth() + 1);
+      case 'mensuel': date.setMonth(date.getMonth() + 1); break;
+      case 'trimestriel': date.setMonth(date.getMonth() + 3); break;
+      case 'semestriel': date.setMonth(date.getMonth() + 6); break;
+      case 'annuel': date.setFullYear(date.getFullYear() + 1); break;
+      default: date.setMonth(date.getMonth() + 1);
     }
-    
     const endDate = date.toISOString().split('T')[0];
-    setFormData(prev => ({
-      ...prev,
-      date_fin: endDate
-    }));
+    setFormData(prev => ({ ...prev, date_fin: endDate }));
   };
 
   const validateForm = () => {
@@ -183,43 +157,36 @@ const Abonnement = () => {
       toast.error('Veuillez remplir tous les champs obligatoires');
       return false;
     }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast.error('Veuillez entrer une adresse email valide');
       return false;
     }
-
     const phoneRegex = /^[0-9+\-\s]{10,}$/;
     if (!phoneRegex.test(formData.telephone)) {
       toast.error('Veuillez entrer un numéro de téléphone valide');
       return false;
     }
-
     if (!formData.date_debut || !formData.date_fin) {
       toast.error('Veuillez sélectionner vos dates d\'abonnement');
       return false;
     }
-
     const debut = new Date(formData.date_debut);
     const fin = new Date(formData.date_fin);
     if (debut >= fin) {
       toast.error('La date de fin doit être postérieure à la date de début');
       return false;
     }
-
     if (!formData.heure_reservation || !formData.heure_fin) {
       toast.error('Veuillez sélectionner vos heures de réservation');
       return false;
     }
-
     const heureDebut = new Date(`1970-01-01T${formData.heure_reservation}`);
     const heureFin = new Date(`1970-01-01T${formData.heure_fin}`);
     if (heureDebut >= heureFin) {
       toast.error('L\'heure de fin doit être postérieure à l\'heure de début');
       return false;
     }
-
     return true;
   };
 
@@ -230,9 +197,7 @@ const Abonnement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
     setIsSubmitting(true);
 
     const payload = {
@@ -240,7 +205,7 @@ const Abonnement = () => {
       prenom: formData.prenom,
       email: formData.email,
       telephone: formData.telephone,
-      statut: 'en attente', // Statut mis à "en attente"
+      statut: 'en attente',
       type_abonnement: formData.type_abonnement,
       date_debut: formData.date_debut,
       date_fin: formData.date_fin,
@@ -251,24 +216,15 @@ const Abonnement = () => {
       heure_fin: formData.heure_fin
     };
 
-    console.log('Envoi des données:', payload);
-
     try {
       const response = await fetch('https://backend-foot-omega.vercel.app/api/clients/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-
       const data = await response.json();
-      console.log('Réponse du serveur:', data);
-
       if (response.ok && data.success) {
         toast.success('Demande d\'abonnement envoyée avec succès !');
-        
-        // Rediriger vers la page de consultation avec l'ID du client créé
         setTimeout(() => {
           navigate(`/consultation-abonnement?id=${data.data.idclient}`);
         }, 1500);
@@ -276,7 +232,6 @@ const Abonnement = () => {
         toast.error(data.message || 'Erreur lors de l\'envoi de la demande');
       }
     } catch (error) {
-      console.error('Erreur:', error);
       toast.error('Erreur de connexion au serveur');
     } finally {
       setIsSubmitting(false);
@@ -284,7 +239,7 @@ const Abonnement = () => {
   };
 
   return (
-    <div className="abonnement-page">
+    <div className="ab-page">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -299,75 +254,75 @@ const Abonnement = () => {
       />
 
       {/* Hero Section */}
-      <section className="abonnement-hero-modern">
-        <div className="hero-background"></div>
-        <div className="hero-overlay"></div>
-        <div className="hero-pattern"></div>
+      <section className="ab-hero">
+        <div className="ab-hero-backdrop"></div>
+        <div className="ab-hero-overlay"></div>
+        <div className="ab-hero-pattern"></div>
         
-        <div className="hero-container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span className="hero-badge-dot"></span>
-              <span className="hero-badge-text">ABONNEMENTS PREMIUM</span>
+        <div className="ab-hero-container">
+          <div className="ab-hero-content">
+            <div className="ab-hero-badge">
+              <span className="ab-hero-badge-dot"></span>
+              <span className="ab-hero-badge-text">Abonnements Premium</span>
             </div>
             
-            <h1 className="hero-title">
-              <span className="hero-title-line">Choisissez votre</span>
-              <span className="hero-title-line hero-title-highlight">Formule</span>
+            <h1 className="ab-hero-title">
+              <span className="ab-hero-title-line">Choisissez votre</span>
+              <span className="ab-hero-title-line ab-hero-title-gold">Formule</span>
             </h1>
             
-            <p className="hero-subtitle">
+            <p className="ab-hero-subtitle">
               Des abonnements flexibles adaptés à tous les niveaux. 
               Profitez de nos installations premium aux meilleurs tarifs.
             </p>
           </div>
         </div>
         
-        <div className="hero-scroll-indicator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div className="ab-hero-scroll" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <span>Découvrir</span>
           <ChevronRight size={20} style={{ transform: 'rotate(90deg)' }} />
         </div>
       </section>
 
       {/* Abonnements Section */}
-      <section className="abonnements-section-modern">
-        <div className="container">
-          <div className="section-header-modern">
-            <span className="section-subtitle-modern">NOS FORMULES</span>
-            <h2 className="section-title-modern">
-              Des <span className="gradient-text">abonnements</span> sur mesure
+      <section className="ab-plans">
+        <div className="ab-container">
+          <div className="ab-section-header">
+            <span className="ab-section-subtitle">Nos Formules</span>
+            <h2 className="ab-section-title">
+              Des <span className="ab-gradient-text">abonnements</span> sur mesure
             </h2>
-            <p className="section-description-modern">
+            <p className="ab-section-desc">
               Choisissez la formule qui correspond à votre pratique
             </p>
           </div>
 
-          <div className="abonnements-grid-modern">
+          <div className="ab-plans-grid">
             {abonnements.map((abo) => (
               <div 
                 key={abo.id} 
-                className={`abonnement-card-modern ${abo.popular ? 'popular' : ''}`}
+                className={`ab-plan-card ${abo.popular ? 'ab-plan-card--popular' : ''}`}
               >
                 {abo.popular && (
-                  <div className="popular-badge">
+                  <div className="ab-plan-badge">
                     <Star size={14} fill="currentColor" />
                     <span>Le plus populaire</span>
                   </div>
                 )}
                 
-                <div className="abonnement-icon-modern">
+                <div className="ab-plan-icon">
                   {abo.icon}
                 </div>
                 
-                <h3 className="abonnement-name-modern">{abo.nom}</h3>
+                <h3 className="ab-plan-name">{abo.nom}</h3>
                 
-                <div className="abonnement-price-modern">
-                  <span className="price-number">{abo.prix}</span>
-                  <span className="price-currency">dh</span>
-                  <span className="price-period">/{abo.duree}</span>
+                <div className="ab-plan-price">
+                  <span className="ab-price-number">{abo.prix}</span>
+                  <span className="ab-price-currency">dh</span>
+                  <span className="ab-price-period">/{abo.duree}</span>
                 </div>
                 
-                <ul className="abonnement-features-modern">
+                <ul className="ab-plan-features">
                   {abo.features.map((feature, index) => (
                     <li key={index}>
                       <Check size={16} />
@@ -377,7 +332,7 @@ const Abonnement = () => {
                 </ul>
                 
                 <button 
-                  className="abonnement-cta-modern"
+                  className="ab-plan-btn"
                   onClick={() => {
                     setFormData(prev => ({ ...prev, type_abonnement: abo.id }));
                     setShowForm(true);
@@ -395,18 +350,18 @@ const Abonnement = () => {
 
       {/* Formulaire d'abonnement */}
       {showForm && (
-        <section className="form-section-modern" id="formulaire">
-          <div className="container">
-            <div className="form-container-modern">
-              <div className="form-header-modern">
+        <section className="ab-form-section" id="formulaire">
+          <div className="ab-container">
+            <div className="ab-form-container">
+              <div className="ab-form-header">
                 <div>
-                  <span className="form-subtitle-modern">DEMANDE D'ABONNEMENT</span>
-                  <h2 className="form-title-modern">
-                    Formulaire de <span className="gradient-text">souscription</span>
+                  <span className="ab-form-subtitle">Demande d'abonnement</span>
+                  <h2 className="ab-form-title">
+                    Formulaire de <span className="ab-gradient-text">souscription</span>
                   </h2>
                 </div>
                 <button 
-                  className="form-close-modern"
+                  className="ab-form-close"
                   onClick={() => setShowForm(false)}
                   type="button"
                 >
@@ -414,10 +369,10 @@ const Abonnement = () => {
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="abonnement-form-modern">
-                <div className="form-row-modern">
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+              <form onSubmit={handleSubmit} className="ab-form">
+                <div className="ab-form-row">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <User size={16} />
                       Nom *
                     </label>
@@ -425,13 +380,13 @@ const Abonnement = () => {
                       type="text"
                       value={formData.nom}
                       onChange={(e) => handleInputChange('nom', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       placeholder="Votre nom"
                       required
                     />
                   </div>
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <User size={16} />
                       Prénom *
                     </label>
@@ -439,16 +394,16 @@ const Abonnement = () => {
                       type="text"
                       value={formData.prenom}
                       onChange={(e) => handleInputChange('prenom', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       placeholder="Votre prénom"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="form-row-modern">
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                <div className="ab-form-row">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <Mail size={16} />
                       Email *
                     </label>
@@ -456,13 +411,13 @@ const Abonnement = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       placeholder="votre.email@exemple.com"
                       required
                     />
                   </div>
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <Phone size={16} />
                       Téléphone *
                     </label>
@@ -470,23 +425,23 @@ const Abonnement = () => {
                       type="tel"
                       value={formData.telephone}
                       onChange={(e) => handleInputChange('telephone', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       placeholder="06 12 34 56 78"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="form-row-modern">
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                <div className="ab-form-row">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <Calendar size={16} />
                       Type d'abonnement *
                     </label>
                     <select
                       value={formData.type_abonnement}
                       onChange={(e) => handleInputChange('type_abonnement', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                     >
                       {abonnements.map((abo) => (
                         <option key={abo.id} value={abo.id}>
@@ -495,15 +450,15 @@ const Abonnement = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <CreditCard size={16} />
                       Mode de paiement *
                     </label>
                     <select
                       value={formData.mode_paiement}
                       onChange={(e) => handleInputChange('mode_paiement', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                     >
                       {modesPaiement.map((mode) => (
                         <option key={mode.value} value={mode.value}>
@@ -514,9 +469,9 @@ const Abonnement = () => {
                   </div>
                 </div>
 
-                <div className="form-row-modern">
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                <div className="ab-form-row">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <CalendarDays size={16} />
                       Date de début *
                     </label>
@@ -526,12 +481,12 @@ const Abonnement = () => {
                       onChange={(e) => handleInputChange('date_debut', e.target.value)}
                       min={today}
                       max={maxDate}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       required
                     />
                   </div>
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <CalendarDays size={16} />
                       Date de fin *
                     </label>
@@ -540,26 +495,25 @@ const Abonnement = () => {
                       value={formData.date_fin}
                       onChange={(e) => handleInputChange('date_fin', e.target.value)}
                       min={formData.date_debut || today}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       required
-                      readOnly // Optionnel: rendre la date de fin en lecture seule car elle est calculée automatiquement
                     />
-                    <small className="form-hint-modern">
+                    <small className="ab-form-hint">
                       Calculée automatiquement selon votre abonnement
                     </small>
                   </div>
                 </div>
 
-                <div className="form-row-modern">
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                <div className="ab-form-row">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <Clock3 size={16} />
                       Heure de début *
                     </label>
                     <select
                       value={formData.heure_reservation}
                       onChange={(e) => handleInputChange('heure_reservation', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       required
                     >
                       <option value="">Sélectionnez une heure</option>
@@ -570,15 +524,15 @@ const Abonnement = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="form-group-modern">
-                    <label className="form-label-modern">
+                  <div className="ab-form-group">
+                    <label className="ab-form-label">
                       <Clock3 size={16} />
                       Heure de fin *
                     </label>
                     <select
                       value={formData.heure_fin}
                       onChange={(e) => handleInputChange('heure_fin', e.target.value)}
-                      className="form-input-modern"
+                      className="ab-form-input"
                       required
                     >
                       <option value="">Sélectionnez une heure</option>
@@ -591,37 +545,37 @@ const Abonnement = () => {
                   </div>
                 </div>
 
-                <div className="form-summary-modern">
-                  <h4 className="summary-title-modern">Récapitulatif</h4>
-                  <div className="summary-item-modern">
+                <div className="ab-form-summary">
+                  <h4 className="ab-summary-title">Récapitulatif</h4>
+                  <div className="ab-summary-item">
                     <span>Abonnement {abonnements.find(a => a.id === formData.type_abonnement)?.nom}</span>
-                    <span className="summary-value">{calculatePrixTotal()} dh</span>
+                    <span className="ab-summary-value">{calculatePrixTotal()} dh</span>
                   </div>
                   {formData.date_debut && formData.date_fin && (
-                    <div className="summary-item-modern">
+                    <div className="ab-summary-item">
                       <span>Période</span>
-                      <span className="summary-value">
+                      <span className="ab-summary-value">
                         {new Date(formData.date_debut).toLocaleDateString('fr-FR')} - {new Date(formData.date_fin).toLocaleDateString('fr-FR')}
                       </span>
                     </div>
                   )}
-                  <div className="summary-total-modern">
+                  <div className="ab-summary-total">
                     <span>Total à payer</span>
-                    <span className="total-value">{calculatePrixTotal()} dh</span>
+                    <span className="ab-total-value">{calculatePrixTotal()} dh</span>
                   </div>
-                  <div className="summary-status-modern">
-                    <span className="status-badge">Statut: En attente de validation</span>
+                  <div className="ab-summary-status">
+                    <span className="ab-status-badge">Statut: En attente de validation</span>
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="form-submit-btn-modern"
+                  className="ab-submit-btn"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader size={18} className="spinner" />
+                      <Loader size={18} className="ab-spinner" />
                       <span>Traitement en cours...</span>
                     </>
                   ) : (
@@ -632,7 +586,7 @@ const Abonnement = () => {
                   )}
                 </button>
 
-                <p className="form-legal-modern">
+                <p className="ab-form-legal">
                   En soumettant ce formulaire, vous acceptez nos conditions générales 
                   et notre politique de confidentialité. Votre demande sera traitée dans les plus brefs délais.
                 </p>
@@ -641,7 +595,6 @@ const Abonnement = () => {
           </div>
         </section>
       )}
-
     </div>
   );
 };

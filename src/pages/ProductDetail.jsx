@@ -1,31 +1,77 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, PackageCheck, Plus, Ruler, ShoppingCart, Star, Truck } from 'lucide-react';
+import { ArrowLeft, CheckCircle, PackageCheck, Ruler, ShoppingCart, Star, Truck } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import Cart from '../components/Cart';
-import { formatShopPrice, getProductById, shopProducts } from '../data/shop';
+import { fetchProductById, fetchShopProducts, formatShopPrice, getProductById } from '../data/shop';
 import './boutique.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = getProductById(id);
-  const [selectedImage, setSelectedImage] = useState(product?.images?.[0]);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0]);
+  const [product, setProduct] = useState(() => getProductById(id));
+  const [selectedImage, setSelectedImage] = useState(product?.images?.[0] || '');
+  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
   const [quantity, setQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState(!product);
+  const [productError, setProductError] = useState(null);
+  const [similarProducts, setSimilarProducts] = useState([]);
 
-  const similarProducts = useMemo(() => {
-    if (!product) return [];
-    return shopProducts.filter((item) => item.id !== product.id && item.sport === product.sport).slice(0, 3);
+  useEffect(() => {
+    if (!product) {
+      setLoadingProduct(true);
+      setProductError(null);
+
+      fetchProductById(id)
+        .then((result) => {
+          if (!result) {
+            throw new Error('Produit introuvable');
+          }
+          setProduct(result);
+        })
+        .catch((error) => {
+          console.error('Erreur chargement produit boutique:', error);
+          setProductError('Impossible de charger le produit. Veuillez reessayer plus tard.');
+        })
+        .finally(() => setLoadingProduct(false));
+    }
+  }, [id, product]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    setSelectedImage(product.images?.[0]);
+    setSelectedSize(product.sizes?.[0]);
+    setQuantity(1);
+
+    fetchShopProducts()
+      .then((products) => {
+        setSimilarProducts(products.filter((item) => item.id !== product.id && item.sport === product.sport).slice(0, 3));
+      })
+      .catch((error) => {
+        console.error('Erreur chargement produits similaires:', error);
+        setSimilarProducts([]);
+      });
   }, [product]);
 
-  if (!product) {
+  if (loadingProduct) {
+    return (
+      <main className="shop-page">
+        <div className="shop-not-found">
+          <h1>Chargement du produit...</h1>
+        </div>
+      </main>
+    );
+  }
+
+  if (productError || !product) {
     return (
       <main className="shop-page">
         <div className="shop-not-found">
           <h1>Produit introuvable</h1>
+          {productError && <p>{productError}</p>}
           <Link to="/boutique">Retour a la boutique</Link>
         </div>
       </main>
@@ -64,7 +110,7 @@ const ProductDetail = () => {
             <img src={selectedImage} alt={product.name} />
           </div>
           <div className="shop-detail-thumbs">
-            {product.images.map((image) => (
+            {(product.images || []).map((image) => (
               <button type="button" key={image} className={selectedImage === image ? 'active' : ''} onClick={() => setSelectedImage(image)}>
                 <img src={image} alt="" />
               </button>
@@ -90,7 +136,7 @@ const ProductDetail = () => {
           <div className="shop-detail-block">
             <h2><Ruler size={18} /> Tailles disponibles</h2>
             <div className="shop-size-options">
-              {product.sizes.map((size) => (
+              {(product.sizes || []).map((size) => (
                 <button type="button" key={size} className={selectedSize === size ? 'active' : ''} onClick={() => setSelectedSize(size)}>
                   {size}
                 </button>
@@ -123,7 +169,7 @@ const ProductDetail = () => {
         </div>
         <div>
           <h2>Informations techniques</h2>
-          {product.technical.map((item) => <span key={item}>{item}</span>)}
+          {(product.technical || []).map((item) => <span key={item}>{item}</span>)}
         </div>
         <div>
           <h2>Avis clients</h2>

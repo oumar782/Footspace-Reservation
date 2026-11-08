@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+
+
+
+  /* â”€â”€ DESIGN TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
 
 .shop-page {
   min-height: 100vh;
-  background: #fafcf8;
-  color: #1a2418;
+  background: #FFFFFF;
+  color: #1A1B1D;
   padding: 140px 24px 80px;
   font-family: 'Montserrat', sans-serif;
 }
@@ -35,9 +40,9 @@
   gap: 36px;
   align-items: center;
   background:
-    linear-gradient(135deg, rgba(5, 5, 5, 0.92), rgba(10, 26, 10, 0.9)),
+    linear-gradient(135deg, rgba(5, 5, 5, 0.92), rgba(9, 169, 35, 0.82)),
     url('https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1600&q=80') center/cover;
-  border: 1px solid rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(243, 187, 24, 0.12);
   box-shadow: 0 18px 60px rgba(10, 117, 13, 0.16);
   isolation: isolate;
 }
@@ -63,7 +68,7 @@
   border-radius: 999px;
   background: rgba(10, 117, 13, 0.24);
   border: 1px solid rgba(255, 215, 0, 0.18);
-  color: #ffd700;
+  color: #F3BB18;
   text-transform: uppercase;
   font-size: 0.78rem;
   font-weight: 700;
@@ -84,7 +89,7 @@
 .shop-hero h1 span,
 .shop-section-header span,
 .shop-detail-kicker {
-  color: #ffd700;
+  color: #F3BB18;
 }
 
 .shop-hero p {
@@ -118,7 +123,7 @@
 .shop-detail-services svg,
 .shop-detail-rating,
 .shop-product-rating {
-  color: #ffd700;
+  color: #F3BB18;
 }
 
 .shop-primary-button,
@@ -143,7 +148,7 @@
 .shop-add-button,
 .shop-checkout-button,
 .shop-detail-add {
-  background: linear-gradient(135deg, #0a750d, #054d0a);
+  background: linear-gradient(135deg, #09A923, #13BE2D);
   color: #ffffff;
   box-shadow: 0 8px 26px rgba(10, 117, 13, 0.22);
 }
@@ -213,7 +218,7 @@
 
 .shop-hero-product strong {
   padding-bottom: 14px;
-  color: #ffd700;
+  color: #F3BB18;
 }
 
 .shop-section {
@@ -238,7 +243,7 @@
   margin: 0;
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.7rem, 3.5vw, 2.7rem);
-  color: #1a2418;
+  color: #1A1B1D;
 }
 
 .shop-category-grid {
@@ -259,7 +264,7 @@
   border-radius: 16px;
   border: 1px solid rgba(10, 117, 13, 0.1);
   background: #ffffff;
-  color: #1a2418;
+  color: #1A1B1D;
   text-align: left;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
@@ -321,7 +326,7 @@
   align-items: center;
   gap: 8px;
   margin: 0;
-  color: #0a750d;
+  color: #09A923;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.98rem;
 }
@@ -370,14 +375,14 @@
   left: 14px;
   padding: 6px 11px;
   background: rgba(255, 255, 255, 0.92);
-  color: #0a750d;
+  color: #09A923;
 }
 
 .shop-product-discount {
   right: 14px;
   padding: 6px 10px;
-  background: #ffd700;
-  color: #1a2418;
+  background: #F3BB18;
+  color: #1A1B1D;
 }
 
 .shop-product-body {
@@ -390,7 +395,7 @@
   gap: 9px;
   margin-bottom: 12px;
   font-family: 'Orbitron', sans-serif;
-  color: #1a2418;
+  color: #1A1B1D;
   font-size: 0.74rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -457,7 +462,7 @@
 .shop-product-price strong,
 .shop-detail-price strong {
   display: block;
-  color: #0a750d;
+  color: #09A923;
   font-family: 'Orbitron', sans-serif;
 }
 
@@ -483,7 +488,7 @@
   border-radius: 12px;
   border: 1px solid rgba(10, 117, 13, 0.15);
   background: #ffffff;
-  color: #0a750d;
+  color: #09A923;
   cursor: pointer;
 }
 
@@ -517,7 +522,7 @@
   border-radius: 14px;
   min-height: 50px;
   padding: 0 14px;
-  color: #0a750d;
+  color: #09A923;
   background: #f8fafc;
 }
 
@@ -542,13 +547,13 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #1a2418;
+  color: #1A1B1D;
   font-weight: 600;
 }
 
 .shop-clear-filters {
   background: rgba(10, 117, 13, 0.08);
-  color: #0a750d;
+  color: #09A923;
 }
 
 .shop-results-bar {
@@ -563,7 +568,7 @@
 }
 
 .shop-results-bar strong {
-  color: #0a750d;
+  color: #09A923;
   font-family: 'Orbitron', sans-serif;
 }
 
@@ -599,7 +604,7 @@
 .shop-admin-table h3 {
   margin: 0 0 4px;
   font-family: 'Orbitron', sans-serif;
-  color: #1a2418;
+  color: #1A1B1D;
 }
 
 .shop-admin-form input,
@@ -640,7 +645,7 @@
   display: block;
   margin-top: 4px;
   font-family: 'Orbitron', sans-serif;
-  color: #0a750d;
+  color: #09A923;
 }
 
 .shop-admin-line {
@@ -718,7 +723,7 @@
 }
 
 .shop-cart-eyebrow {
-  color: #0a750d;
+  color: #09A923;
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -741,7 +746,7 @@
 }
 
 .shop-cart-empty svg {
-  color: #0a750d;
+  color: #09A923;
 }
 
 .shop-cart-items {
@@ -788,7 +793,7 @@
   border-radius: 9px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
-  color: #0a750d;
+  color: #09A923;
   cursor: pointer;
 }
 
@@ -815,7 +820,7 @@
   margin-top: 12px;
   padding-top: 14px;
   border-top: 1px solid #e2e8f0;
-  color: #1a2418;
+  color: #1A1B1D;
   font-size: 1.1rem;
 }
 
@@ -837,7 +842,7 @@
   gap: 8px;
   border: none;
   background: transparent;
-  color: #0a750d;
+  color: #09A923;
   font-weight: 800;
   cursor: pointer;
 }
@@ -895,7 +900,7 @@
 }
 
 .shop-detail-thumbs button.active {
-  border-color: #0a750d;
+  border-color: #09A923;
 }
 
 .shop-detail-info {
@@ -948,7 +953,7 @@
   align-items: center;
   gap: 8px;
   margin: 0 0 12px;
-  color: #1a2418;
+  color: #1A1B1D;
   font-family: 'Orbitron', sans-serif;
   font-size: 1rem;
 }
@@ -965,15 +970,15 @@
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
-  color: #1a2418;
+  color: #1A1B1D;
   font-weight: 800;
   cursor: pointer;
 }
 
 .shop-size-options button.active {
-  background: #0a750d;
+  background: #09A923;
   color: #ffffff;
-  border-color: #0a750d;
+  border-color: #09A923;
 }
 
 .shop-detail-quantity {
@@ -1037,7 +1042,7 @@
   padding: 7px 11px;
   border-radius: 999px;
   background: rgba(10, 117, 13, 0.08);
-  color: #0a750d;
+  color: #09A923;
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -1048,7 +1053,7 @@
 }
 
 .shop-not-found a {
-  color: #0a750d;
+  color: #09A923;
   font-weight: 800;
 }
 

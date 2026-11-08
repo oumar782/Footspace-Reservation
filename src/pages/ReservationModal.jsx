@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ReservationModal.css';
-import PostReservationModal from '../components/PostReservationModal';
+import { createSessionFromReservation } from '../utils/sessionStorage';
 
 const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) => {
+  const navigate = useNavigate();
   const [clientInfo, setClientInfo] = useState({
     nomclient: '',
     prenom: '',
@@ -13,6 +15,8 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
   const [toasts, setToasts] = useState([]);
   const [showPostModal, setShowPostModal] = useState(false);
   const [lastReservation, setLastReservation] = useState(null);
+  const [isActionLoading, setIsActionLoading] = useState(false);
+  const [actionMessage, setActionMessage] = useState('');
 
   const showToast = (message, type = 'success') => {
     const id = Date.now();
@@ -23,6 +27,26 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
       setToasts(prev => prev.filter(toast => toast.id !== id));
     }, 5000);
   };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (showPostModal) {
+          showToast('Veuillez choisir une option ci-dessous pour continuer', 'info');
+        } else {
+          onClose();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose, showPostModal]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -87,16 +111,91 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
     }
   };
 
-  // Fonction pour fermer complètement la modale (appelée après que l'utilisateur a fait un choix)
+  // Fonction pour fermer complètement la modale après le choix utilisateur
   const handleCompleteClose = () => {
     setShowPostModal(false);
-    onClose();
+    setIsActionLoading(false);
+    setActionMessage('');
+    setTimeout(() => {
+      onClose();
+    }, 250);
   };
 
   // Fonction pour gérer la fermeture de PostReservationModal
+  // Elle empêche la fermeture tant que l'utilisateur n'a pas fait un choix
   const handlePostModalClose = () => {
-    // Ne rien faire - on empêche la fermeture normale
-    // L'utilisateur doit choisir une option
+    console.log('Veuillez choisir une option pour continuer');
+    showToast('Veuillez choisir une option ci-dessous pour continuer', 'info');
+  };
+
+  const handleOverlayClick = () => {
+    if (showPostModal) {
+      showToast('Veuillez choisir une option ci-dessous pour continuer', 'info');
+      return;
+    }
+    onClose();
+  };
+
+  const createSessionForReservation = (reservationInfo) => {
+    const sport = reservationInfo?.typeterrain || creneau?.typeTerrain || creneau?.typeterrain || 'football';
+
+    try {
+      if (typeof createSessionFromReservation === 'function') {
+        createSessionFromReservation(reservationInfo, creneau);
+      } else {
+        const sessionData = {
+          id: Date.now(),
+          sport,
+          date: reservationInfo?.datecreneaux || reservationInfo?.date || new Date().toISOString(),
+          heure: reservationInfo?.heure || '00:00',
+          terrain: reservationInfo?.numeroterrain || creneau?.numeroterrain || '1',
+          participants: [],
+          maxParticipants: 10,
+          createdBy: 'user',
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('currentSession', JSON.stringify(sessionData));
+      }
+      return sport;
+    } catch (error) {
+      console.error('Erreur création session:', error);
+      return sport;
+    }
+  };
+
+  const handleMatch = () => {
+    if (isActionLoading) return;
+    setIsActionLoading(true);
+    setActionMessage('Création de la session...');
+
+    const sport = createSessionForReservation(lastReservation || reservationData);
+    setTimeout(() => {
+      navigate('/sessions', { state: { highlightSession: Date.now(), sport } });
+      handleCompleteClose();
+    }, 800);
+  };
+
+  const handleCoach = () => {
+    if (isActionLoading) return;
+    setIsActionLoading(true);
+    setActionMessage('Redirection vers les coachs...');
+
+    const sport = createSessionForReservation(lastReservation || reservationData);
+    setTimeout(() => {
+      navigate('/coaches', { state: { recommendedSport: sport } });
+      handleCompleteClose();
+    }, 800);
+  };
+
+  const handleSkip = () => {
+    if (isActionLoading) return;
+    setIsActionLoading(true);
+    setActionMessage('Redirection vers vos réservations...');
+
+    setTimeout(() => {
+      navigate('/consultation-reservation');
+      handleCompleteClose();
+    }, 600);
   };
 
   const handleSubmit = async (e) => {
@@ -180,9 +279,11 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
           if (onReservationSuccess) {
             onReservationSuccess(result.data);
           }
-          setLastReservation(result.data);
+          setLastReservation(result.data || reservationData);
           setShowPostModal(true);
           setIsSubmitting(false);
+          setIsActionLoading(false);
+          setActionMessage('');
         }, 1500);
       } else {
         const errorMessage = result.message || 'Erreur lors de la reservation';
@@ -207,196 +308,219 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
   return (
     <>
       {/* Modal principal - reste ouvert */}
-      <div className="modal-overlay" onClick={showPostModal ? undefined : onClose}>
-        <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-overlay ${showPostModal ? 'post-modal-active' : ''}`} onClick={handleOverlayClick}>
+        <div className={`modal-container ${showPostModal ? 'post-modal-visible' : ''}`} onClick={(e) => e.stopPropagation()}>
           {/* Le bouton de fermeture est masqué quand le post-modal est affiché */}
           {!showPostModal && (
             <button className="modal-close" onClick={onClose}>×</button>
           )}
           
-          <div className="modal-header">
-            <h2>Reserver un creneau</h2>
-            <div className="header-decoration">
-              <span className="decoration-line"></span>
-            </div>
-          </div>
-
-          <div className="modal-content">
-            {/* Section recapitulative du creneau */}
-            <div className="resume-section">
-              <h3 className="section-title">Recapitulatif du creneau</h3>
-              
-              <div className="resume-card">
-                <div className="resume-item">
-                  <span className="item-label">Terrain</span>
-                  <span className="item-value highlight">{creneau.nomterrain}</span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Date</span>
-                  <span className="item-value">{formatDate(creneau.datecreneaux)}</span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Horaire</span>
-                  <span className="item-value time-range">
-                    <span className="time-badge">{formatTime(creneau.heure)}</span>
-                    <span className="time-separator">→</span>
-                    <span className="time-badge">{formatTime(creneau.heurefin)}</span>
-                  </span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Type</span>
-                  <span className="item-value type-badge">{typeterrain}</span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Surface</span>
-                  <span className="item-value">{creneau.surfaceterrains}</span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Ville</span>
-                  <span className="item-value">{ville}</span>
-                </div>
-                
-                <div className="resume-item">
-                  <span className="item-label">Quartier</span>
-                  <span className="item-value">{quartier}</span>
-                </div>
-                
-                <div className="resume-item price-item">
-                  <span className="item-label">Tarif</span>
-                  <span className="item-value price">
-                    {creneau.tarif || 150} DH
-                    <small>TTC</small>
-                  </span>
+          {!showPostModal ? (
+            // Contenu du formulaire de réservation
+            <>
+              <div className="modal-header">
+                <h2>Reserver un creneau</h2>
+                <div className="header-decoration">
+                  <span className="decoration-line"></span>
                 </div>
               </div>
-            </div>
 
-            {/* Formulaire d'informations personnelles - masqué quand le post-modal est affiché */}
-            {!showPostModal && (
-              <form onSubmit={handleSubmit} className="form-section">
-                <h3 className="section-title">Vos informations</h3>
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="nomclient">
-                      Nom <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="nomclient"
-                      name="nomclient"
-                      value={clientInfo.nomclient}
-                      onChange={handleInputChange}
-                      placeholder="Votre nom"
-                      disabled={isSubmitting}
-                      required
-                    />
-                  </div>
+              <div className="modal-content">
+                {/* Section recapitulative du creneau */}
+                <div className="resume-section">
+                  <h3 className="section-title">Recapitulatif du creneau</h3>
                   
-                  <div className="form-group">
-                    <label htmlFor="prenom">
-                      Prenom <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="prenom"
-                      name="prenom"
-                      value={clientInfo.prenom}
-                      onChange={handleInputChange}
-                      placeholder="Votre prenom"
-                      disabled={isSubmitting}
-                      required
-                    />
+                  <div className="resume-card">
+                    <div className="resume-item">
+                      <span className="item-label">Terrain</span>
+                      <span className="item-value highlight">{creneau.nomterrain}</span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Date</span>
+                      <span className="item-value">{formatDate(creneau.datecreneaux)}</span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Horaire</span>
+                      <span className="item-value time-range">
+                        <span className="time-badge">{formatTime(creneau.heure)}</span>
+                        <span className="time-separator">→</span>
+                        <span className="time-badge">{formatTime(creneau.heurefin)}</span>
+                      </span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Type</span>
+                      <span className="item-value type-badge">{typeterrain}</span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Surface</span>
+                      <span className="item-value">{creneau.surfaceterrains}</span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Ville</span>
+                      <span className="item-value">{ville}</span>
+                    </div>
+                    
+                    <div className="resume-item">
+                      <span className="item-label">Quartier</span>
+                      <span className="item-value">{quartier}</span>
+                    </div>
+                    
+                    <div className="resume-item price-item">
+                      <span className="item-label">Tarif</span>
+                      <span className="item-value price">
+                        {creneau.tarif || 150} DH
+                        <small>TTC</small>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">
-                      Email <span className="required">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={clientInfo.email}
-                      onChange={handleInputChange}
-                      placeholder="votre@email.com"
-                      disabled={isSubmitting}
-                      required
-                    />
-                  </div>
+                {/* Formulaire d'informations personnelles */}
+                <form onSubmit={handleSubmit} className="form-section">
+                  <h3 className="section-title">Vos informations</h3>
                   
-                  <div className="form-group">
-                    <label htmlFor="telephone">
-                      Telephone <span className="required">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      id="telephone"
-                      name="telephone"
-                      value={clientInfo.telephone}
-                      onChange={handleInputChange}
-                      placeholder="06 12 34 56 78"
-                      disabled={isSubmitting}
-                      required
-                    />
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="nomclient">
+                        Nom <span className="required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="nomclient"
+                        name="nomclient"
+                        value={clientInfo.nomclient}
+                        onChange={handleInputChange}
+                        placeholder="Votre nom"
+                        disabled={isSubmitting}
+                        required
+                      />
+                    </div>
+                    
+                    <div className="form-group">
+                      <label htmlFor="prenom">
+                        Prenom <span className="required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="prenom"
+                        name="prenom"
+                        value={clientInfo.prenom}
+                        onChange={handleInputChange}
+                        placeholder="Votre prenom"
+                        disabled={isSubmitting}
+                        required
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className="form-footer">
-                  <div className="total-section">
-                    <span className="total-label">Total a payer</span>
-                    <span className="total-amount">{creneau.tarif || 150} DH</span>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="email">
+                        Email <span className="required">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={clientInfo.email}
+                        onChange={handleInputChange}
+                        placeholder="votre@email.com"
+                        disabled={isSubmitting}
+                        required
+                      />
+                    </div>
+                    
+                    <div className="form-group">
+                      <label htmlFor="telephone">
+                        Telephone <span className="required">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        id="telephone"
+                        name="telephone"
+                        value={clientInfo.telephone}
+                        onChange={handleInputChange}
+                        placeholder="06 12 34 56 78"
+                        disabled={isSubmitting}
+                        required
+                      />
+                    </div>
                   </div>
-                  
-                  <div className="form-actions">
-                    <button
-                      type="button"
-                      className="btn-secondary"
-                      onClick={onClose}
-                      disabled={isSubmitting}
-                    >
-                      Annuler
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn-primary"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="spinner"></span>
-                          Traitement...
-                        </>
-                      ) : (
-                        'Confirmer la reservation'
-                      )}
-                    </button>
-                  </div>
-                  
-                  <p className="form-note">
-                    En confirmant, vous acceptez nos conditions generales de vente
-                  </p>
-                </div>
-              </form>
-            )}
 
-            {/* Message de confirmation quand le post-modal est affiché */}
-            {showPostModal && (
+                  <div className="form-footer">
+                    <div className="total-section">
+                      <span className="total-label">Total a payer</span>
+                      <span className="total-amount">{creneau.tarif || 150} DH</span>
+                    </div>
+                    
+                    <div className="form-actions">
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        onClick={onClose}
+                        disabled={isSubmitting}
+                      >
+                        Annuler
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn-primary"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <span className="spinner"></span>
+                            Traitement...
+                          </>
+                        ) : (
+                          'Confirmer la reservation'
+                        )}
+                      </button>
+                    </div>
+                    
+                    <p className="form-note">
+                      En confirmant, vous acceptez nos conditions generales de vente
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </>
+          ) : (
+            <div className="confirmation-wrapper">
               <div className="confirmation-message">
-                <p>✅ Réservation confirmée !</p>
+                <div className="confirmation-icon">✅</div>
+                <h3>Réservation confirmée !</h3>
                 <p className="confirmation-sub">
-                  Choisissez une option ci-dessous pour continuer
+                  Choisissez une option ci-dessous pour continuer.
                 </p>
+
+                {isActionLoading ? (
+                  <div className="confirmation-loading">{actionMessage}</div>
+                ) : (
+                  <div className="confirmation-actions">
+                    <button className="choice-card" onClick={handleMatch}>
+                      <span className="choice-title">Chercher un match</span>
+                      <span className="choice-text">Créer une session avec d’autres joueurs</span>
+                    </button>
+
+                    <button className="choice-card choice-card--coach" onClick={handleCoach}>
+                      <span className="choice-title">Prendre un coach</span>
+                      <span className="choice-text">Trouver un coach adapté à votre sport</span>
+                    </button>
+
+                    <button className="choice-skip" onClick={handleSkip}>
+                      Passer pour l'instant
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -418,14 +542,6 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
         ))}
       </div>
 
-      {/* PostReservationModal - overlay sans fermeture automatique */}
-      <PostReservationModal
-        isOpen={showPostModal}
-        onClose={handlePostModalClose} // Ne fait rien - empêche la fermeture
-        onComplete={handleCompleteClose} // Appelé quand l'utilisateur a fait un choix
-        reservation={lastReservation}
-        creneau={creneau}
-      />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import '../composant/homepage.css';
 
 import { 
@@ -77,43 +77,43 @@ const Homepage = () => {
   const services = [
     {
       icon: <Calendar size={28} />,
-      title: "Réservation de Terrains",
-      description: "Réservez instantanément votre terrain parmi 8 installations premium. Disponibilité en temps réel 24h/24.",
-      color: "#0a750d",
+      title: "RÃ©servation de Terrains",
+      description: "RÃ©servez instantanÃ©ment votre terrain parmi 8 installations premium. DisponibilitÃ© en temps rÃ©el 24h/24.",
+      color: "#09A923",
       link: "/reservation"
     },
     {
       icon: <Trophy size={28} />,
       title: "Gestion de Tournoi",
-      description: "Plateforme complète pour créer, gérer et suivre vos tournois. Tableaux, scores, statistiques et classements en temps réel.",
-      color: "#ffd700",
+      description: "Plateforme complÃ¨te pour crÃ©er, gÃ©rer et suivre vos tournois. Tableaux, scores, statistiques et classements en temps rÃ©el.",
+      color: "#F3BB18",
       link: "/tournois"
     },
     {
       icon: <BarChart3 size={28} />,
       title: "Analyse d'Infrastructure",
-      description: "Dashboard intelligent pour surveiller et analyser vos installations sportives. Données en temps réel, maintenance prédictive.",
+      description: "Dashboard intelligent pour surveiller et analyser vos installations sportives. DonnÃ©es en temps rÃ©el, maintenance prÃ©dictive.",
       color: "#3498db",
       link: "/infrastructure"
     },
     {
       icon: <Users size={28} />,
-      title: "Coaching Personnalisé",
-      description: "Bénéficiez de séances avec nos coachs certifiés. Progressez rapidement grâce à des programmes sur mesure.",
+      title: "Coaching PersonnalisÃ©",
+      description: "BÃ©nÃ©ficiez de sÃ©ances avec nos coachs certifiÃ©s. Progressez rapidement grÃ¢ce Ã  des programmes sur mesure.",
       color: "#e67e22",
       link: "/coaches"
     },
     {
       icon: <ShoppingBag size={28} />,
       title: "Marketplace Sportive",
-      description: "Découvrez notre boutique d'équipements premium. Maillots, chaussures et accessoires pour tous les sports.",
+      description: "DÃ©couvrez notre boutique d'Ã©quipements premium. Maillots, chaussures et accessoires pour tous les sports.",
       color: "#3498db",
       link: "/boutique"
     },
     {
       icon: <Medal size={28} />,
-      title: "Matchs Organisés",
-      description: "Organisez vos matchs entre amis ou en équipe. Service d'arbitrage et statistiques inclus.",
+      title: "Matchs OrganisÃ©s",
+      description: "Organisez vos matchs entre amis ou en Ã©quipe. Service d'arbitrage et statistiques inclus.",
       color: "#e74c3c",
       link: "/sessions"
     }
@@ -123,46 +123,46 @@ const Homepage = () => {
     { label: "Terrains Actifs", value: "8/8", status: "green", icon: <CheckCircle2 size={16} /> },
     { label: "Taux d'Occupation", value: "87%", status: "green", icon: <TrendingUp size={16} /> },
     { label: "Maintenance", value: "2 interventions", status: "warning", icon: <AlertTriangle size={16} /> },
-    { label: "Température", value: "22°C", status: "green", icon: <Thermometer size={16} /> },
-    { label: "Qualité de l'Air", value: "Excellent", status: "green", icon: <CheckCircle size={16} /> },
-    { label: "Éclairage", value: "Optimal", status: "green", icon: <Lightbulb size={16} /> }
+    { label: "TempÃ©rature", value: "22Â°C", status: "green", icon: <Thermometer size={16} /> },
+    { label: "QualitÃ© de l'Air", value: "Excellent", status: "green", icon: <CheckCircle size={16} /> },
+    { label: "Ã‰clairage", value: "Optimal", status: "green", icon: <Lightbulb size={16} /> }
   ];
 
   const tournamentStats = [
     { label: "Tournois Actifs", value: "12", icon: <Trophy size={20} /> },
-    { label: "Équipes Inscrites", value: "48", icon: <Users2 size={20} /> },
-    { label: "Matchs Disputés", value: "156", icon: <Activity size={20} /> },
+    { label: "Ã‰quipes Inscrites", value: "48", icon: <Users2 size={20} /> },
+    { label: "Matchs DisputÃ©s", value: "156", icon: <Activity size={20} /> },
     { label: "Prochains Tournois", value: "8", icon: <Calendar size={20} /> }
   ];
 
   const features = [
     {
       icon: <Zap size={24} />,
-      title: "Réservation Flash",
-      description: "Confirmation immédiate et paiement sécurisé pour vos réservations"
+      title: "RÃ©servation Flash",
+      description: "Confirmation immÃ©diate et paiement sÃ©curisÃ© pour vos rÃ©servations"
     },
     {
       icon: <LayoutDashboard size={24} />,
       title: "Dashboard Infrastructure",
-      description: "Visualisez en temps réel l'état de vos installations et anticipez les maintenances"
+      description: "Visualisez en temps rÃ©el l'Ã©tat de vos installations et anticipez les maintenances"
     },
     {
       icon: <ClipboardList size={24} />,
       title: "Gestion de Tournoi",
-      description: "Créez des tournois, gérez les équipes, suivez les scores et publiez les classements"
+      description: "CrÃ©ez des tournois, gÃ©rez les Ã©quipes, suivez les scores et publiez les classements"
     },
     {
       icon: <ShoppingBag size={24} />,
-      title: "Boutique Intégrée",
-      description: "Matériel sportif de marques reconnues à prix compétitifs"
+      title: "Boutique IntÃ©grÃ©e",
+      description: "MatÃ©riel sportif de marques reconnues Ã  prix compÃ©titifs"
     }
   ];
 
   const stats = [
     { number: "8", label: "Terrains Premium", icon: <MapPin size={28} /> },
     { number: "500+", label: "Matchs par Mois", icon: <Activity size={28} /> },
-    { number: "150+", label: "Tournois Organisés", icon: <Trophy size={28} /> },
-    { number: "12k+", label: "Athlètes Accompagnés", icon: <Users size={28} /> },
+    { number: "150+", label: "Tournois OrganisÃ©s", icon: <Trophy size={28} /> },
+    { number: "12k+", label: "AthlÃ¨tes AccompagnÃ©s", icon: <Users size={28} /> },
     { number: "24/7", label: "Service Disponible", icon: <Clock size={28} /> },
     { number: "98%", label: "Satisfaction Globale", icon: <Star size={28} /> }
   ];
@@ -171,19 +171,19 @@ const Homepage = () => {
     {
       name: "Marc Dubois",
       role: "Capitaine FC Parisien",
-      content: "PlayZone a révolutionné notre façon de jouer. Des terrains exceptionnels, un service impeccable et une ambiance unique.",
+      content: "Play Forest a rÃ©volutionnÃ© notre faÃ§on de jouer. Des terrains exceptionnels, un service impeccable et une ambiance unique.",
       rating: 5
     },
     {
       name: "Sophie Martin",
-      role: "Entraîneuse Nationale",
-      content: "Le meilleur complexe sportif du Maroc. Les installations sont de classe mondiale et l'équipe est d'un professionnalisme remarquable.",
+      role: "EntraÃ®neuse Nationale",
+      content: "Le meilleur complexe sportif du Maroc. Les installations sont de classe mondiale et l'Ã©quipe est d'un professionnalisme remarquable.",
       rating: 5
     },
     {
       name: "Karim El Fassi",
       role: "Organisateur Tournois",
-      content: "Organiser des tournois ici est un véritable plaisir. Tout est pensé pour offrir une expérience exceptionnelle aux participants.",
+      content: "Organiser des tournois ici est un vÃ©ritable plaisir. Tout est pensÃ© pour offrir une expÃ©rience exceptionnelle aux participants.",
       rating: 5
     }
   ];
@@ -200,7 +200,7 @@ const Homepage = () => {
           <div className="sp-hero-content">
             <div className="sp-hero-badge">
               <span className="sp-hero-badge-dot"></span>
-              <span className="sp-hero-badge-text">Écosystème Sportif Complet</span>
+              <span className="sp-hero-badge-text">Ã‰cosystÃ¨me Sportif Complet</span>
             </div>
             
             <h1 className="sp-hero-title">
@@ -210,19 +210,19 @@ const Homepage = () => {
             </h1>
             
             <p className="sp-hero-subtitle">
-              Réservez, jouez, organisez et gérez votre infrastructure sportive sur une plateforme unique. 
-              PlayZone réunit tout l'écosystème pour une expérience sans précédent.
+              RÃ©servez, jouez, organisez et gÃ©rez votre infrastructure sportive sur une plateforme unique. 
+              Play Forest rÃ©unit tout l'Ã©cosystÃ¨me pour une expÃ©rience sans prÃ©cÃ©dent.
             </p>
             
             <div className="sp-hero-actions">
               <a href="/reservation" className="sp-btn-primary">
                 <Calendar size={20} />
-                <span>Réserver un Terrain</span>
+                <span>RÃ©server un Terrain</span>
                 <ArrowRight size={20} className="sp-btn-arrow" />
               </a>
               <a href="/tournois" className="sp-btn-secondary">
                 <Trophy size={20} />
-                <span>Gérer un Tournoi</span>
+                <span>GÃ©rer un Tournoi</span>
               </a>
             </div>
             
@@ -237,11 +237,11 @@ const Homepage = () => {
               </div>
               <div className="sp-hero-stat">
                 <span className="sp-hero-stat-number">150+</span>
-                <span className="sp-hero-stat-label">Tournois Organisés</span>
+                <span className="sp-hero-stat-label">Tournois OrganisÃ©s</span>
               </div>
               <div className="sp-hero-stat">
                 <span className="sp-hero-stat-number">12k+</span>
-                <span className="sp-hero-stat-label">Athlètes</span>
+                <span className="sp-hero-stat-label">AthlÃ¨tes</span>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ const Homepage = () => {
               Tout pour le <span className="sp-gradient-text">Sportif</span> Moderne
             </h2>
             <p className="sp-section-desc">
-              Une gamme complète de services pour répondre à tous vos besoins sportifs
+              Une gamme complÃ¨te de services pour rÃ©pondre Ã  tous vos besoins sportifs
             </p>
           </div>
           
@@ -287,7 +287,7 @@ const Homepage = () => {
               Dashboard <span className="sp-gradient-gold">Intelligent</span>
             </h2>
             <p className="sp-section-desc sp-desc-light">
-              Surveillez et analysez vos installations sportives en temps réel
+              Surveillez et analysez vos installations sportives en temps rÃ©el
             </p>
           </div>
           
@@ -296,19 +296,19 @@ const Homepage = () => {
               <div className="sp-infrastructure-header">
                 <div className="sp-infrastructure-title">
                   <BarChart3 size={20} />
-                  <h3>État des Installations</h3>
+                  <h3>Ã‰tat des Installations</h3>
                 </div>
                 <span className="sp-infrastructure-status">
                   <span className="sp-status-dot"></span>
-                  Système Opérationnel
+                  SystÃ¨me OpÃ©rationnel
                 </span>
               </div>
               <div className="sp-infrastructure-metrics">
                 {infrastructureMetrics.map((metric, index) => (
                   <div key={index} className="sp-infrastructure-metric">
                     <div className="sp-metric-icon" style={{ 
-                      background: metric.status === 'green' ? 'rgba(10, 117, 13, 0.1)' : 'rgba(255, 215, 0, 0.1)',
-                      color: metric.status === 'green' ? '#0a750d' : '#ffd700'
+                      background: metric.status === 'green' ? 'rgba(9, 169, 35, 0.1)' : 'rgba(243, 187, 24, 0.12)',
+                      color: metric.status === 'green' ? '#09A923' : '#F3BB18'
                     }}>
                       {metric.icon}
                     </div>
@@ -356,7 +356,7 @@ const Homepage = () => {
               Plateforme <span className="sp-gradient-text">Tournoi</span> Complete
             </h2>
             <p className="sp-section-desc">
-              Créez, gérez et suivez vos tournois en temps réel
+              CrÃ©ez, gÃ©rez et suivez vos tournois en temps rÃ©el
             </p>
           </div>
           
@@ -369,8 +369,8 @@ const Homepage = () => {
                                index === 1 ? 'rgba(10, 117, 13, 0.15)' :
                                index === 2 ? 'rgba(52, 152, 219, 0.15)' :
                                'rgba(231, 76, 60, 0.15)',
-                    color: index === 0 ? '#ffd700' :
-                           index === 1 ? '#0a750d' :
+                    color: index === 0 ? '#F3BB18' :
+                           index === 1 ? '#09A923' :
                            index === 2 ? '#3498db' :
                            '#e74c3c'
                   }}>
@@ -386,21 +386,21 @@ const Homepage = () => {
             
             <div className="sp-tournament-features">
               <div className="sp-tournament-feature-item">
-                <div className="sp-tournament-feature-icon" style={{ background: '#ffd700', color: '#1a2418' }}>
+                <div className="sp-tournament-feature-icon" style={{ background: '#F3BB18', color: '#1A1B1D' }}>
                   <Plus size={18} />
                 </div>
                 <div>
-                  <h4>Création Rapide</h4>
-                  <p>Créez des tournois en quelques clics</p>
+                  <h4>CrÃ©ation Rapide</h4>
+                  <p>CrÃ©ez des tournois en quelques clics</p>
                 </div>
               </div>
               <div className="sp-tournament-feature-item">
-                <div className="sp-tournament-feature-icon" style={{ background: '#0a750d', color: 'white' }}>
+                <div className="sp-tournament-feature-icon" style={{ background: '#09A923', color: 'white' }}>
                   <Users2 size={18} />
                 </div>
                 <div>
-                  <h4>Gestion des Équipes</h4>
-                  <p>Inscrivez et gérez les équipes participantes</p>
+                  <h4>Gestion des Ã‰quipes</h4>
+                  <p>Inscrivez et gÃ©rez les Ã©quipes participantes</p>
                 </div>
               </div>
               <div className="sp-tournament-feature-item">
@@ -417,8 +417,8 @@ const Homepage = () => {
                   <Trophy size={18} />
                 </div>
                 <div>
-                  <h4>Récompenses</h4>
-                  <p>Gestion des prix et récompenses des vainqueurs</p>
+                  <h4>RÃ©compenses</h4>
+                  <p>Gestion des prix et rÃ©compenses des vainqueurs</p>
                 </div>
               </div>
             </div>
@@ -427,7 +427,7 @@ const Homepage = () => {
           <div className="sp-tournament-cta">
             <a href="/tournois" className="sp-btn-primary">
               <Trophy size={20} />
-              <span>Créer un Tournoi</span>
+              <span>CrÃ©er un Tournoi</span>
               <ArrowRight size={20} />
             </a>
             <a href="/infrastructure" className="sp-btn-outline">
@@ -442,12 +442,12 @@ const Homepage = () => {
       <section className="sp-features">
         <div className="sp-container">
           <div className="sp-section-header">
-            <span className="sp-section-subtitle">Pourquoi PlayZone</span>
+            <span className="sp-section-subtitle">Pourquoi Play Forest</span>
             <h2 className="sp-section-title">
-              Une <span className="sp-gradient-text">Excellence</span> à Tous les Niveaux
+              Une <span className="sp-gradient-text">Excellence</span> Ã  Tous les Niveaux
             </h2>
             <p className="sp-section-desc">
-              Des services premium pensés pour les sportifs exigeants
+              Des services premium pensÃ©s pour les sportifs exigeants
             </p>
           </div>
           
@@ -484,9 +484,9 @@ const Homepage = () => {
       <section className="sp-testimonials">
         <div className="sp-container">
           <div className="sp-section-header">
-            <span className="sp-section-subtitle">Témoignages</span>
+            <span className="sp-section-subtitle">TÃ©moignages</span>
             <h2 className="sp-section-title">
-              La Voix de Notre <span className="sp-gradient-text">Communauté</span>
+              La Voix de Notre <span className="sp-gradient-text">CommunautÃ©</span>
             </h2>
           </div>
           
@@ -526,15 +526,15 @@ const Homepage = () => {
               <span className="sp-cta-title-text"> Sportive</span>
             </h2>
             <p className="sp-cta-subtitle">
-              Plus qu'un complexe sportif, une plateforme intelligente où la performance, 
-              la gestion et le plaisir se rencontrent. Réservez, organisez, analysez et équipez-vous.
+              Plus qu'un complexe sportif, une plateforme intelligente oÃ¹ la performance, 
+              la gestion et le plaisir se rencontrent. RÃ©servez, organisez, analysez et Ã©quipez-vous.
             </p>
             
             <div className="sp-cta-buttons">
               <a href="/reservation" className="sp-cta-btn-primary">
                 <span className="sp-cta-btn-icon"><Calendar size={20} /></span>
-                <span>Réserver un Terrain</span>
-                <span className="sp-cta-btn-arrow">→</span>
+                <span>RÃ©server un Terrain</span>
+                <span className="sp-cta-btn-arrow">â†’</span>
               </a>
               <a href="/tournois" className="sp-cta-btn-secondary">
                 <Trophy size={20} />
@@ -545,7 +545,7 @@ const Homepage = () => {
             <div className="sp-cta-features">
               <div className="sp-cta-feature">
                 <div className="sp-cta-feature-icon"><Check size={12} /></div>
-                <span>Réservation Instantanée</span>
+                <span>RÃ©servation InstantanÃ©e</span>
               </div>
               <div className="sp-cta-feature">
                 <div className="sp-cta-feature-icon"><Check size={12} /></div>
@@ -557,7 +557,7 @@ const Homepage = () => {
               </div>
               <div className="sp-cta-feature">
                 <div className="sp-cta-feature-icon"><Check size={12} /></div>
-                <span>Marketplace Intégrée</span>
+                <span>Marketplace IntÃ©grÃ©e</span>
               </div>
             </div>
           </div>

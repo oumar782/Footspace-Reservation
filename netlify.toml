@@ -3,6 +3,76 @@
   publish = "dist"
 
 [[redirects]]
+  from = "/about"
+  to = "/about/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore"
+  to = "/explore/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore/fields"
+  to = "/explore/fields/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore/tournaments"
+  to = "/explore/tournaments/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore/coaches"
+  to = "/explore/coaches/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore/equipment"
+  to = "/explore/equipment/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/communities"
+  to = "/communities/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/sessions"
+  to = "/sessions/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/explore/events"
+  to = "/explore/events/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/terrains"
+  to = "/terrains/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/coaches"
+  to = "/coaches/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/tournois"
+  to = "/tournois/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/boutique"
+  to = "/boutique/index.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

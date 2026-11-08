@@ -1,4 +1,4 @@
-import {
+﻿import {
   Bike,
   CircleDot,
   Dumbbell,
@@ -19,22 +19,24 @@ import {
 
 export const SHOP_CURRENCY = 'DH';
 
+export const BOUTIQUE_API_URL = 'http://localhost:5000/api/boutique/products';
+
 export const shopCategories = [
-  { id: 'football', name: 'Football', icon: Goal, color: '#0a750d' },
-  { id: 'basketball', name: 'Basketball', icon: ShoppingBasket, color: '#e67e22' },
-  { id: 'tennis', name: 'Tennis', icon: Trophy, color: '#b5a400' },
-  { id: 'running', name: 'Running', icon: HeartPulse, color: '#2980b9' },
-  { id: 'fitness', name: 'Fitness', icon: Dumbbell, color: '#8e44ad' },
-  { id: 'combat', name: 'Sports de combat', icon: Swords, color: '#dc2626' },
-  { id: 'volleyball', name: 'Volleyball', icon: Volleyball, color: '#27ae60' },
-  { id: 'handball', name: 'Handball', icon: Hand, color: '#c0392b' },
-  { id: 'padel', name: 'Padel', icon: Target, color: '#16a085' },
-  { id: 'futsal', name: 'Futsal', icon: CircleDot, color: '#f1c40f' },
-  { id: 'natation', name: 'Natation', icon: Waves, color: '#06b6d4' },
-  { id: 'rugby', name: 'Rugby', icon: Shield, color: '#7c4a02' },
-  { id: 'cyclisme', name: 'Cyclisme', icon: Bike, color: '#2563eb' },
-  { id: 'golf', name: 'Golf', icon: Flag, color: '#65a30d' },
-  { id: 'athletisme', name: 'Athletisme', icon: Footprints, color: '#ea580c' },
+  { id: 'football', name: 'Football', icon: Goal, color: '#09A923' },
+  { id: 'basketball', name: 'Basketball', icon: ShoppingBasket, color: '#13BE2D' },
+  { id: 'tennis', name: 'Tennis', icon: Trophy, color: '#F3BB18' },
+  { id: 'running', name: 'Running', icon: HeartPulse, color: '#4DB95C' },
+  { id: 'fitness', name: 'Fitness', icon: Dumbbell, color: '#ECC74F' },
+  { id: 'combat', name: 'Sports de combat', icon: Swords, color: '#1A1B1D' },
+  { id: 'volleyball', name: 'Volleyball', icon: Volleyball, color: '#13BE2D' },
+  { id: 'handball', name: 'Handball', icon: Hand, color: '#09A923' },
+  { id: 'padel', name: 'Padel', icon: Target, color: '#4DB95C' },
+  { id: 'futsal', name: 'Futsal', icon: CircleDot, color: '#F3BB18' },
+  { id: 'natation', name: 'Natation', icon: Waves, color: '#09A923' },
+  { id: 'rugby', name: 'Rugby', icon: Shield, color: '#1A1B1D' },
+  { id: 'cyclisme', name: 'Cyclisme', icon: Bike, color: '#13BE2D' },
+  { id: 'golf', name: 'Golf', icon: Flag, color: '#ECC74F' },
+  { id: 'athletisme', name: 'Athletisme', icon: Footprints, color: '#4DB95C' },
 ];
 
 export const productTypes = [
@@ -178,7 +180,7 @@ export const shopProducts = [
       'https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=900&q=80',
       'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80',
     ],
-    technical: ['Tissu mesh', 'Coupe junior', 'Impression durable', 'Séchage rapide'],
+    technical: ['Tissu mesh', 'Coupe junior', 'Impression durable', 'SÃ©chage rapide'],
   },
   {
     id: 'raquette-control-tour',
@@ -509,7 +511,32 @@ export const shopProducts = [
 
 export const defaultCartItems = [];
 
-export const getProductById = (id) => shopProducts.find((product) => product.id === id);
+export const fetchShopProducts = async () => {
+  const response = await fetch(BOUTIQUE_API_URL);
+  if (!response.ok) {
+    throw new Error(`Erreur chargement produits boutique: ${response.status}`);
+  }
+  return response.json();
+};
+
+export const fetchProductById = async (id) => {
+  try {
+    const response = await fetch(`${BOUTIQUE_API_URL}/${encodeURIComponent(id)}`);
+    if (response.ok) {
+      return response.json();
+    }
+    if (response.status === 404) {
+      return null;
+    }
+  } catch (error) {
+    console.warn('DÃ©tail produit indisponible via API, fallback sur donnÃ©es locales', error);
+  }
+
+  const products = await fetchShopProducts();
+  return products.find((product) => product.id === id) ?? null;
+};
+
+export const getProductById = (id, products = shopProducts) => products.find((product) => product.id === id);
 
 export const formatShopPrice = (value) => `${Number(value || 0).toLocaleString('fr-FR')} ${SHOP_CURRENCY}`;
 
@@ -520,5 +547,5 @@ export const getCategoryIcon = (sport) => {
 
 export const getCategoryColor = (sport) => {
   const category = shopCategories.find((item) => item.name.toLowerCase() === sport?.toLowerCase());
-  return category?.color || '#0a750d';
+  return category?.color || '#09A923';
 };

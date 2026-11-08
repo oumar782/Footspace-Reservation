@@ -1,0 +1,98 @@
+.pf-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.pf-input-group--error {
+  margin-bottom: 4px;
+}
+
+.pf-input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334159;
+  margin-bottom: 4px;
+}
+
+.pf-input-required {
+  color: #ef4444;
+}
+
+.pf-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  height: 44px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+  transition: all 0.18s ease;
+  font-size: 15px;
+}
+
+.pf-input:focus-within {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.pf-input--error {
+  border-color: #ef4444;
+}
+
+.pf-input--error:focus-within {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.pf-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: 500 15px/1.2 'Inter', system-ui, sans-serif;
+  color: #0f172a;
+  width: 100%;
+}
+
+.pf-input input::placeholder {
+  color: #94a3b8;
+}
+
+.pf-input input:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.pf-input-icon {
+  display: flex;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 18px;
+  margin-right: -2px;
+}
+
+.pf-input-suffix {
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pf-input-error {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .pf-input {
+    height: 48px;
+    font-size: 16px; /* évite le zoom iOS */
+  }
+}

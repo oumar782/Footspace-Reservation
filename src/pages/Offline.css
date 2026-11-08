@@ -1,0 +1,84 @@
+.pf-offline {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 24px;
+}
+
+.pf-offline__container {
+  text-align: center;
+  max-width: 420px;
+}
+
+.pf-offline__icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #94a3b8;
+}
+
+.pf-offline__title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.pf-offline__text {
+  color: #94a3b8;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.pf-offline__retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid #334159;
+  background: #1e293b;
+  color: #f1f5f9;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  margin-bottom: 16px;
+}
+
+.pf-offline__retry:hover {
+  background: #334159;
+  border-color: #475569;
+  transform: translateY(-1px);
+}
+
+.pf-offline__cached {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.pf-offline__home {
+  color: #10b981;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.pf-offline__home:hover {
+  color: #34d399;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .pf-offline__title { font-size: 24px; }
+  .pf-offline__text { font-size: 15px; }
+}

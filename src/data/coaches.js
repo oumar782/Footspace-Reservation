@@ -1,21 +1,21 @@
-// src/data/coaches.js
+﻿// src/data/coaches.js
 import axios from 'axios';
 
 const API_URL = 'https://backend-foot-omega.vercel.app/api/coach';
 
-// COACH_COLORS exporté pour compatibilité
+// COACH_COLORS exportÃ© pour compatibilitÃ©
 export const COACH_COLORS = [
-  ['#3e6c1a', '#027e0f'],
-  ['#ffd700', '#ffb347'],
-  ['#0ea5e9', '#06b6d4'],
-  ['#10b981', '#34d399'],
-  ['#f59e0b', '#fbbf24'],
-  ['#ef4444', '#f97316'],
-  ['#8b5cf6', '#a855f7'],
-  ['#ec4899', '#f472b6'],
+  ['#09A923', '#13BE2D'],
+  ['#F3BB18', '#ECC74F'],
+  ['#4DB95C', '#09A923'],
+  ['#1A1B1D', '#1A1B1D'],
+  ['#13BE2D', '#4DB95C'],
+  ['#F3BB18', '#F3BB18'],
+  ['#09A923', '#1A1B1D'],
+  ['#ECC74F', '#F3BB18'],
 ];
 
-// Récupérer tous les coaches depuis l'API
+// RÃ©cupÃ©rer tous les coaches depuis l'API
 export const getCoaches = async (filters = {}) => {
   try {
     const params = new URLSearchParams();
@@ -31,12 +31,12 @@ export const getCoaches = async (filters = {}) => {
     }
     return [];
   } catch (error) {
-    console.error('Erreur lors de la récupération des coaches:', error);
+    console.error('Erreur lors de la rÃ©cupÃ©ration des coaches:', error);
     return [];
   }
 };
 
-// Récupérer les coaches par discipline depuis l'API
+// RÃ©cupÃ©rer les coaches par discipline depuis l'API
 export const getCoachesByDiscipline = async (discipline) => {
   try {
     if (!discipline) return getCoaches();
@@ -46,12 +46,12 @@ export const getCoachesByDiscipline = async (discipline) => {
     }
     return [];
   } catch (error) {
-    console.error('Erreur lors de la récupération des coaches par discipline:', error);
+    console.error('Erreur lors de la rÃ©cupÃ©ration des coaches par discipline:', error);
     return [];
   }
 };
 
-// Récupérer les coaches recommandés depuis l'API
+// RÃ©cupÃ©rer les coaches recommandÃ©s depuis l'API
 export const getRecommendedCoaches = async (discipline) => {
   try {
     const url = discipline ? `${API_URL}/recommended/${discipline}` : `${API_URL}/recommended`;
@@ -61,12 +61,12 @@ export const getRecommendedCoaches = async (discipline) => {
     }
     return [];
   } catch (error) {
-    console.error('Erreur lors de la récupération des coaches recommandés:', error);
+    console.error('Erreur lors de la rÃ©cupÃ©ration des coaches recommandÃ©s:', error);
     return [];
   }
 };
 
-// Récupérer un coach par son ID depuis l'API
+// RÃ©cupÃ©rer un coach par son ID depuis l'API
 export const getCoachById = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
@@ -75,7 +75,7 @@ export const getCoachById = async (id) => {
     }
     return null;
   } catch (error) {
-    console.error('Erreur lors de la récupération du coach:', error);
+    console.error('Erreur lors de la rÃ©cupÃ©ration du coach:', error);
     return null;
   }
 };
@@ -100,7 +100,7 @@ export const getCoachInitials = (name) => {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
 };
 
-// Export par défaut pour la compatibilité
+// Export par dÃ©faut pour la compatibilitÃ©
 export default {
   getCoaches,
   getCoachesByDiscipline,

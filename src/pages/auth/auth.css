@@ -1,0 +1,405 @@
+/* =========================================================================
+   Auth Pages — Premium Authentication (PlayForest Design System v2)
+   ========================================================================= */
+
+/* ===================== LAYOUT ===================== */
+
+.pf-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(900px 500px at 50% 0%, rgba(16, 185, 129, 0.12), transparent 70%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.pf-auth--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding: 0;
+  background: #ffffff;
+}
+
+.pf-auth--centered {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: flex-start;
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.pf-auth__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+
+.pf-auth--split .pf-auth__panel {
+  justify-content: center;
+  padding: 48px 56px;
+}
+
+.pf-auth__panel--center { align-items: center; }
+
+/* ===================== BRAND ===================== */
+
+.pf-auth__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.pf-auth__brand--center { justify-content: center; }
+
+.pf-auth__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.32);
+}
+
+.pf-auth__brand span span { color: #059669; }
+
+/* ===================== CARD ===================== */
+
+.pf-auth__card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 40px 44px;
+  box-shadow:
+    0 24px 60px -12px rgba(15, 23, 42, 0.08),
+    0 4px 16px rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  width: 100%;
+}
+
+.pf-auth__title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.pf-auth__subtitle {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+/* ===================== FORM & SECTIONS ===================== */
+
+.pf-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pf-auth__section {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pf-auth__section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.pf-auth__section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #10b981;
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.pf-auth__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.pf-auth__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.pf-auth__field:last-child {
+  margin-bottom: 0;
+}
+
+.pf-auth__field label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.pf-auth__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px 0 46px;
+  height: 52px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  transition: var(--transition-fast);
+}
+
+.pf-auth__input-wrap:focus-within {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14);
+}
+
+.pf-auth__input-wrap--error {
+  border-color: #ef4444;
+}
+
+.pf-auth__input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  width: 18px;
+  height: 18px;
+}
+
+.pf-auth__input-wrap input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: var(--font-body);
+  color: #0f172a;
+  background: transparent;
+  height: 100%;
+  font-weight: 500;
+}
+
+.pf-auth__input-wrap input::placeholder { color: #94a3b8; }
+
+.pf-auth__toggle-pw {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-auth__toggle-pw:hover {
+  color: #475569;
+  background: #f1f5f9;
+}
+
+/* ===================== SKILLS & SPORTS GRIDS ===================== */
+
+.pf-auth__skill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.pf-auth__skill-btn {
+  padding: 10px 6px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  color: #334155;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+
+.pf-auth__skill-btn.is-selected {
+  border: 2px solid #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  color: #047857;
+}
+
+.pf-auth__sports-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.pf-auth__sport-btn {
+  padding: 12px 6px;
+  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: var(--transition-fast);
+}
+
+.pf-auth__sport-btn.is-selected {
+  border: 2px solid #10b981;
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.pf-auth__sport-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ===================== BUTTONS & ERRORS ===================== */
+
+.pf-auth__error--block {
+  width: 100%;
+  text-align: center;
+  background: #fef2f2;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.pf-auth__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  border-radius: 14px;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  letter-spacing: -0.01em;
+  margin-top: 8px;
+}
+
+.pf-auth__btn--primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.32);
+}
+
+.pf-auth__btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.44);
+}
+
+.pf-auth__switch {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.pf-auth__link {
+  color: #059669;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.18s ease;
+}
+
+.pf-auth__link:hover {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* ===================== ROLE SELECTOR ===================== */
+
+.pf-auth__role-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pf-auth__role-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  background: #ffffff;
+}
+
+.pf-auth__role-option:hover {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.pf-auth__role-option input {
+  accent-color: #10b981;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.pf-auth__role-option strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pf-auth__role-option span {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 768px) {
+  .pf-auth { padding: 16px 12px; }
+  .pf-auth--centered { padding-top: 20px; padding-bottom: 40px; }
+  .pf-auth__card { padding: 28px 20px; border-radius: 20px; }
+  .pf-auth__title { font-size: 24px; }
+  .pf-auth__role-selector,
+  .pf-auth__row { grid-template-columns: 1fr; }
+  .pf-auth__skill-grid,
+  .pf-auth__sports-grid { grid-template-columns: repeat(2, 1fr); }
+}

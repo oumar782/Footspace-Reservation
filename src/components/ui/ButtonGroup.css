@@ -1,0 +1,41 @@
+.pf-btn-group {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.pf-btn-group--horizontal { flex-direction: row; }
+.pf-btn-group--vertical { flex-direction: column; }
+
+.pf-btn-group__item {
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.pf-btn-group__item:hover {
+  color: #0f172a;
+}
+
+.pf-btn-group__item--active {
+  background: #ffffff;
+  color: #059669;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.pf-btn-group__icon {
+  margin-right: 6px;
+  display: inline-flex;
+}
+
+@media (max-width: 480px) {
+  .pf-btn-group__item { padding: 10px 14px; font-size: 13px; }
+}

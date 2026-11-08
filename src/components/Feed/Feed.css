@@ -1,0 +1,75 @@
+/**
+ * PlayForest — Styles du fil d'actualités (Feed)
+ */
+.pf-feed {
+  padding: 16px 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pf-feed__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.pf-feed__header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pf-feed__filter {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.pf-feed__filter:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.pf-feed__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Skeleton pendant le chargement */
+.pf-feed__skeleton-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.pf-feed__skeleton-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pf-feed__skeleton-head div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media (max-width: 480px) {
+  .pf-feed { padding: 12px 16px; }
+  .pf-feed__header h2 { font-size: 20px; }
+}

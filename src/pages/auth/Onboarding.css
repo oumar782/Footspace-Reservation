@@ -1,0 +1,245 @@
+/**
+ * PlayForest — Styles de l'onboarding
+ */
+.pf-onboarding {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: #f8fafc;
+}
+
+.pf-onboarding__progress {
+  width: 100%;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.pf-onboarding__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.pf-onboarding__card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  margin: 0 auto;
+  max-width: 520px;
+}
+
+.pf-onboarding__head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pf-onboarding__spark {
+  color: #f59e0b;
+  margin: 0 auto 12px;
+}
+
+.pf-onboarding__head h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.pf-onboarding__head p {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.pf-onboarding__body {
+  min-height: 280px;
+}
+
+.pf-onboarding__step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pf-onboarding__step-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pf-onboarding__step-desc {
+  color: #64748b;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Sport grid */
+.pf-onboarding__sport-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.pf-onboarding__sport {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 6px;
+  text-align: center;
+  font-weight: 600;
+  color: #334159;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  background: #f8fafc;
+}
+
+.pf-onboarding__sport:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.pf-onboarding__sport--selected {
+  border-width: 3px;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.pf-onboarding__sport-icon {
+  display: block;
+  font-size: 24px;
+  margin: 0 auto 6px;
+}
+
+/* Level list */
+.pf-onboarding__level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pf-onboarding__level {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.pf-onboarding__level input {
+  accent-color: #10b981;
+  width: 18px;
+  height: 18px;
+}
+
+.pf-onboarding__level-desc {
+  display: flex;
+  flex-direction: column;
+}
+
+.pf-onboarding__level-desc strong {
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.pf-onboarding__level-desc span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* Tags */
+.pf-onboarding__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pf-onboarding__tag {
+  border: 1.5px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #f8fafc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pf-onboarding__tag:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.pf-onboarding__tag--selected {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  font-weight: 600;
+}
+
+.pf-onboarding__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pf-onboarding__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 0 40px;
+  height: 48px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.pf-onboarding__input-wrap svg {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+}
+
+.pf-onboarding__input-wrap input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.pf-onboarding__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pf-onboarding__skip {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.pf-onboarding__skip-link {
+  font-size: 13px;
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.pf-onboarding__skip-link:hover {
+  color: #475569;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .pf-onboarding__card { padding: 20px; }
+  .pf-onboarding__sport-grid { grid-template-columns: repeat(2, 1fr); }
+}

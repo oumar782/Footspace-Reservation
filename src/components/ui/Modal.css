@@ -1,0 +1,255 @@
+/**
+ * PlayForest UI — Premium Modal Styles (Design System v2)
+ * Accessible, animated, responsive
+ */
+
+.pf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(11, 18, 32, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  animation: pf-modal-fade-in 0.25s var(--ease-out) forwards;
+}
+
+@keyframes pf-modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pf-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 32px 64px rgba(11, 18, 32, 0.20);
+  max-width: 560px;
+  width: 100%;
+  max-height: 88vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: pf-modal-slide-up 0.35s cubic-bezier(0.22, 1, 0.33, 1) both;
+}
+
+@keyframes pf-modal-slide-up {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pf-modal--sm { max-width: 400px; }
+.pf-modal--md { max-width: 560px; }
+.pf-modal--lg { max-width: 720px; }
+.pf-modal--xl { max-width: 960px; }
+.pf-modal--full { max-width: 100vw; max-height: 100vh; border-radius: 0; }
+
+.pf-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.pf-modal__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  color: #0b1220;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.pf-modal__close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s var(--ease-out), color 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+}
+.pf-modal__close:hover {
+  background: #e2e8f0;
+  color: #0b1220;
+  border-color: #cbd5e1;
+}
+.pf-modal__close:focus-visible {
+  outline: 2px solid var(--pf-primary);
+  outline-offset: 2px;
+}
+
+.pf-modal__body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.pf-modal__footer {
+  padding: 16px 24px 20px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ===================== Modal Form Elements ===================== */
+
+.pf-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pf-modal__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pf-modal__form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pf-modal__form-group input {
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #0f172a;
+  background: #ffffff;
+  transition: border-color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+}
+.pf-modal__form-group input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+.pf-modal__form-group input::placeholder {
+  color: #94a3b8;
+}
+.pf-modal__form-group input:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.pf-modal__tournament-info {
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+.pf-modal__tournament-info h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #0b1220;
+  margin: 0 0 8px;
+}
+.pf-modal__info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+  margin: 4px 0;
+}
+.pf-modal__info-row svg { width: 14px; height: 14px; color: #94a3b8; }
+
+.pf-modal__btn-pf-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+}
+.pf-modal__btn-pf-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.36);
+}
+.pf-modal__btn-pf-primary:active { transform: translateY(0) scale(0.98); }
+.pf-modal__btn-pf-primary:focus-visible {
+  outline: 2px solid var(--pf-primary);
+  outline-offset: 2px;
+}
+
+.pf-modal__btn-pf-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: #ffffff;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+}
+.pf-modal__btn-pf-secondary:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* ===================== Spinner ===================== */
+
+.pf-modal__spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: pf-spin 0.7s linear infinite;
+}
+
+@keyframes pf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===================== Responsive ===================== */
+
+@media (max-width: 560px) {
+  .pf-modal-overlay { padding: 12px; }
+  .pf-modal { border-radius: 18px 18px 0 0; max-height: 92vh; }
+  .pf-modal__header { padding: 16px 18px; }
+  .pf-modal__body { padding: 18px; }
+  .pf-modal__footer { padding: 12px 18px 16px; }
+  .pf-modal__title { font-size: 17px; }
+}
+
+@media (max-width: 480px) {
+  .pf-modal { border-radius: 0; }
+  .pf-modal-overlay { padding: 0; }
+  .pf-modal--full { max-width: 100vw; max-height: 100vh; }
+}

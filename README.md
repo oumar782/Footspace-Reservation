@@ -1,5 +1,9 @@
 # React + Vite
 
+## SEO deployment
+
+Set `VITE_SITE_URL` to the canonical production origin (for example, `https://playforest.ma`) in the hosting environment. The build uses it for canonical metadata, `robots.txt`, and `sitemap.xml`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

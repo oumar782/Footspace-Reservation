@@ -40,7 +40,7 @@ const About = () => {
       icon: Target, 
       title: 'Excellence', 
       desc: "Des installations de haute qualité et un service irréprochable pour une expérience sportive d'élite.",
-      color: '#0a750d'
+      color: '#09A923'
     },
     { 
       icon: Heart, 
@@ -73,7 +73,7 @@ const About = () => {
   ];
 
   const timeline = [
-    { year: '2018', title: 'Création de PlayZone', desc: 'Ouverture du premier centre à Casablanca avec 3 terrains.' },
+    { year: '2018', title: 'Création de Play Forest', desc: 'Ouverture du premier centre à Casablanca avec 3 terrains.' },
     { year: '2019', title: 'Expansion Majeure', desc: 'Ajout de terrains indoor et modernisation complète des vestiaires.' },
     { year: '2020', title: 'Résilience & Innovation', desc: 'Lancement de la plateforme de réservation en ligne.' },
     { year: '2021', title: 'Certification Qualité', desc: 'Obtention du label qualité et partenariats avec clubs locaux.' },
@@ -86,7 +86,7 @@ const About = () => {
       name: 'Karim El Amrani', 
       role: 'Directeur Général', 
       exp: '20+ ans d\'expérience',
-      color: '#0a750d'
+      color: '#09A923'
     },
     { 
       name: 'Sophie Martin', 
@@ -110,9 +110,9 @@ const About = () => {
 
   // Certifications - CORRECTION : les icônes sont maintenant des composants React
   const certifications = [
-    { icon: Shield, title: 'Label Qualité', desc: 'Centre certifié par la Fédération Royale Marocaine de Football', color: '#0a750d' },
-    { icon: Handshake, title: 'Partenaires Clubs', desc: '15+ clubs et académies partenaires à travers le Maroc', color: '#3498db' },
-    { icon: Award, title: 'Norme ISO', desc: 'Certification ISO 9001 pour la qualité de service', color: '#f1c40f' }
+    { icon: Shield, title: 'Label Qualité', desc: 'Centre certifié par la Fédération Royale Marocaine de Football', color: '#09A923' },
+    { icon: Handshake, title: 'Partenaires Clubs', desc: '15+ clubs et académies partenaires à travers le Maroc', color: '#4DB95C' },
+    { icon: Award, title: 'Norme ISO', desc: 'Certification ISO 9001 pour la qualité de service', color: '#F3BB18' }
   ];
 
   // Missions - CORRECTION : les icônes sont maintenant des composants React
@@ -144,7 +144,7 @@ const About = () => {
             </h1>
             
             <p className="ab-hero-subtitle">
-              PlayZone incarne l'excellence sportive au Maroc. Découvrez notre parcours, 
+              Play Forest incarne l'excellence sportive au Maroc. Découvrez notre parcours, 
               nos valeurs et notre engagement envers la communauté sportive.
             </p>
             
@@ -354,11 +354,11 @@ const About = () => {
             <h2 className="ab-cta-title">
               <span className="ab-cta-title-text">Rejoignez l'</span>
               <span className="ab-cta-title-gold">Aventure</span>
-              <span className="ab-cta-title-text"> PlayZone</span>
+              <span className="ab-cta-title-text"> Play Forest</span>
             </h2>
             <p className="ab-cta-subtitle">
               Faites partie de la communauté sportive qui repousse ses limites. 
-              Réservez votre terrain et vivez l'expérience PlayZone.
+              Réservez votre terrain et vivez l'expérience Play Forest.
             </p>
             
             <div className="ab-cta-buttons">

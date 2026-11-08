@@ -8,17 +8,17 @@ const API_URL = 'https://backend-foot-omega.vercel.app/api/tournoi';
 // ============================================
 export const getSportColor = (sport) => {
     const colors = {
-        football: '#0a750d',
-        tennis: '#ffd700',
-        basketball: '#e67e22',
-        volleyball: '#8e44ad',
-        handball: '#2980b9',
-        padel: '#27ae60',
-        badminton: '#e74c3c',
-        rugby: '#2c3e50',
-        pingpong: '#e67e22'
+        football: '#09A923',
+        tennis: '#F3BB18',
+        basketball: '#13BE2D',
+        volleyball: '#4DB95C',
+        handball: '#1A1B1D',
+        padel: '#ECC74F',
+        badminton: '#09A923',
+        rugby: '#1A1B1D',
+        pingpong: '#13BE2D'
     };
-    return colors[sport?.toLowerCase()] || '#0a750d';
+    return colors[sport?.toLowerCase()] || '#09A923';
 };
 
 // ============================================

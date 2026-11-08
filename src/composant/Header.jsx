@@ -3,19 +3,31 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Menu, X, MapPin, Phone, Mail, Calendar, Clock, ChevronRight, 
   Target, ShoppingBag, User, Award, Home, Info, 
-  Dumbbell, CalendarDays, Users, Trophy, FileText, PhoneCall
+  Dumbbell, CalendarDays, Users, Trophy, FileText, PhoneCall, LogIn, UserPlus
 } from 'lucide-react';
 import './Header2.css';
+import logo from '../assets/logo.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
+
+    const storedUser = localStorage.getItem('playforest_user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -27,7 +39,6 @@ const Header = () => {
     { name: 'Sessions', href: '/sessions', icon: Users },
     { name: 'Coachs', href: '/coaches', icon: Award },
     { name: 'Tournois', href: '/tournois', icon: Trophy },
-    { name: 'Abonnement', href: '/abonnement', icon: FileText },
     { name: 'Boutique', href: '/boutique', icon: ShoppingBag },
     { name: 'Contact', href: '/contact', icon: PhoneCall },
   ];
@@ -43,6 +54,8 @@ const Header = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const displayName = user?.fullName || user?.full_name || user?.name || null;
+
   return (
     <header className={`nav2-header ${scrolled ? 'nav2-scrolled' : ''}`}>
       <div className="nav2-container">
@@ -50,7 +63,7 @@ const Header = () => {
           <div className="nav2-top-info">
             <div className="nav2-info-item">
               <MapPin className="nav2-info-icon" />
-              <span>Casablanca, Maroc</span>
+              <span>{user?.city || 'Casablanca'}, Maroc</span>
             </div>
             <div className="nav2-info-item">
               <Phone className="nav2-info-icon" />
@@ -58,25 +71,34 @@ const Header = () => {
             </div>
             <div className="nav2-info-item">
               <Mail className="nav2-info-icon" />
-              <span>contact@playzone.ma</span>
+              <span>contact@playforest.ma</span>
             </div>
           </div>
+
           <div className="nav2-top-right">
-            <div className="nav2-opening-hours">
-              <Clock className="nav2-hours-icon" size={14} />
-              <span>8h00 - 22h00</span>
-            </div>
+            {displayName ? (
+              <Link to="/profile" className="nav2-info-item" style={{ color: '#10b981', fontWeight: '700', textDecoration: 'none' }}>
+                <User className="nav2-info-icon" />
+                <span>Bienvenue, {displayName.split(' ')[0]}</span>
+              </Link>
+            ) : (
+              <div style={{ display: 'inline-flex', gap: '12px' }}>
+                <Link to="/login" style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: '600' }}>Se connecter</Link>
+                <span style={{ color: '#64748b' }}>|</span>
+                <Link to="/register" style={{ color: '#10b981', textDecoration: 'none', fontSize: '13px', fontWeight: '700' }}>S'inscrire</Link>
+              </div>
+            )}
           </div>
         </div>
 
         <nav className="nav2-main-nav">
           <Link to="/homes" className="nav2-brand-link" onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <div className="nav2-brand-logo">
-              <Target className="nav2-brand-icon" size={24} />
+              <img src={logo} alt="Play Forest" className="nav2-brand-logo-img" />
             </div>
             <div className="nav2-brand-text">
-              <h1 className="nav2-brand-name">Play<span className="nav2-brand-highlight">Zone</span></h1>
-              <p className="nav2-brand-tagline">Sport & Bien-être</p>
+              <h1 className="nav2-brand-name">Play <span className="nav2-brand-highlight">Forest</span></h1>
+              <p className="nav2-brand-tagline"> L'avenir du Sport commence ici</p>
             </div>
           </Link>
 
@@ -99,16 +121,6 @@ const Header = () => {
                 <span>Mes réservations</span>
                 <ChevronRight size={16} className="nav2-cta-arrow" />
               </button>
-              <button className="nav2-cta-button nav2-abonnement-button" onClick={() => handleNavigation("/consultation-abonnement")}>
-                <Calendar size={16} />
-                <span>Mon abonnement</span>
-                <ChevronRight size={16} className="nav2-cta-arrow" />
-              </button>
-              <button className="nav2-cta-button nav2-shop-button" onClick={() => handleNavigation("/boutique")}>
-                <ShoppingBag size={16} />
-                <span>Boutique</span>
-                <ChevronRight size={16} className="nav2-cta-arrow" />
-              </button>
             </div>
           </div>
 
@@ -116,65 +128,6 @@ const Header = () => {
             {isOpen ? <X className="nav2-menu-icon" /> : <Menu className="nav2-menu-icon" />}
           </button>
         </nav>
-
-        {isOpen && (
-          <>
-            <div className="nav2-mobile-nav">
-              <div className="nav2-mobile-nav-header">
-                <div className="nav2-mobile-brand">
-                  <Target size={24} className="nav2-mobile-brand-icon" />
-                  <span className="nav2-mobile-brand-name">PlayZone</span>
-                </div>
-                <button onClick={() => setIsOpen(false)} className="nav2-mobile-close" aria-label="Fermer">
-                  <X size={24} />
-                </button>
-              </div>
-
-              <div className="nav2-mobile-nav-content">
-                {navigation.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                      className={`nav2-mobile-nav-link ${isActive(item.href) ? 'nav2-active' : ''}`}
-                    >
-                      <span className="nav2-mobile-link-text">
-                        <Icon size={18} className="nav2-mobile-link-icon" />
-                        {item.name}
-                      </span>
-                      <ChevronRight size={16} className="nav2-mobile-link-arrow" />
-                    </Link>
-                  );
-                })}
-
-                <div className="nav2-mobile-buttons">
-                  <button className="nav2-cta-button nav2-mobile" onClick={() => handleNavigation("/consultation-reservation")}>
-                    <Calendar size={16} />
-                    <span>Mes réservations</span>
-                  </button>
-                  <button className="nav2-cta-button nav2-mobile nav2-abonnement-mobile" onClick={() => handleNavigation("/consultation-abonnement")}>
-                    <Calendar size={16} />
-                    <span>Mon abonnement</span>
-                  </button>
-                  <button className="nav2-cta-button nav2-mobile nav2-shop-mobile" onClick={() => handleNavigation("/boutique")}>
-                    <ShoppingBag size={16} />
-                    <span>Boutique</span>
-                  </button>
-                </div>
-
-                <div className="nav2-mobile-info">
-                  <div className="nav2-mobile-info-item"><MapPin size={16} /><span>Casablanca, Maroc</span></div>
-                  <div className="nav2-mobile-info-item"><Phone size={16} /><span>+212 5 22 33 44 55</span></div>
-                  <div className="nav2-mobile-info-item"><Mail size={16} /><span>contact@playzone.ma</span></div>
-                  <div className="nav2-mobile-info-item"><Clock size={16} /><span>8h00 - 22h00</span></div>
-                </div>
-              </div>
-            </div>
-            <div className="nav2-mobile-overlay" onClick={() => setIsOpen(false)}></div>
-          </>
-        )}
       </div>
     </header>
   );

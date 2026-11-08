@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BarChart3,
@@ -16,10 +16,10 @@ import {
 import ProductCard from '../components/ProductCard';
 import Cart from '../components/Cart';
 import {
+  fetchShopProducts,
   formatShopPrice,
   productTypes,
   shopCategories,
-  shopProducts,
 } from '../data/shop';
 import './boutique.css';
 
@@ -40,7 +40,9 @@ const Boutique = () => {
   const [filters, setFilters] = useState(initialFilters);
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [adminProducts, setAdminProducts] = useState(shopProducts);
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
   const [adminForm, setAdminForm] = useState({
     name: '',
     sport: 'Football',
@@ -50,16 +52,16 @@ const Boutique = () => {
     stock: '',
   });
 
-  const brands = useMemo(() => [...new Set(shopProducts.map((product) => product.brand))], []);
-  const sizes = useMemo(() => [...new Set(shopProducts.flatMap((product) => product.sizes))], []);
+  const brands = useMemo(() => [...new Set(products.map((product) => product.brand))], [products]);
+  const sizes = useMemo(() => [...new Set(products.flatMap((product) => product.sizes || []))], [products]);
 
   const filteredProducts = useMemo(() => {
-    return adminProducts.filter((product) => {
+    return products.filter((product) => {
       const search = filters.search.trim().toLowerCase();
       const matchesSearch = !search || product.name.toLowerCase().includes(search) || product.brand.toLowerCase().includes(search);
       const matchesSport = !filters.sport || product.sport === filters.sport;
       const matchesType = !filters.type || product.type === filters.type || product.category === filters.type;
-      const matchesSize = !filters.size || product.sizes.includes(filters.size);
+      const matchesSize = !filters.size || product.sizes?.includes(filters.size);
       const matchesMin = !filters.minPrice || product.price >= Number(filters.minPrice);
       const matchesMax = !filters.maxPrice || product.price <= Number(filters.maxPrice);
       const matchesBrand = !filters.brand || product.brand === filters.brand;
@@ -68,11 +70,11 @@ const Boutique = () => {
 
       return matchesSearch && matchesSport && matchesType && matchesSize && matchesMin && matchesMax && matchesBrand && matchesAvailability && matchesGender;
     });
-  }, [adminProducts, filters]);
+  }, [products, filters]);
 
-  const popularProducts = adminProducts.filter((product) => product.badge === 'Populaire');
-  const newProducts = adminProducts.filter((product) => product.badge === 'Nouveaute');
-  const promoProducts = adminProducts.filter((product) => product.discount > 0);
+  const popularProducts = products.filter((product) => product.badge === 'Populaire');
+  const newProducts = products.filter((product) => product.badge === 'Nouveaute');
+  const promoProducts = products.filter((product) => product.discount > 0);
   const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalSales = 28470;
 
@@ -106,6 +108,25 @@ const Boutique = () => {
     document.getElementById('shop-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoadingProducts(true);
+      setFetchError(null);
+
+      try {
+        const data = await fetchShopProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error('Erreur chargement produits boutique:', error);
+        setFetchError('Impossible de charger les produits. Veuillez reessayer plus tard.');
+      } finally {
+        setLoadingProducts(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const goToProduct = (id) => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     navigate(`/shop/product/${id}`);
@@ -135,12 +156,12 @@ const Boutique = () => {
       images: ['https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=80'],
       technical: ['Stock gere', 'Categorie boutique', 'Produit PlayForest'],
     };
-    setAdminProducts((current) => [product, ...current]);
+    setProducts((current) => [product, ...current]);
     setAdminForm({ name: '', sport: 'Football', category: 'Chaussures', brand: '', price: '', stock: '' });
   };
 
   const deleteAdminProduct = (id) => {
-    setAdminProducts((current) => current.filter((product) => product.id !== id));
+    setProducts((current) => current.filter((product) => product.id !== id));
   };
 
   return (
@@ -164,7 +185,7 @@ const Boutique = () => {
             </button>
           </div>
           <div className="shop-hero-stats">
-            <span><Package size={18} /> {adminProducts.length} produits</span>
+            <span><Package size={18} /> {products.length} produits</span>
             <span><Truck size={18} /> Livraison offerte des 1200 DH</span>
             <span><ShieldCheck size={18} /> Paiement securise</span>
           </div>
@@ -186,12 +207,13 @@ const Boutique = () => {
           <h2>Trouvez par discipline</h2>
         </div>
         <div className="shop-category-grid">
-          {shopCategories.map(({ id, name, icon: Icon, color }) => {
-            const count = adminProducts.filter((product) => product.sport === name).length;
+          {shopCategories.map(({ id, name, icon, color }) => {
+            const count = products.filter((product) => product.sport === name).length;
+            const CategoryIcon = icon;
             return (
               <button type="button" className="shop-category-card" key={id} onClick={() => openCategory(name)}>
                 <span className="shop-category-icon" style={{ background: `linear-gradient(135deg, ${color}, ${color}dd)` }}>
-                  <Icon size={20} />
+                  <CategoryIcon size={20} />
                 </span>
                 <strong>{name}</strong>
                 <small>{count} produits</small>
@@ -213,11 +235,19 @@ const Boutique = () => {
           </div>
           <div className="shop-curated-column">
             <h3><Sparkles size={18} /> Nouveautes</h3>
-            {newProducts.slice(0, 3).map((product) => <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />)}
+            {loadingProducts ? (
+              <div className="shop-loading">Chargement...</div>
+            ) : (
+              newProducts.slice(0, 3).map((product) => <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />)
+            )}
           </div>
           <div className="shop-curated-column">
             <h3><SlidersHorizontal size={18} /> Promotions</h3>
-            {promoProducts.slice(0, 3).map((product) => <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />)}
+            {loadingProducts ? (
+              <div className="shop-loading">Chargement...</div>
+            ) : (
+              promoProducts.slice(0, 3).map((product) => <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />)
+            )}
           </div>
         </div>
       </section>
@@ -294,15 +324,21 @@ const Boutique = () => {
         </div>
 
         <div className="shop-results-bar">
-          <strong>{filteredProducts.length}</strong>
+          <strong>{loadingProducts ? '...' : filteredProducts.length}</strong>
           <span>produits trouves</span>
         </div>
 
-        <div className="shop-products-grid">
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />
-          ))}
-        </div>
+        {fetchError ? (
+          <div className="shop-error-message">{fetchError}</div>
+        ) : loadingProducts ? (
+          <div className="shop-products-loading">Chargement des produits...</div>
+        ) : (
+          <div className="shop-products-grid">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={goToProduct} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="shop-section shop-admin-section">
@@ -334,7 +370,7 @@ const Boutique = () => {
           </form>
 
           <div className="shop-admin-stats">
-            <div><span>Produits</span><strong>{adminProducts.length}</strong></div>
+            <div><span>Produits</span><strong>{products.length}</strong></div>
             <div><span>Ventes</span><strong>{formatShopPrice(totalSales)}</strong></div>
             <div><span>Meilleure categorie</span><strong>Football</strong></div>
             <div><span>Commandes</span><strong>128</strong></div>
@@ -342,7 +378,7 @@ const Boutique = () => {
 
           <div className="shop-admin-table">
             <h3>Stock et categories</h3>
-            {adminProducts.slice(0, 7).map((product) => (
+            {products.slice(0, 7).map((product) => (
               <div key={product.id} className="shop-admin-line">
                 <span>{product.name}</span>
                 <small>{product.sport} | {product.stock} stock</small>

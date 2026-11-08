@@ -1,0 +1,124 @@
+/**
+ * PlayForest UI — Premium Card Styles
+ */
+
+.pf-card {
+  background: var(--pf-bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--pf-border-subtle);
+}
+
+.pf-card--border {
+  border: 1px solid var(--pf-border-light);
+}
+
+.pf-card--glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.pf-card--dark {
+  background: var(--pf-obsidian-900);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pf-card--hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.pf-card--dark.pf-card--hover:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.pf-card--pnone { padding: 0; }
+.pf-card--psm { padding: 14px; }
+.pf-card--pmd { padding: 22px; }
+.pf-card--plg { padding: 32px; }
+
+.pf-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 22px 14px;
+}
+
+.pf-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--pf-primary-subtle);
+  color: var(--pf-primary-hover);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.pf-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--pf-text-main);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.pf-card--dark .pf-card__title {
+  color: #ffffff;
+}
+
+.pf-card__subtitle {
+  font-size: 0.8125rem;
+  color: var(--pf-text-muted);
+  margin: 2px 0 0;
+}
+
+.pf-card--dark .pf-card__subtitle {
+  color: #94a3b8;
+}
+
+.pf-card__header-action {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.pf-card__body {
+  padding: 0 22px 22px;
+}
+
+.pf-card--pnone .pf-card__body { padding: 0; }
+.pf-card--psm .pf-card__body { padding: 0 14px 14px; }
+.pf-card--plg .pf-card__body { padding: 0 32px 32px; }
+
+.pf-card__footer {
+  padding: 16px 22px;
+  border-top: 1px solid var(--pf-border-subtle);
+  background: rgba(248, 250, 252, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pf-card--dark .pf-card__footer {
+  background: rgba(15, 23, 42, 0.6);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 480px) {
+  .pf-card { border-radius: var(--radius-md); }
+  .pf-card__head,
+  .pf-card__body,
+  .pf-card__footer { padding-left: 16px; padding-right: 16px; }
+}

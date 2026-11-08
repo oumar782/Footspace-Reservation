@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { filterPersonalizedItems, getPersonalizationPreferences, normalizePersonalizationValue } from '../utils/personalization';
 import {
   MapPin, Calendar, Trophy, Users, Star, ArrowRight,
   Mail, Phone, Facebook, Instagram, Twitter, Linkedin,
@@ -196,8 +197,19 @@ const stats = [
 
 // ─── COMPONENT ────────────────────────────────────────────────────
 export default function Terrains() {
-  const [selectedVille, setSelectedVille] = useState("Toutes les villes");
-  const [selectedQuartier, setSelectedQuartier] = useState("Tous les quartiers");
+  const [preferences] = useState(getPersonalizationPreferences);
+  const preferredVille = VILLES.slice(1).find((city) =>
+    normalizePersonalizationValue(city) === normalizePersonalizationValue(preferences.city)
+  ) || '';
+  const preferredQuartier = (QUARTIERS_BY_VILLE[preferredVille] || []).find((quartier) =>
+    normalizePersonalizationValue(quartier) === normalizePersonalizationValue(preferences.quartier)
+  ) || 'Tous les quartiers';
+  const availableCities = preferences.city ? (preferredVille ? [preferredVille] : []) : VILLES.slice(1);
+  const availableSports = preferences.sports.length > 0
+    ? SPORTS.filter((sport) => preferences.sports.includes(normalizePersonalizationValue(sport.id)))
+    : SPORTS;
+  const [selectedVille, setSelectedVille] = useState(preferredVille || "Toutes les villes");
+  const [selectedQuartier, setSelectedQuartier] = useState(preferredQuartier);
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedTerrain, setSelectedTerrain] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -207,13 +219,13 @@ export default function Terrains() {
     : [];
 
   const filtered = useMemo(() => {
-    return TERRAINS.filter(t => {
-      if (selectedVille !== "Toutes les villes" && t.ville !== selectedVille) return false;
-      if (selectedQuartier !== "Tous les quartiers" && t.quartier !== selectedQuartier) return false;
-      if (selectedSport && t.sport !== selectedSport) return false;
+    return filterPersonalizedItems(TERRAINS, preferences).filter((terrain) => {
+      if (selectedVille !== "Toutes les villes" && normalizePersonalizationValue(terrain.ville) !== normalizePersonalizationValue(selectedVille)) return false;
+      if (selectedQuartier !== "Tous les quartiers" && normalizePersonalizationValue(terrain.quartier) !== normalizePersonalizationValue(selectedQuartier)) return false;
+      if (selectedSport && normalizePersonalizationValue(terrain.sport) !== normalizePersonalizationValue(selectedSport)) return false;
       return true;
     });
-  }, [selectedVille, selectedQuartier, selectedSport]);
+  }, [preferences, selectedVille, selectedQuartier, selectedSport]);
 
   const handleVilleChange = (ville) => {
     setSelectedVille(ville);
@@ -306,7 +318,7 @@ export default function Terrains() {
           <div className="t-section-header">
             <span className="t-section-subtitle">Gestion d'Infrastructure</span>
             <h2 className="t-section-title">
-              <span className="t-gradient-text">Dashboard</span> Intelligent
+              <span className="t-gradient-text">Dashboard Intelligent</span> 
             </h2>
             <p className="t-section-desc">
               Une solution complète pour la gestion, l'analyse et l'optimisation de vos installations sportives
@@ -396,7 +408,7 @@ export default function Terrains() {
               <Grid size={18} />
               <span>Tous les sports</span>
             </button>
-            {SPORTS.map(sport => {
+            {availableSports.map(sport => {
               const Icon = sport.icon;
               return (
                 <button
@@ -443,7 +455,7 @@ export default function Terrains() {
                     value={selectedVille}
                     onChange={e => handleVilleChange(e.target.value)}
                   >
-                    {VILLES.map(v => (
+                    {['Toutes les villes', ...availableCities].map(v => (
                       <option key={v} value={v}>{v}</option>
                     ))}
                   </select>

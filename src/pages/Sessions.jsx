@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+﻿import React, { useCallback, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
   Calendar, 
@@ -34,13 +34,21 @@ import {
   formatSession,
   cancelSession 
 } from '../utils/sessionStorage';
+import { filterPersonalizedItems, getPersonalizationPreferences, normalizePersonalizationValue } from '../utils/personalization';
 import './sessions.css';
 
 const SPORTS = ['', 'football', 'tennis', 'basketball', 'volleyball', 'handball', 'padel', 'badminton'];
 
 const Sessions = () => {
   const location = useLocation();
-  const [sportFilter, setSportFilter] = useState(location.state?.sport || '');
+  const [preferences] = useState(getPersonalizationPreferences);
+  const preferredSports = preferences.sports;
+  const [sportFilter, setSportFilter] = useState(() => {
+    const requestedSport = location.state?.sport || '';
+    return !requestedSport || preferredSports.length === 0 || preferredSports.includes(normalizePersonalizationValue(requestedSport))
+      ? requestedSport
+      : '';
+  });
   const [dateFilter, setDateFilter] = useState('');
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,17 +67,22 @@ const Sessions = () => {
       setLoading(true);
       const filters = {};
       if (sportFilter) filters.sport = sportFilter;
+      if (preferences.city) filters.ville = preferences.city;
       if (dateFilter) filters.date = dateFilter;
       
       const data = await getSessions(filters);
-      setSessions(data.map(formatSession));
+      setSessions(filterPersonalizedItems(data.map(formatSession), preferences));
     } catch (error) {
       console.error('Erreur lors du chargement des sessions:', error);
       showToast('Erreur lors du chargement des sessions', 'error');
     } finally {
       setLoading(false);
     }
-  }, [sportFilter, dateFilter]);
+  }, [sportFilter, dateFilter, preferences]);
+
+  const availableSports = SPORTS.filter(Boolean).filter((sport) =>
+    preferredSports.length === 0 || preferredSports.includes(normalizePersonalizationValue(sport))
+  );
 
   useEffect(() => {
     seedDemoSessions();
@@ -97,15 +110,15 @@ const Sessions = () => {
 
   const getSportColor = (sport) => {
     const colors = {
-      football: '#0a750d',
-      tennis: '#ffd700',
-      basketball: '#e67e22',
-      volleyball: '#8e44ad',
-      handball: '#2980b9',
-      padel: '#27ae60',
-      badminton: '#e74c3c'
+      football: '#09A923',
+      tennis: '#F3BB18',
+      basketball: '#13BE2D',
+      volleyball: '#4DB95C',
+      handball: '#1A1B1D',
+      padel: '#ECC74F',
+      badminton: '#09A923'
     };
-    return colors[sport?.toLowerCase()] || '#0a750d';
+    return colors[sport?.toLowerCase()] || '#09A923';
   };
 
   const getSportIcon = (sport) => {
@@ -146,7 +159,7 @@ const Sessions = () => {
       return;
     }
     if (!formData.phone.trim()) {
-      showToast('Veuillez saisir votre numéro de téléphone', 'error');
+      showToast('Veuillez saisir votre numÃ©ro de tÃ©lÃ©phone', 'error');
       return;
     }
     if (!formData.email.trim()) {
@@ -162,7 +175,7 @@ const Sessions = () => {
 
     const phoneRegex = /^[0-9+\s]{10,}$/;
     if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
-      showToast('Numéro de téléphone invalide (minimum 10 chiffres)', 'error');
+      showToast('NumÃ©ro de tÃ©lÃ©phone invalide (minimum 10 chiffres)', 'error');
       return;
     }
 
@@ -184,7 +197,7 @@ const Sessions = () => {
           telephone: formData.phone
         }));
         
-        showToast('Vous avez rejoint la session avec succès !', 'success');
+        showToast('Vous avez rejoint la session avec succÃ¨s !', 'success');
         setJoinForm(null);
         setFormData({ name: '', email: '', phone: '' });
         await loadSessions();
@@ -197,11 +210,11 @@ const Sessions = () => {
   };
 
   const handleCancelSession = async (sessionId) => {
-    if (!window.confirm('Êtes-vous sûr de vouloir annuler cette session ?')) return;
+    if (!window.confirm('ÃŠtes-vous sÃ»r de vouloir annuler cette session ?')) return;
     
     try {
       await cancelSession(sessionId);
-      showToast('Session annulée avec succès', 'success');
+      showToast('Session annulÃ©e avec succÃ¨s', 'success');
       await loadSessions();
     } catch (error) {
       showToast(error.message || 'Erreur lors de l\'annulation', 'error');
@@ -237,10 +250,10 @@ const Sessions = () => {
               <span>Sessions Sportives</span>
             </div>
             <h1 className="ss-hero-title">
-              Trouvez vos <span className="ss-hero-gold">Coéquipiers</span>
+              Trouvez vos <span className="ss-hero-gold">CoÃ©quipiers</span>
             </h1>
             <p className="ss-hero-subtitle">
-              Rejoignez des joueurs passionnés pour vos matchs et entraînements
+              Rejoignez des joueurs passionnÃ©s pour vos matchs et entraÃ®nements
             </p>
             <div className="ss-hero-stats">
               <div className="ss-hero-stat">
@@ -253,7 +266,7 @@ const Sessions = () => {
               </div>
               <div className="ss-hero-stat">
                 <XCircle size={22} />
-                <span>{sessions.filter(s => s.status === 'full').length} Complètes</span>
+                <span>{sessions.filter(s => s.status === 'full').length} ComplÃ¨tes</span>
               </div>
             </div>
           </div>
@@ -277,8 +290,9 @@ const Sessions = () => {
                 onClick={() => setSportFilter('')}
               >
                 <span>Tous</span>
+                <span>{preferredSports.length > 0 ? 'Mes sports' : 'Tous'}</span>
               </button>
-              {SPORTS.filter(Boolean).map(s => (
+              {availableSports.map(s => (
                 <button 
                   key={s}
                   className={`ss-filter-tab ${sportFilter === s ? 'active' : ''}`}
@@ -343,7 +357,7 @@ const Sessions = () => {
               <Trophy size={72} />
             </div>
             <h3>Aucune session disponible</h3>
-            <p>Créez une session après votre réservation de terrain</p>
+            <p>CrÃ©ez une session aprÃ¨s votre rÃ©servation de terrain</p>
           </div>
         ) : (
           <div className="ss-grid">
@@ -402,7 +416,7 @@ const Sessions = () => {
 
                     <div className="ss-card-host">
                       <User size={16} />
-                      <span>Organisé par <strong>{session.creatorName}</strong></span>
+                      <span>OrganisÃ© par <strong>{session.creatorName}</strong></span>
                       {session.creatorPhone && (
                         <span className="ss-host-phone">
                           <Phone size={14} /> {session.creatorPhone}
@@ -433,7 +447,7 @@ const Sessions = () => {
 
                       <div className="ss-players-grid">
                         {players.slice(0, 10).map((p, i) => {
-                          const colors = ['#0a750d', '#ffd700', '#e67e22', '#8e44ad', '#2980b9', '#27ae60', '#e74c3c', '#2c3e50', '#1abc9c', '#9b59b6'];
+                          const colors = ['#09A923', '#F3BB18', '#e67e22', '#8e44ad', '#2980b9', '#27ae60', '#e74c3c', '#2c3e50', '#1abc9c', '#9b59b6'];
                           const displayName = p.name || 'Joueur';
                           return (
                             <div 
@@ -541,7 +555,7 @@ const Sessions = () => {
                 <div className="ss-form-group">
                   <label>
                     <Phone size={18} />
-                    Téléphone <span className="ss-required">*</span>
+                    TÃ©lÃ©phone <span className="ss-required">*</span>
                   </label>
                   <input 
                     name="phone"

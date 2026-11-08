@@ -1,6 +1,20 @@
 {
     "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
+        { "source": "/about", "destination": "/about/index.html" },
+        { "source": "/contact", "destination": "/contact/index.html" },
+        { "source": "/explore", "destination": "/explore/index.html" },
+        { "source": "/explore/fields", "destination": "/explore/fields/index.html" },
+        { "source": "/explore/tournaments", "destination": "/explore/tournaments/index.html" },
+        { "source": "/explore/coaches", "destination": "/explore/coaches/index.html" },
+        { "source": "/explore/equipment", "destination": "/explore/equipment/index.html" },
+        { "source": "/communities", "destination": "/communities/index.html" },
+        { "source": "/sessions", "destination": "/sessions/index.html" },
+        { "source": "/explore/events", "destination": "/explore/events/index.html" },
+        { "source": "/terrains", "destination": "/terrains/index.html" },
+        { "source": "/coaches", "destination": "/coaches/index.html" },
+        { "source": "/tournois", "destination": "/tournois/index.html" },
+        { "source": "/boutique", "destination": "/boutique/index.html" },
+        { "source": "/(.*)", "destination": "/index.html" }
     ]
   }
   

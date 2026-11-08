@@ -79,6 +79,25 @@ const Tournois = () => {
     loadTournaments();
   }, [loadTournaments]);
 
+  useEffect(() => {
+    if (!location.state?.sport) {
+      const prefsStr = localStorage.getItem('playforest_prefs');
+      if (prefsStr) {
+        try {
+          const prefs = JSON.parse(prefsStr);
+          if (prefs.sports && prefs.sports.length > 0) {
+            const prefSport = prefs.sports[0].toLowerCase();
+            if (SPORTS.includes(prefSport)) {
+              setSportFilter(prefSport);
+            }
+          }
+        } catch (e) {
+          console.error('Erreur hydration preferences Tournois', e);
+        }
+      }
+    }
+  }, [location.state?.sport]);
+
   const formatDate = (dateStr) => {
     try {
       return new Date(dateStr).toLocaleDateString('fr-FR', {
@@ -94,7 +113,7 @@ const Tournois = () => {
     const start = formatDate(startDate);
     const end = formatDate(endDate);
     if (start === end) return start;
-    return `${start} → ${end}`;
+    return `${start} â†’ ${end}`;
   };
 
   const handleRegister = (tournament) => {
@@ -120,7 +139,7 @@ const Tournois = () => {
     e.preventDefault();
     
     if (!formData.team_name.trim()) {
-      showToast('Veuillez saisir le nom de votre équipe', 'error');
+      showToast('Veuillez saisir le nom de votre Ã©quipe', 'error');
       return;
     }
     if (!formData.captain_name.trim()) {
@@ -132,7 +151,7 @@ const Tournois = () => {
       return;
     }
     if (!formData.phone.trim()) {
-      showToast('Veuillez saisir votre numéro de téléphone', 'error');
+      showToast('Veuillez saisir votre numÃ©ro de tÃ©lÃ©phone', 'error');
       return;
     }
 
@@ -144,7 +163,7 @@ const Tournois = () => {
 
     const phoneRegex = /^[0-9+\s]{10,}$/;
     if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
-      showToast('Numéro de téléphone invalide', 'error');
+      showToast('NumÃ©ro de tÃ©lÃ©phone invalide', 'error');
       return;
     }
 
@@ -162,7 +181,7 @@ const Tournois = () => {
           telephone: formData.phone
         }));
         
-        showToast('Inscription au tournoi enregistrée avec succès !', 'success');
+        showToast('Inscription au tournoi enregistrÃ©e avec succÃ¨s !', 'success');
         setRegisterForm(false);
         setSelectedTournament(null);
         setFormData({
@@ -204,13 +223,13 @@ const Tournois = () => {
           <div className="tr-hero-content">
             <div className="tr-hero-badge">
               <Trophy size={16} />
-              <span>Compétitions & Tournois</span>
+              <span>CompÃ©titions & Tournois</span>
             </div>
             <h1 className="tr-hero-title">
               <span className="tr-hero-gold">Tournois</span> d'Exception
             </h1>
             <p className="tr-hero-subtitle">
-              Participez aux compétitions PlayZone et vivez l'intensité du sport
+              Participez aux compÃ©titions Play Forest et vivez l'intensitÃ© du sport
             </p>
             <div className="tr-hero-stats">
               <div className="tr-hero-stat">
@@ -220,7 +239,7 @@ const Tournois = () => {
               <div className="tr-hero-stat">
                 <Users size={18} />
                 <span>
-                  {tournaments.reduce((acc, t) => acc + (t.teamsJoined?.length || 0), 0)} Équipes
+                  {tournaments.reduce((acc, t) => acc + (t.teamsJoined?.length || 0), 0)} Ã‰quipes
                 </span>
               </div>
               <div className="tr-hero-stat">
@@ -253,17 +272,17 @@ const Tournois = () => {
                 <span className="tr-gradient-text">Application</span> de Gestion
               </h2>
               <p className="tr-management-desc">
-                Créez, gérez et suivez vos tournois en temps réel. Tableaux, scores, 
-                classements et statistiques à portée de main.
+                CrÃ©ez, gÃ©rez et suivez vos tournois en temps rÃ©el. Tableaux, scores, 
+                classements et statistiques Ã  portÃ©e de main.
               </p>
               <div className="tr-management-features">
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
-                  <span>Création rapide de tournois</span>
+                  <span>CrÃ©ation rapide de tournois</span>
                 </div>
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
-                  <span>Gestion des équipes et inscriptions</span>
+                  <span>Gestion des Ã©quipes et inscriptions</span>
                 </div>
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
@@ -326,7 +345,7 @@ const Tournois = () => {
               <Trophy size={64} />
             </div>
             <h3>Aucun tournoi disponible</h3>
-            <p>Revenez plus tard pour découvrir les prochains tournois</p>
+            <p>Revenez plus tard pour dÃ©couvrir les prochains tournois</p>
           </div>
         ) : (
           <div className="tr-grid">
@@ -360,10 +379,10 @@ const Tournois = () => {
                       <div 
                         className={`tr-status-badge ${isFull ? 'full' : isCancelled ? 'cancelled' : 'open'}`}
                         style={{ 
-                          background: isCancelled ? '#ef4444' : isFull ? '#f59e0b' : '#0a750d'
+                          background: isCancelled ? '#ef4444' : isFull ? '#F3BB18' : '#09A923'
                         }}
                       >
-                        {isCancelled ? 'Annulé' : isFull ? 'Complet' : 'Ouvert'}
+                        {isCancelled ? 'AnnulÃ©' : isFull ? 'Complet' : 'Ouvert'}
                       </div>
                     </div>
 
@@ -390,7 +409,7 @@ const Tournois = () => {
                       <div className="tr-teams-header">
                         <div className="tr-teams-count">
                           <Users size={14} />
-                          <span>{teamsJoined.length}/{teamsNeeded} Équipes</span>
+                          <span>{teamsJoined.length}/{teamsNeeded} Ã‰quipes</span>
                         </div>
                         <span className="tr-spots-left">
                           {isFull ? 'Complet' : `${spotsLeft} places`}
@@ -409,7 +428,7 @@ const Tournois = () => {
 
                       <div className="tr-teams-grid">
                         {teamsJoined.slice(0, 8).map((team, i) => {
-                          const colors = ['#0a750d', '#ffd700', '#e67e22', '#8e44ad', '#2980b9', '#27ae60', '#e74c3c', '#2c3e50'];
+                          const colors = ['#09A923', '#F3BB18', '#13BE2D', '#4DB95C', '#1A1B1D', '#ECC74F', '#09A923', '#1A1B1D'];
                           return (
                             <div 
                               key={i} 
@@ -429,7 +448,7 @@ const Tournois = () => {
 
                     <div className="tr-fee">
                       <span className="tr-fee-amount">{tournament.fee || '0'}</span>
-                      <span className="tr-fee-unit">DH / équipe</span>
+                      <span className="tr-fee-unit">DH / Ã©quipe</span>
                     </div>
 
                     <div className="tr-card-actions">
@@ -491,12 +510,12 @@ const Tournois = () => {
                 <div className="tr-form-group">
                   <label>
                     <UsersIcon size={16} />
-                    Nom de l'équipe <span className="tr-required">*</span>
+                    Nom de l'Ã©quipe <span className="tr-required">*</span>
                   </label>
                   <input 
                     name="team_name"
                     type="text" 
-                    placeholder="Nom de votre équipe" 
+                    placeholder="Nom de votre Ã©quipe" 
                     value={formData.team_name}
                     onChange={handleFormChange}
                     required 
@@ -542,7 +561,7 @@ const Tournois = () => {
                 <div className="tr-form-group">
                   <label>
                     <Phone size={16} />
-                    Téléphone <span className="tr-required">*</span>
+                    TÃ©lÃ©phone <span className="tr-required">*</span>
                   </label>
                   <input 
                     name="phone"

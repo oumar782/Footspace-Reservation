@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import './footer.css';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -11,12 +12,10 @@ const Footer = () => {
             <div className="footer-section">
               <div className="brand-container">
                 <div className="brand-logo">
-                  <div className="logo-icon">
-                    <div className="logo-inner"></div>
+                    <img src={logo} alt="Play Forest logo" className="footer-logo-img" />
                   </div>
-                </div>
                 <div className="brand-text">
-                  <h3 className="brand-name">PlayZone</h3>
+                  <h3 className="brand-name">Play Forest</h3>
                   <p className="brand-tagline">Sport & Bien-être</p>
                 </div>
               </div>
@@ -70,7 +69,7 @@ const Footer = () => {
                 </div>
                 <div className="contact-item">
                   <Mail className="contact-icon" />
-                  <span>contact@playzone.ma</span>
+                  <span>contact@playforest.ma</span>
                 </div>
                 <div className="contact-item">
                   <Clock className="contact-icon" />
@@ -84,7 +83,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <div className="copyright">
-              © 2026 PlayZone. Tous droits réservés.
+              © 2026 Play Forest. Tous droits réservés.
             </div>
             <div className="legal-links">
               <a href="#" className="legal-link">Mentions légales</a>

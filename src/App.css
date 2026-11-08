@@ -3,24 +3,30 @@
    Design élégant pour plateforme de réservation de terrains
    ======================================================= */
 
-/* Import des polices */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 /* ===== VARIABLES GLOBALES ===== */
 :root {
-  /* Couleurs principales (harmonisées avec le header) */
-  --primary-green: #027e0f;
-  --primary-green-dark: #3e6c1a;
-  --primary-gold: #FFD700;
-  --primary-gold-light: #FFED4E;
+  /* Couleurs principales harmonisées avec le logo PlayForest */
+  --playforest-green: #09A923;
+  --playforest-green-bright: #13BE2D;
+  --playforest-green-light: #4DB95C;
+  --playforest-gold: #F3BB18;
+  --playforest-gold-light: #ECC74F;
+  --playforest-black: #1A1B1D;
+  --playforest-white: #FFFFFF;
+
+  --primary-green: #09A923;
+  --primary-green-dark: #13BE2D;
+  --primary-gold: #F3BB18;
+  --primary-gold-light: #ECC74F;
   
   /* Dégradés */
-  --gradient-green: linear-gradient(135deg, #3e6c1a, #027e0f);
-  --gradient-gold: linear-gradient(135deg, #FFD700, #FFED4E);
-  --gradient-dark: linear-gradient(135deg, #1a2418, #2d3a2a);
+  --gradient-green: linear-gradient(135deg, #09A923, #13BE2D);
+  --gradient-gold: linear-gradient(135deg, #F3BB18, #ECC74F);
+  --gradient-dark: linear-gradient(135deg, #1A1B1D, #2a2b2d);
   
   /* Couleurs de texte */
-  --text-dark: #1e2b1a;
+  --text-dark: #1A1B1D;
   --text-gray: #4a5a45;
   --text-light: #6b7a66;
   --text-white: #ffffff;

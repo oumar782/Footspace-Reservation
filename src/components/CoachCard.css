@@ -1,20 +1,25 @@
-/* ═══════════════════════════════════════════════════════════════
-   COACH CARD — Design Premium
-   Colors: #3e6c1a, #027e0f, #b5b4b2, #FFD700
-═══════════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   COACH CARD â€” Design Premium
+   Colors: #09A923, #13BE2D, #b5b4b2, #FFD700
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+
+
+
+  
+
 
 :root {
-  --green-deep: #3e6c1a;
-  --green-bright: #027e0f;
-  --green-muted: #b5b4b2;
-  --gold: #FFD700;
-  --gold-light: #FFED4E;
+  --green-deep: #09A923;
+  --green-bright: #13BE2D;
+  --green-muted: #4DB95C;
+  --gold: #F3BB18;
+  --gold-light: #ECC74F;
   --gold-gradient: linear-gradient(135deg, var(--gold), var(--gold-light));
   --green-gradient: linear-gradient(135deg, var(--green-deep), var(--green-bright));
-  --shadow-green: 0 4px 20px rgba(2, 126, 15, 0.15);
-  --shadow-gold: 0 4px 20px rgba(255, 215, 0, 0.15);
+  --shadow-green: 0 4px 20px rgba(9, 169, 35, 0.15);
+  --shadow-gold: 0 4px 20px rgba(243, 187, 24, 0.15);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-hover: 0 12px 48px rgba(2, 126, 15, 0.2);
   --radius-lg: 20px;
@@ -25,7 +30,7 @@
   --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── COACH CARD ─────────────────────────────────────────────── */
+/* â”€â”€ COACH CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-card {
   background: #ffffff;
   border-radius: var(--radius-lg);
@@ -72,7 +77,7 @@
   border-color: var(--gold);
 }
 
-/* ── RECOMMENDED BADGE ──────────────────────────────────────── */
+/* â”€â”€ RECOMMENDED BADGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-recommended-badge {
   position: absolute;
   top: 1rem;
@@ -81,7 +86,7 @@
   align-items: center;
   gap: 0.35rem;
   background: var(--gold-gradient);
-  color: #1a2418;
+  color: #1A1B1D;
   font-size: 0.65rem;
   font-weight: 700;
   padding: 0.25rem 0.75rem;
@@ -93,10 +98,10 @@
 }
 
 .coach-recommended-badge svg {
-  color: #1a2418;
+  color: #1A1B1D;
 }
 
-/* ── CARD HEADER ────────────────────────────────────────────── */
+/* â”€â”€ CARD HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-card-header {
   display: flex;
   gap: 1rem;
@@ -178,7 +183,7 @@
   50% { opacity: 0.5; transform: scale(0.8); }
 }
 
-/* ── COACH INFO ─────────────────────────────────────────────── */
+/* â”€â”€ COACH INFO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-info {
   flex: 1;
   min-width: 0;
@@ -188,7 +193,7 @@
   margin: 0 0 0.3rem;
   font-size: 1.15rem;
   font-weight: 700;
-  color: #1a2418;
+  color: #1A1B1D;
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: -0.01em;
 }
@@ -225,7 +230,7 @@
   gap: 0.25rem;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #1a2418;
+  color: #1A1B1D;
   font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -262,7 +267,7 @@
   font-weight: 500;
 }
 
-/* ── PROFILE TAGS ────────────────────────────────────────────── */
+/* â”€â”€ PROFILE TAGS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-profile-tags {
   display: flex;
   align-items: center;
@@ -300,7 +305,7 @@
 /* legacy dna hidden */
 .coach-dna { display: none; }
 
-/* ── BIO ────────────────────────────────────────────────────── */
+/* â”€â”€ BIO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-bio {
   color: #4a5a47;
   font-size: 0.875rem;
@@ -309,7 +314,7 @@
   font-weight: 400;
 }
 
-/* ── SKILLS RINGS ───────────────────────────────────────────── */
+/* â”€â”€ SKILLS RINGS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-skills {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -342,7 +347,7 @@
 
 .coach-skill-fill {
   fill: none;
-  stroke: var(--color, #027e0f);
+  stroke: var(--color, #13BE2D);
   stroke-width: 3;
   stroke-linecap: round;
   transition: stroke-dasharray 1.2s ease;
@@ -356,7 +361,7 @@
   justify-content: center;
   font-size: 0.65rem;
   font-weight: 800;
-  color: #1a2418;
+  color: #1A1B1D;
   font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -368,7 +373,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* ── EXPAND BUTTON ──────────────────────────────────────────── */
+/* â”€â”€ EXPAND BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-expand-btn {
   display: flex;
   align-items: center;
@@ -402,7 +407,7 @@
   color: var(--gold);
 }
 
-/* ── DETAILS EXPANDED ───────────────────────────────────────── */
+/* â”€â”€ DETAILS EXPANDED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-details {
   border-top: 1px solid rgba(62, 108, 26, 0.08);
   padding-top: 1rem;
@@ -424,7 +429,7 @@
   align-items: center;
   gap: 0.4rem;
   font-size: 0.8rem;
-  color: #1a2418;
+  color: #1A1B1D;
   margin: 0 0 0.5rem;
   font-weight: 700;
   font-family: 'Space Grotesk', sans-serif;
@@ -517,7 +522,7 @@
 
 .coach-timeline-content strong {
   font-size: 0.85rem;
-  color: #1a2418;
+  color: #1A1B1D;
   font-weight: 700;
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -547,7 +552,7 @@
   color: var(--gold);
 }
 
-/* ── BOOK BUTTON ────────────────────────────────────────────── */
+/* â”€â”€ BOOK BUTTON â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .coach-book-btn {
   width: 100%;
   display: inline-flex;
@@ -598,7 +603,7 @@
 
 .coach-book-btn.booked {
   background: var(--gold-gradient);
-  color: #1a2418;
+  color: #1A1B1D;
   box-shadow: var(--shadow-gold);
 }
 
@@ -614,7 +619,7 @@
   flex-shrink: 0;
 }
 
-/* ── RTL SUPPORT ────────────────────────────────────────────── */
+/* â”€â”€ RTL SUPPORT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 [dir="rtl"] .coach-recommended-badge {
   right: auto;
   left: 1rem;
@@ -648,7 +653,7 @@
   transform-origin: right;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────────── */
+/* â”€â”€ RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 768px) {
   .coach-card {
     padding: 1.25rem;
@@ -768,7 +773,7 @@
   }
 }
 
-/* ── REDUCED MOTION ─────────────────────────────────────────── */
+/* â”€â”€ REDUCED MOTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (prefers-reduced-motion: reduce) {
   .coach-card,
   .coach-avatar,

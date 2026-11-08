@@ -1,0 +1,171 @@
+/**
+ * PlayForest UI — Premium Button Styles
+ */
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.pf-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.pf-btn:focus-visible {
+  outline: 2px solid var(--pf-primary);
+  outline-offset: 2px;
+}
+
+/* Tailles */
+.pf-btn--sm {
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.pf-btn--md {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  border-radius: var(--radius-md);
+}
+
+.pf-btn--lg {
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--radius-lg);
+}
+
+.pf-btn--full {
+  width: 100%;
+}
+
+.pf-btn--loading {
+  cursor: wait;
+}
+
+.pf-btn--loading .pf-btn__label,
+.pf-btn--loading .pf-btn__icon {
+  opacity: 0;
+}
+
+.pf-btn__icon--left { margin-right: -2px; }
+.pf-btn__icon--right { margin-left: 2px; }
+
+.pf-btn__spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: pf-spin 0.7s linear infinite;
+}
+
+@keyframes pf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.pf-btn__label { display: inline-flex; align-items: center; gap: 6px; }
+.pf-btn__icon { display: flex; align-items: center; }
+
+/* Variantes Visuelles */
+.pf-btn--primary {
+  background: var(--pf-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.pf-btn--primary:hover:not(:disabled) {
+  background: var(--pf-primary-hover);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.pf-btn--secondary {
+  background: #ffffff;
+  color: var(--pf-text-main);
+  border-color: var(--pf-border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.pf-btn--secondary:hover:not(:disabled) {
+  background: var(--pf-bg-light);
+  border-color: #cbd5e1;
+  color: var(--pf-emerald-700);
+}
+
+.pf-btn--ghost {
+  background: transparent;
+  color: var(--pf-text-muted);
+  border-color: transparent;
+}
+
+.pf-btn--ghost:hover:not(:disabled) {
+  background: var(--pf-primary-subtle);
+  color: var(--pf-primary-hover);
+}
+
+.pf-btn--danger {
+  background: #fef2f2;
+  color: var(--pf-danger);
+  border-color: #fecaca;
+}
+
+.pf-btn--danger:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.pf-btn--gradient {
+  background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+}
+
+.pf-btn--gradient:hover:not(:disabled) {
+  border-color: var(--pf-primary);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+  transform: translateY(-1px);
+}
+
+.pf-btn--green {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(4, 120, 87, 0.3);
+}
+
+.pf-btn--green:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(4, 120, 87, 0.4);
+  transform: translateY(-1px);
+}
+
+.pf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 480px) {
+  .pf-btn--lg { padding: 12px 22px; font-size: 0.9375rem; }
+}

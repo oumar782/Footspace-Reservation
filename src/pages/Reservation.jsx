@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -129,6 +129,26 @@ const Reservation = () => {
     setVille(selectedVille);
     setQuartier('');
   };
+
+  useEffect(() => {
+    const prefsStr = localStorage.getItem('playforest_prefs');
+    if (prefsStr) {
+      try {
+        const prefs = JSON.parse(prefsStr);
+        if (prefs.location && villesMaroc.includes(prefs.location)) {
+          setVille(prefs.location);
+        }
+        if (prefs.sports && prefs.sports.length > 0) {
+          const prefSport = prefs.sports[0].toLowerCase();
+          if (sportConfigs[prefSport]) {
+            setSport(prefSport);
+          }
+        }
+      } catch (e) {
+        console.error('Erreur hydration preferences Reservation', e);
+      }
+    }
+  }, []);
 
   const handleSportChange = (e) => {
     const selectedSport = e.target.value;

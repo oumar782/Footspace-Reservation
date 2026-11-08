@@ -1,0 +1,43 @@
+.pf-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--pf-primary), var(--pf-green-700));
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.pf-avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pf-avatar__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pf-avatar__status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28%;
+  height: 28%;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.pf-avatar__status--green  { background: var(--pf-primary); }
+.pf-avatar__status--yellow { background: var(--pf-gold); }
+.pf-avatar__status--red    { background: var(--pf-danger); }
+.pf-avatar__status--gray   { background: var(--pf-text-tertiary); }

@@ -1,0 +1,297 @@
+/* =========================================================================
+   NewExplore — Premium Grid Experience (PlayForest Design System v2)
+   ========================================================================= */
+
+.pf-explore {
+  background: var(--pf-bg-page);
+  min-height: calc(100vh - 70px);
+  padding-bottom: 48px;
+}
+
+.pf-explore__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+/* ===================== HERO ===================== */
+
+.pf-explore__hero {
+  background:
+    radial-gradient(600px 240px at 90% 0%, rgba(9, 169, 35, 0.16), transparent 60%),
+    radial-gradient(480px 220px at 8% 30%, rgba(243, 187, 24, 0.14), transparent 60%),
+    radial-gradient(520px 300px at 50% 100%, rgba(139, 92, 246, 0.12), transparent 60%),
+    linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%);
+  padding: 64px 0 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-explore__hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26, 27, 29, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 27, 29, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.pf-explore__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(9, 169, 35, 0.8);
+  color: #09A923;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 16px rgba(9, 169, 35, 0.10);
+  margin-bottom: 16px;
+}
+
+.pf-explore__eyebrow svg { width: 16px; height: 16px; }
+
+.pf-explore h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: #1A1B1D;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+.pf-explore__hero p {
+  margin: 0 auto 32px;
+  max-width: 620px;
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* ===================== GRID ===================== */
+
+.pf-explore__grid {
+  padding-top: 28px;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.pf-explore__card {
+  position: relative;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 24px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  transition: 
+    transform 0.35s cubic-bezier(0.22, 1, 0.33, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.33, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.33, 1),
+    background 0.35s cubic-bezier(0.22, 1, 0.33, 1);
+  isolation: isolate;
+}
+
+.pf-explore__card::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  opacity: 0.06;
+  pointer-events: none;
+  transition: 
+    transform 0.4s cubic-bezier(0.22, 1, 0.33, 1),
+    opacity 0.4s cubic-bezier(0.22, 1, 0.33, 1);
+}
+
+.pf-explore__card--green::after  { background: radial-gradient(circle at 30% 30%, #09A923, transparent 70%); }
+.pf-explore__card--blue::after   { background: radial-gradient(circle at 30% 30%, #0ea5e9, transparent 70%); }
+.pf-explore__card--orange::after { background: radial-gradient(circle at 30% 30%, #F3BB18, transparent 70%); }
+.pf-explore__card--violet::after { background: radial-gradient(circle at 30% 30%, #8b5cf6, transparent 70%); }
+.pf-explore__card--slate::after  { background: radial-gradient(circle at 30% 30%, #475569, transparent 70%); }
+
+.pf-explore__card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 
+    0 32px 64px rgba(26, 27, 29, 0.12),
+    0 8px 24px rgba(26, 27, 29, 0.06);
+  border-color: transparent;
+  background: #ffffff;
+}
+
+.pf-explore__card:hover::after {
+  transform: scale(1.08);
+  opacity: 0.12;
+}
+
+.pf-explore__card:active { transform: translateY(-4px) scale(1.01); }
+
+.pf-explore__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.pf-explore__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 10px 28px rgba(26, 27, 29, 0.18);
+  transition: transform 0.3s var(--ease-out);
+}
+.pf-explore__card:hover .pf-explore__icon { transform: translateY(-2px) scale(1.05); }
+
+.pf-explore__icon--green  { background: linear-gradient(135deg, #09A923 0%, #13BE2D 100%); box-shadow: 0 8px 24px rgba(9, 169, 35, 0.36); }
+.pf-explore__icon--blue   { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); box-shadow: 0 8px 24px rgba(14, 165, 233, 0.36); }
+.pf-explore__icon--orange { background: linear-gradient(135deg, #F3BB18 0%, #d97706 100%); box-shadow: 0 8px 24px rgba(243, 187, 24, 0.36); }
+.pf-explore__icon--violet { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.36); }
+.pf-explore__icon--slate  { background: linear-gradient(135deg, #64748b 0%, #334155 100%); box-shadow: 0 8px 24px rgba(101, 116, 134, 0.3); }
+
+.pf-explore__tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(241, 245, 249, 0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s var(--ease-out);
+}
+.pf-explore__card:hover .pf-explore__tag {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+}
+
+.pf-explore__card h2 {
+  position: relative;
+  z-index: 1;
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: #1A1B1D;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.pf-explore__card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.6;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===================== FOOTER ===================== */
+
+.pf-explore__foot {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(241, 245, 249, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pf-explore__stats {
+  font-size: 12.5px;
+  color: #64748b;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pf-explore__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #09A923;
+  transition: gap 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+.pf-explore__card:hover .pf-explore__cta { gap: 12px; color: #13BE2D; }
+
+.pf-explore__cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s var(--ease-out);
+}
+.pf-explore__card:hover .pf-explore__cta svg { transform: translateX(4px); }
+
+.pf-explore__card--blue .pf-explore__cta   { color: #0369a1; }
+.pf-explore__card--orange .pf-explore__cta { color: #F3BB18; }
+.pf-explore__card--violet .pf-explore__cta { color: #6d28d9; }
+.pf-explore__card--slate .pf-explore__cta  { color: #475569; }
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 1024px) {
+  .pf-explore__container { padding-inline: 20px; }
+  .pf-explore__grid { gap: 20px; }
+  .pf-explore__hero { padding: 56px 0 40px; }
+  .pf-explore h1 { font-size: clamp(2rem, 4.5vw, 2.5rem); }
+}
+
+@media (max-width: 899px) {
+  .pf-explore__hero { padding: 44px 0 32px; }
+  .pf-explore h1 { font-size: 2.1rem; }
+  .pf-explore__hero p { font-size: 16px; }
+}
+
+@media (max-width: 560px) {
+  .pf-explore__container { padding-inline: 16px; }
+  .pf-explore h1 { font-size: 1.8rem; }
+  .pf-explore__grid { 
+    grid-template-columns: 1fr; 
+    gap: 18px; 
+  }
+  .pf-explore__card { 
+    padding: 24px 20px; 
+  }
+  .pf-explore__card h2 { font-size: 22px; }
+  .pf-explore__card p { font-size: 14px; }
+}

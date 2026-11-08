@@ -51,7 +51,7 @@ const CoachCard = ({ coach, recommended = false, onBook }) => {
               <Trophy size={12} /> {coach.discipline}
             </span>
             <span className="coach-rating">
-              <Star size={14} fill="#FFD700" color="#FFD700" />
+              <Star size={14} fill="#F3BB18" color="#F3BB18" />
               {coach.rating}
             </span>
           </div>
@@ -78,10 +78,10 @@ const CoachCard = ({ coach, recommended = false, onBook }) => {
       <p className="coach-bio">{coach.bio}</p>
 
       <div className="coach-skills">
-        <SkillRing label="Technique" value={coach.skills.technique} color="#3e6c1a" />
-        <SkillRing label="Pédagogie" value={coach.skills.pedagogy} color="#027e0f" />
-        <SkillRing label="Motivation" value={coach.skills.motivation} color="#FFD700" />
-        <SkillRing label="Expérience" value={coach.skills.experience} color="#054d0a" />
+        <SkillRing label="Technique" value={coach.skills.technique} color="#09A923" />
+        <SkillRing label="Pédagogie" value={coach.skills.pedagogy} color="#13BE2D" />
+        <SkillRing label="Motivation" value={coach.skills.motivation} color="#F3BB18" />
+        <SkillRing label="Expérience" value={coach.skills.experience} color="#4DB95C" />
       </div>
 
       <button className="coach-expand-btn" onClick={() => setExpanded(!expanded)}>
