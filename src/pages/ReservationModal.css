@@ -102,7 +102,8 @@
 }
 
 .modal-header h2 {
-  font-family: 'Playfair Display', 'Georgia', serif;
+  font-family: 'Orbitron', system-ui, sans-serif;
+  letter-spacing: -0.02em;
   font-size: 2.2rem;
   font-weight: 700;
   margin: 0 0 15px 0;
@@ -155,6 +156,7 @@
 }
 
 .section-title {
+  font-family: 'Orbitron', system-ui, sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--color-primary-dark);
@@ -381,6 +383,7 @@
 
 .btn-secondary,
 .btn-primary {
+  font-family: 'Orbitron', system-ui, sans-serif;
   flex: 1;
   padding: 16px 24px;
   border: none;
@@ -538,6 +541,7 @@
 }
 
 .choice-title {
+  font-family: 'Orbitron', system-ui, sans-serif;
   display: block;
   font-weight: 700;
   color: #1b5e20;
@@ -720,6 +724,7 @@
   }
   
   .section-title {
+  font-family: 'Orbitron', system-ui, sans-serif;
     font-size: 1.2rem;
   }
   

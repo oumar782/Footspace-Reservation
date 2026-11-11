@@ -5,7 +5,7 @@
 .pf-home {
   background: var(--pf-bg-page);
   min-height: calc(100vh - 70px);
-  --pf-home-max: 1200px;
+  --pf-home-max: 1360px;
 }
 
 /* ===================== HERO ===================== */

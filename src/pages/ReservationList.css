@@ -154,14 +154,14 @@
     grid-template-columns: 1fr;
   }
 }
-* {
+.rv-container * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.rv-container {
+  font-family: var(--font-body, system-ui, sans-serif);
   line-height: 1.6;
 }
 

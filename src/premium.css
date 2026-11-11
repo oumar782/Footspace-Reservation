@@ -16,8 +16,8 @@ select {
 }
 
 .pf-layout--player > .pf-player-nav {
-  background: #10251a;
-  border-right-color: rgba(243, 187, 24, 0.16);
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(9, 169, 35, 0.12);
   box-shadow: 8px 0 30px rgba(16, 37, 26, 0.1);
 }
 
@@ -144,7 +144,7 @@ select {
 }
 
 .pf-business-sidebar {
-  background: #10251a;
+  background: rgba(255, 255, 255, 0.95);
   border-right-color: rgba(243, 187, 24, 0.14);
 }
 
@@ -327,5 +327,99 @@ select {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared finish: consistent geometry, focus, and interaction across routes. */
+#root :is(.pf-layout__main, .pf-business__stage, .pf-auth__panel) {
+  min-width: 0;
+}
+
+#root :is(.pf-home__container, .pf-communities__container, .pf-explore__container, .pf-play__container) {
+  width: 100%;
+  max-width: 1280px;
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+#root :is(.pf-home__section, .pf-home__section--communities, .pf-communities__section, .pf-play__section) {
+  padding-block: clamp(32px, 4vw, 56px);
+}
+
+#root :is(.pf-card, .pf-community-card, .pf-home__action-card, .pf-home__community, .pf-explore__card, .pf-play__session, .pf-business-card, .pf-pro-card) {
+  border-color: var(--pf-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+#root :is(.pf-community-card, .pf-home__action-card, .pf-home__community, .pf-explore__card, .pf-play__session, .pf-business-card, .pf-pro-card):hover {
+  transform: translateY(-3px);
+  border-color: var(--pf-border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+#root :is(.pf-btn, .pf-home__cta, .pf-home__see-all, .pf-explore__cta, .pf-play__cta, .pf-play__join, .pf-communities__create, .pf-business__primary-btn, .pf-business-sidebar__link, .pf-player-nav__link) {
+  min-height: 44px;
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-sm), box-shadow var(--transition-base), background-color var(--transition-base), border-color var(--transition-base);
+}
+
+#root :is(.pf-btn, .pf-home__cta, .pf-explore__cta, .pf-play__cta, .pf-play__join, .pf-communities__create, .pf-business__primary-btn):active {
+  transform: translateY(1px);
+}
+
+#root :is(input:not([type='checkbox']):not([type='radio']), select, textarea) {
+  border-radius: var(--radius-md);
+  border-color: var(--pf-border);
+  transition: border-color var(--transition-sm), box-shadow var(--transition-sm);
+}
+
+#root :is(input, select, textarea):focus-visible {
+  outline: none;
+  border-color: var(--pf-primary);
+  box-shadow: var(--pf-primary-glow);
+}
+
+#root :is(.pf-player-nav__link, .pf-business-sidebar__link) {
+  min-height: 46px;
+  border-radius: var(--radius-md);
+  text-transform: none;
+}
+
+#root .pf-business__content {
+  width: 100%;
+  max-width: 1520px;
+  margin-inline: auto;
+}
+
+#root :is(.pf-home__section-head, .pf-communities__section-head, .pf-play__section-head) {
+  margin-bottom: var(--space-lg);
+}
+
+#root :is(.pf-home__title, .pf-communities h1, .pf-explore h1, .pf-play h1) {
+  line-height: 1.08;
+}
+
+@media (max-width: 899px) {
+  #root .pf-bottom-nav {
+    left: 12px;
+    right: 12px;
+    bottom: calc(env(safe-area-inset-bottom) + 10px);
+    width: auto;
+    max-width: 520px;
+    margin-inline: auto;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  #root .pf-layout--player > .pf-layout__main {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root :is(.pf-community-card, .pf-home__action-card, .pf-home__community, .pf-explore__card, .pf-play__session, .pf-business-card, .pf-pro-card):hover {
+    transform: none;
   }
 }

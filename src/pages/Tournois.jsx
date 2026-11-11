@@ -223,13 +223,13 @@ const Tournois = () => {
           <div className="tr-hero-content">
             <div className="tr-hero-badge">
               <Trophy size={16} />
-              <span>CompÃ©titions & Tournois</span>
+              <span>Compétitions & Tournois</span>
             </div>
             <h1 className="tr-hero-title">
               <span className="tr-hero-gold">Tournois</span> d'Exception
             </h1>
             <p className="tr-hero-subtitle">
-              Participez aux compÃ©titions Play Forest et vivez l'intensitÃ© du sport
+              Participez aux compétitions Play Forest et vivez l'intensité du sport
             </p>
             <div className="tr-hero-stats">
               <div className="tr-hero-stat">
@@ -239,7 +239,7 @@ const Tournois = () => {
               <div className="tr-hero-stat">
                 <Users size={18} />
                 <span>
-                  {tournaments.reduce((acc, t) => acc + (t.teamsJoined?.length || 0), 0)} Ã‰quipes
+                  {tournaments.reduce((acc, t) => acc + (t.teamsJoined?.length || 0), 0)} Équipes
                 </span>
               </div>
               <div className="tr-hero-stat">
@@ -272,17 +272,17 @@ const Tournois = () => {
                 <span className="tr-gradient-text">Application</span> de Gestion
               </h2>
               <p className="tr-management-desc">
-                CrÃ©ez, gÃ©rez et suivez vos tournois en temps rÃ©el. Tableaux, scores, 
-                classements et statistiques Ã  portÃ©e de main.
+                Créez, gérez et suivez vos tournois en temps réel. Tableaux, scores, 
+                classements et statistiques à portée de main.
               </p>
               <div className="tr-management-features">
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
-                  <span>CrÃ©ation rapide de tournois</span>
+                  <span>Création rapide de tournois</span>
                 </div>
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
-                  <span>Gestion des Ã©quipes et inscriptions</span>
+                  <span>Gestion des équipes et inscriptions</span>
                 </div>
                 <div className="tr-management-feature">
                   <CheckCircle size={16} />
@@ -409,7 +409,7 @@ const Tournois = () => {
                       <div className="tr-teams-header">
                         <div className="tr-teams-count">
                           <Users size={14} />
-                          <span>{teamsJoined.length}/{teamsNeeded} Ã‰quipes</span>
+                          <span>{teamsJoined.length}/{teamsNeeded} Équipes</span>
                         </div>
                         <span className="tr-spots-left">
                           {isFull ? 'Complet' : `${spotsLeft} places`}

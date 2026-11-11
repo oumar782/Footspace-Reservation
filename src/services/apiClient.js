@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const PRIMARY_API = 'http://localhost:5000';
-export const LOCAL_API = 'http://localhost:5000';
+export const PRIMARY_API = 'https://backend-foot-omega.vercel.app';
+export const LOCAL_API = 'https://backend-foot-omega.vercel.app';
 
 /* ── Instance principale API (Local Node.js Server) ── */
 const apiClient = axios.create({

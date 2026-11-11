@@ -1,6 +1,9 @@
 import { createElement, useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { Bell, MessageSquare, User, LogOut, Sparkles, LogIn, UserPlus, ChevronDown, Home, UsersRound, Play, Compass } from 'lucide-react';
+import { 
+  Bell, MessageSquare, User, LogOut, Sparkles, LogIn, UserPlus, 
+  ChevronDown, Home, UsersRound, Play, Compass, MapPin, Award, Trophy, Calendar
+} from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { enablePushNotifications } from '../../services/pushNotifications.js';
@@ -9,8 +12,11 @@ import './PlayerNav.css';
 
 const primaryNav = [
   { to: '/home', label: 'Accueil', key: 'home', Icon: Home },
+  { to: '/explore/fields', label: 'Terrains', key: 'fields', Icon: MapPin },
+  { to: '/play', label: 'Sessions', key: 'play', Icon: Play },
   { to: '/communities', label: 'Communautés', key: 'communities', Icon: UsersRound },
-  { to: '/play', label: 'Jouer', key: 'play', cta: true, Icon: Play },
+  { to: '/explore/coaches', label: 'Coachs', key: 'coaches', Icon: Award },
+  { to: '/explore/tournaments', label: 'Tournois', key: 'tournaments', Icon: Trophy },
   { to: '/explore', label: 'Explorer', key: 'explore', Icon: Compass }
 ];
 

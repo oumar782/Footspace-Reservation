@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CheckCircle, Users, Award, X } from 'lucide-react';
 import './ReservationModal.css';
 import { createSessionFromReservation } from '../utils/sessionStorage';
 
@@ -312,7 +313,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
         <div className={`modal-container ${showPostModal ? 'post-modal-visible' : ''}`} onClick={(e) => e.stopPropagation()}>
           {/* Le bouton de fermeture est masqué quand le post-modal est affiché */}
           {!showPostModal && (
-            <button className="modal-close" onClick={onClose}>×</button>
+            <button className="modal-close" onClick={onClose} aria-label="Fermer"><X size={20} /></button>
           )}
           
           {!showPostModal ? (
@@ -493,7 +494,7 @@ const ReservationModal = ({ isOpen, onClose, creneau, onReservationSuccess }) =>
           ) : (
             <div className="confirmation-wrapper">
               <div className="confirmation-message">
-                <div className="confirmation-icon">✅</div>
+                <div className="confirmation-icon"><CheckCircle size={48} color="#09A923" /></div>
                 <h3>Réservation confirmée !</h3>
                 <p className="confirmation-sub">
                   Choisissez une option ci-dessous pour continuer.

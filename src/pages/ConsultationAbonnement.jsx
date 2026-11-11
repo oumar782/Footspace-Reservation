@@ -390,7 +390,7 @@ const ConsultationAbonnement = () => {
             {/* Section de débogage - visible uniquement en développement */}
             {debugInfo && import.meta.env.DEV && (
               <div style={{ marginTop: '20px', padding: '15px', background: '#f0f0f0', borderRadius: '8px', fontSize: '12px' }}>
-                <h4 style={{ marginBottom: '10px' }}>🔧 Informations de débogage :</h4>
+                <h4 style={{ marginBottom: '10px' }}>Informations de débogage :</h4>
                 <p><strong>Recherche :</strong> {debugInfo.recherche.nom} {debugInfo.recherche.prenom} ({debugInfo.recherche.email})</p>
                 <p><strong>Clients dans la base :</strong> {debugInfo.clients.length}</p>
                 <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
@@ -398,7 +398,7 @@ const ConsultationAbonnement = () => {
                     <div key={i} style={{ padding: '5px', borderBottom: '1px solid #ddd' }}>
                       <div><strong>#{c.id}</strong> - {c.nom} {c.prenom} ({c.email})</div>
                       <div style={{ fontSize: '10px', color: c.correspondance.nom && c.correspondance.prenom && c.correspondance.email ? 'green' : 'red' }}>
-                        Match: N:{c.correspondance.nom ? '✅' : '❌'} P:{c.correspondance.prenom ? '✅' : '❌'} E:{c.correspondance.email ? '✅' : '❌'}
+                        Match: N:{c.correspondance.nom ? 'OK' : 'NO'} P:{c.correspondance.prenom ? 'OK' : 'NO'} E:{c.correspondance.email ? 'OK' : 'NO'}
                       </div>
                     </div>
                   ))}

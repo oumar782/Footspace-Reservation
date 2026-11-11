@@ -4,7 +4,7 @@ import {
   Search, Filter, Users, Plus, Star, MapPin, UserCheck, Crown, Sparkles,
   CheckCircle2, XCircle, Clock, MessageSquare, Send, ShieldCheck, ThumbsUp,
   Flame, ChevronLeft, Lock, Globe, ArrowRight, X, Image as ImageIcon, Video as VideoIcon,
-  Share2, Heart, Play, Trophy, Bell, Upload, FileText
+  Share2, Heart, Play, Trophy, Bell, Upload, FileText, Mail
 } from 'lucide-react';
 import './NewCommunities.css';
 import { filterPersonalizedItems } from '../../utils/personalization';
@@ -302,7 +302,7 @@ export default function NewCommunities() {
       setSelectedCommunity(detail);
     } catch (err) {
       console.error('Erreur détail communauté :', err);
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     }
   }, [currentUserName, currentUserId, triggerToast]);
 
@@ -375,7 +375,7 @@ export default function NewCommunities() {
       triggerToast(`🎉 La communauté "${created.name}" a été créée !`);
     } catch (err) {
       console.error('Erreur create community :', err);
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     }
   };
 
@@ -419,7 +419,7 @@ export default function NewCommunities() {
         setShowJoinModal(null);
         setJoinMessage('');
       } else {
-        triggerToast(`❌ ${err.message}`);
+        triggerToast(err.message);
       }
     } finally {
       setJoiningCommunityId(null);
@@ -446,7 +446,7 @@ export default function NewCommunities() {
       await loadCommunities();
     } catch (err) {
       console.error('Erreur décision admin :', err);
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     } finally {
       setProcessingRequestId(null);
     }
@@ -479,7 +479,7 @@ export default function NewCommunities() {
         triggerToast('Vous devez être membre de cette communauté pour publier.');
         return;
       }
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     }
   };
 
@@ -495,7 +495,7 @@ export default function NewCommunities() {
       await loadCommunityDetail(commId);
     } catch (err) {
       console.error('Erreur commentaire :', err);
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     }
   };
 
@@ -506,7 +506,7 @@ export default function NewCommunities() {
       await loadCommunityDetail(commId);
     } catch (err) {
       console.error('Erreur like :', err);
-      triggerToast(`❌ ${err.message}`);
+      triggerToast(err.message);
     }
   };
 
@@ -731,7 +731,7 @@ export default function NewCommunities() {
 
             {error && (
               <div style={{ padding: '20px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '14px', color: '#b91c1c', marginBottom: '20px' }}>
-                ❌ {error}
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}><XCircle size={16} /> {error}</span>
                 <button onClick={loadCommunities} style={{ marginLeft: '12px', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', color: '#b91c1c' }}>
                   Réessayer
                 </button>
@@ -1072,22 +1072,22 @@ function CommunityDetailView({
             className={`pf-btn ${activeTab === 'feed' ? 'pf-btn--primary' : 'pf-btn--ghost'} pf-btn--sm`}
             onClick={() => setActiveTab('feed')}
           >
-            📰 Fil Multimédia ({community.posts.length})
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><FileText size={15} /> Fil Multimédia ({community.posts.length})</span>
           </button>
           <button
             className={`pf-btn ${activeTab === 'members' ? 'pf-btn--primary' : 'pf-btn--ghost'} pf-btn--sm`}
             onClick={() => setActiveTab('members')}
           >
-            👥 Membres ({community.members.length})
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Users size={15} /> Membres ({community.members.length})</span>
           </button>
 
-          {/* ✅ Onglet admin uniquement */}
+          {/* Onglet admin uniquement */}
           {isAdmin && (
             <button
               className={`pf-btn ${activeTab === 'requests' ? 'pf-btn--danger' : 'pf-btn--ghost'} pf-btn--sm`}
               onClick={() => setActiveTab('requests')}
             >
-              📩 Demandes
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><Mail size={15} /> Demandes</span>
               {community.pendingRequests.length > 0 && (
                 <span style={{
                   marginLeft: '8px', background: '#ef4444', color: '#fff',

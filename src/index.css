@@ -77,7 +77,7 @@
   --pf-sport-tennis: #f5efff;
 
   /* Typography */
-  --font-display : 'Space Grotesk', system-ui, sans-serif;
+  --font-display : 'Orbitron', system-ui, sans-serif;
   --font-body    : 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono    : 'SF Mono', 'Fira Code', ui-monospace, monospace;
 
@@ -146,6 +146,7 @@ body {
 
 /* Semantic headings (strong, athletic, memorable) */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.015em;
@@ -161,7 +162,11 @@ h4 { font-size: var(--text-lg); font-weight: 700; }
   font-family: var(--font-body);
 }
 
-#root :is(h1, h2, h3, h4, h5, h6) {
+#root :is(h1, h2, h3, h4, h5, h6),
+#root :is(.pf-btn, .pf-badge, .pf-chip, .badge, .btn),
+#root :is(.pf-player-nav__name, .pf-player-nav__link, .pf-bottom-nav__label),
+#root :is([class*="__title"], [class*="__badge"], [class*="__tag"], [class*="__stat"]),
+#root :is([class*="-title"], [class*="-badge"], [class*="-stat-number"], [class*="-price"]) {
   font-family: var(--font-display);
 }
 
@@ -177,7 +182,10 @@ button, input, select, textarea {
   font: inherit;
 }
 
-button { letter-spacing: 0; }
+button {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
 
 ::selection {
   color: #ffffff;
