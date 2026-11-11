@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dumbbell, ChevronRight, Sparkles, Target, Users, MapPin } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext.jsx';
-import './onboarding.css';
+import './Onboarding.css';
 
 const SPORT_CATEGORIES = [
   { id: 'football', label: 'Football', icon: '⚽', color: '#10b981' },
